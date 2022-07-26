@@ -25,5 +25,5 @@ pnpm-debug.log*
 
 #Backend
 # Byte-compiled / optimized / DLL files
-__pycache__/
+backend/app/__pycache__/*
 *.py[cod]
