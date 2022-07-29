@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
-// import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import Posts from './views/PostsData'
-import Tests from './views/TestData'
+// import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+import Posts from './views/PostsData';
+import Tests from './views/TestData';
 import DoctorsCreate from "./views/doctors/DoctorsCreate.vue";
 import DoctorsScheduleCreate from "./views/doctors/DoctorsScheduleCreate.vue";
 import AddHospital from "./views/hospitals/AddHospital";
