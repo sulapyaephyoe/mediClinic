@@ -1,7 +1,6 @@
-from calendar import FRIDAY, SATURDAY, THURSDAY, TUESDAY, WEDNESDAY
 from django.db import models
+from calendar import FRIDAY, SATURDAY, THURSDAY, TUESDAY, WEDNESDAY
 
-# Create your models here.
 class doctors(models.Model):
 
     MALE = 'male'
