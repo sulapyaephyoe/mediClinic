@@ -45,7 +45,6 @@
 
 <script>
     import { getAPI } from '../../axios-api'
-    import { toast } from 'bulma-toast'
 
     export default {
         name: 'AddHospital',
@@ -71,15 +70,7 @@
                 })
                 .then(response => {
                     this.APIData = response.data
-                    toast({
-                            message: 'The note was added',
-                            type: 'is-success',
-                            dismissible: true,
-                            pauseOnHover: true,
-                            duration: 2000,
-                            position: 'bottom-right',
-                        })
-
+                  
                 })
                 .catch(err => {
                     console.log(err)
