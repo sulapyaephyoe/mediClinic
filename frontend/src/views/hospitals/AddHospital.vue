@@ -60,7 +60,7 @@
         methods: {
             async submitForm() {
                 console.log(this.type)
-                getAPI.post('/hospital/',{
+                getAPI.post('hospitals/add_hospital',{
                     name: this.name,
                     phone: this.phone,
                     location: this.location,

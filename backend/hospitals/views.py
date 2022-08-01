@@ -1,16 +1,16 @@
 from django.shortcuts import render
-from rest_framework.response import Response
-from rest_framework import generics
-from . models import hospitals
 from . serializers import HospitalSerializer
-
+from rest_framework.decorators import api_view
+from django.http.response import JsonResponse
+from rest_framework.parsers import JSONParser 
 # Create your views here.
 
-class HospitalsView(generics.ListCreateAPIView):
-    queryset = hospitals.objects.all()
-    serializer_class = HospitalSerializer
-
-    def list(self, request):
-        queryset = self.get_queryset()
-        serializer = HospitalSerializer(queryset, many=True)
-        return Response('success')
+@api_view(['POST'])
+def add_hospital(request):
+    if request.method == 'POST':
+        hospital_data = JSONParser().parse(request)
+        hospital_serializer = HospitalSerializer(data=hospital_data)
+        if hospital_serializer.is_valid():
+            hospital_serializer.save()
+            return JsonResponse(hospital_serializer.data,safe=False)
+    return JsonResponse(hospital_serializer.errors)

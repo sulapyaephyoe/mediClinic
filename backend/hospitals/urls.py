@@ -1,6 +1,6 @@
 from django.urls import path 
-from . views import HospitalsView
+from . import views
 
 urlpatterns = [
-    path('hospital/', HospitalsView.as_view(), name='posts_view')
+    path('add_hospital',views.add_hospital)
 ]

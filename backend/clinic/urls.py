@@ -8,5 +8,5 @@ urlpatterns = [
     path('dj-rest-auth/registration/', include('dj_rest_auth.registration.urls')),
 
     path('doctors/', include('doctors.urls')),
-    path('', include('hospitals.urls')),
+    path('hospitals/', include('hospitals.urls')),
 ]
