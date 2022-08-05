@@ -8,15 +8,15 @@
                 <form @submit.prevent="submitForm">
                     <div class="mb-3">
                         <label for="firstname" class="form-label">First Name</label>
-                        <input type="text" class="form-control" id="firstname" v-model="firstname">
+                        <input type="text" class="form-control" id="firstname" v-model="firstname" required>
                     </div>
                     <div class="mb-3">
                         <label for="lastname" class="form-label">Last Name</label>
-                        <input type="text" class="form-control" id="lastname" v-model="lastname">
+                        <input type="text" class="form-control" id="lastname" v-model="lastname" required>
                     </div>
                     <div class="mb-3">
                         <label for="gender" class="form-label">Gender</label>
-                        <select class="form-select" aria-label="Default select example" v-model="gender">
+                        <select class="form-select" aria-label="Default select example" v-model="gender" required>
                             <option selected disabled>Select Gender</option>
                             <option value="male">Male</option>
                             <option value="female">Female</option>
@@ -24,7 +24,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="specialist" class="form-label">Specialist</label>
-                        <select class="form-select" aria-label="Default select example" v-model="specialist">
+                        <select class="form-select" aria-label="Default select example" v-model="specialist" required>
                             <option selected disabled>Select Specialist</option>
                             <option value="allergy and immunology">Allergy and immunology</option>
                             <option value="anesthesiology">Anesthesiology</option>
