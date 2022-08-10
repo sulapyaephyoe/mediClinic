@@ -6,32 +6,37 @@ from rest_framework.parsers import JSONParser
 from hospitals.models import hospitals
 import folium
 from rest_framework.response import Response
+from django.core.files.storage import FileSystemStorage
 
 # Create your views here.
 
 @api_view(['POST'])
-def add_hospital(request):
-    if request.method == 'POST':
-        hospital_data = JSONParser().parse(request)
-        hospital_serializer = HospitalSerializer(data=hospital_data)
-        if hospital_serializer.is_valid():
-            hospital_serializer.save()
-            return JsonResponse(hospital_serializer.data,safe=False)
-    return JsonResponse(hospital_serializer.errors)
-
+def add_hospital(request):    
+    hospital = hospitals()
+    hospital.name = request.data['name']
+    hospital.phone = request.data['phone']
+    hospital.website = request.data['website']
+    hospital.type = request.data['type']
+    hospital.address = request.data['address']
+    hospital.latitude = request.data['latitude']
+    hospital.longitude = request.data['longitude']
+    hospital.photo = request.data['photo']
+    hospital.video = request.data['video']
+    hospital.save()
+    return Response('success')
+   
 @api_view(['GET'])
 def get_hospital(request):
     if request.method == 'GET':
-        list = hospitals.objects.all()
         hospital_list = hospitals.objects.all()
 
         location={}
-        location["lat"] = list[0].latitude
-        location["lng"]= list[0].longitude
-        location["address"]= list[0].address   
+        location["lat"] = 16.842156328921803
+        location["lng"]= 96.17397303705484
+        location["address"]= 'Yangon' 
    
 
-        m = folium.Map(width=800, height=400,location=[12, 70], zoom_start=2,  control_scale=True)
+        m = folium.Map(location=[12, 70], zoom_start=2,  control_scale=True)
 
         folium.Marker([location["lat"], location["lng"]], tooltip='Click for more',
                     popup=location["address"]).add_to(m)
@@ -51,7 +56,7 @@ def get_map(request):
             location["lat"] = data.latitude
             location["lng"]= data.longitude
             location["address"]= data.address  
-            m = folium.Map(width=800, height=400,location=[12, 70], zoom_start=2,  control_scale=True)
+            m = folium.Map(height=400,location=[12, 70], zoom_start=2,  control_scale=True)
         
             folium.Marker([location["lat"], location["lng"]], tooltip='Click for more',
                         popup=location["address"]).add_to(m)
@@ -61,6 +66,5 @@ def get_map(request):
 
             filted_hdata = hospitals.objects.filter(name=hospital_data['name'])
             serializer = HospitalSerializer(filted_hdata, many=True)
-           
             return Response({'map':m,'hospital_data':serializer.data})
     return Response({'map':m,'hospital_data':serializer.data})

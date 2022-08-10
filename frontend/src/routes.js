@@ -38,6 +38,7 @@ const routes = [
         name: "ViewHospital",
         component: ViewHospital,
     },
+  
 ];
 
 const router = createRouter({
