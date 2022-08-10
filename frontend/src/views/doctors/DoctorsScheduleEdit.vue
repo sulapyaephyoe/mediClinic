@@ -97,7 +97,7 @@ let dayid = getInitialItems().length + 1
 
 import { getAPI } from '../../axios-api'
     export default{
-        name: 'DoctorsScheduleCreate',
+        name: 'DoctorsScheduleEdit',
         data () {
             return {
                 count: 1,
@@ -128,24 +128,46 @@ import { getAPI } from '../../axios-api'
                 sample: [],
                 selectedArray: [],
                 selectedHospital: [0],
+                doctors_schedule: []
             }
         },
         mounted() {
-            this.getDoctor()
+            this.getDoctorSchedule()
         },
         methods: {
-            async getDoctor() {
+            async getDoctorSchedule() {
                 const doctorID = this.$route.params.id
                 console.log(doctorID)
                 this.sample[this.count]=[1]  //default
                 getAPI
-                    .get(`doctors/add_schedule/${doctorID}`)
+                    .post(`doctors/doctor_schedule_list/${doctorID}`)
                     .then(response => {
                         console.log(response)
-                        this.doctor=response.data
+                        this.doctors_schedule=response.data[0]
+                        console.log(this.doctors_schedule)
+                        
+                        this.values['hospital-1-']=4
+                        this.values['hospital-2-']=4
+                        this.values['day-1,1']="wednesday"
+                        this.values['day-2,1']="wednesday"
+                        this.items=[1,2]
+                        //this.sample=[{0:1,1:2},{0:1,1:2}]
+                        this.sample[1]={0:1,1:2}
+                        // console.log(this.doctors_schedule)
+                        // for(var ds of this.doctors_schedule){
+                        //     this.doctors_time.push(ds.startTime+'-'+ds.endTime)
+                        // }
+                        // console.log(this.doctors_time)
+
+                        this.doctors = response.data[1]
+                        for(var doctor of this.doctors){
+                            if(doctor.id == doctorID){
+                                this.doctor=doctor
+                            }
+                        }
                     })
                     .catch(error => {
-                        console.log(error)
+                        console.log('Fail')
                         if(error.response) {
                             for( const property in error.response.data) {
                                 this.errors.push(`${property}: ${error.response.data[property]}`)
@@ -159,6 +181,7 @@ import { getAPI } from '../../axios-api'
             },
             async submitForm() {
                 for (var x of this.items) {
+                    console.log(x)
                     for(var y of this.sample[x]) {
                         for (var key of Object.keys(this.values)) {
                             var a = key.length-3
@@ -202,7 +225,7 @@ import { getAPI } from '../../axios-api'
                         }
                     })
             },
-            add: function() {
+            add: function(){
                 this.count++
                 this.items.splice(this.count, 0, itemid++)
                 //For Day Add
@@ -215,7 +238,7 @@ import { getAPI } from '../../axios-api'
                 this.daycount = 1
                 dayid = 2
             },
-            addday: function(key) {
+            addday: function(key){
                 if(this.sample[key].length < 7) {
                     this.daycount++
                     this.sample[key].splice(this.daycount,0,dayid++)

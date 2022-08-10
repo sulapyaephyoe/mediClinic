@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-6 offset-md-3">
                 <figure class="text-center">
-                    <h3>Doctors Create Form</h3>
+                    <h3>Doctors Edit Form</h3>
                 </figure>
                 <form @submit.prevent="submitForm">
                     <div class="mb-3">
@@ -42,13 +42,14 @@
 <script>
 import { getAPI } from '../../axios-api'
     export default{
-        name: 'DoctorsCreate',
+        name: 'DoctorsEdit',
         data () {
             return {
                 firstname: '',
                 lastname: '',
                 gender:'',
                 specialist:'',
+                doctor: {},
                 specialistValue: [
                     {value: "Allergy And Immunology", name: "Allergy And Immunology"},
                     {value: "Anesthesiology", name: "Anesthesiology"},
@@ -60,7 +61,35 @@ import { getAPI } from '../../axios-api'
                 ],
             }
         },
-        methods:{
+        mounted() {
+            this.getDoctor()
+        },
+        methods: {
+            async getDoctor() {
+                const doctorID = this.$route.params.id
+                getAPI
+                    .get(`doctors/doctor_edit/${doctorID}`)
+                    .then(response => {
+                        console.log(response)
+                        this.doctor = response.data
+                        this.firstname = this.doctor['firstName']
+                        this.lastname = this.doctor['lastName']
+                        this.gender = this.doctor['gender']
+                        this.specialist = this.doctor['specialist']
+                    })
+                    .catch(error => {
+                        console.log(error)
+                        if(error.response) {
+                            for( const property in error.response.data) {
+                                this.errors.push(`${property}: ${error.response.data[property]}`)
+                            }
+                        } 
+                        else if(error.message) {
+                            this.errors.push('Something went wrong. Please Try Again')
+                            console.log(error.message)
+                        }
+                    })
+            },
             async submitForm() {
                 const formData = {
                     firstName: this.firstname,
@@ -68,12 +97,13 @@ import { getAPI } from '../../axios-api'
                     gender: this.gender,
                     specialist: this.specialist
                 }
+                const doctorID = this.$route.params.id
                 getAPI
-                    .post('doctors/add_doctor',formData)
+                    .post(`doctors/doctor_update/${doctorID}`,formData)
                     .then(response => {
                         console.log('Success')
                         console.log(response)
-                        alert("Data Saved Successfully!")
+                        alert("Data Updated Successfully!")
                         this.$router.push('/doctorslist')
                     })
                     .catch(error => {
