@@ -31,18 +31,16 @@ def get_hospital(request):
         hospital_list = hospitals.objects.all()
 
         location={}
-        location["lat"] = 16.842156328921803
-        location["lng"]= 96.17397303705484
-        location["address"]= 'Yangon' 
+        location["lat"] = hospital_list[0].latitude
+        location["lng"]= hospital_list[0].longitude
+        location["address"]= hospital_list[0].address
    
-
-        m = folium.Map(location=[12, 70], zoom_start=2,  control_scale=True)
+        m = folium.Map(height=400,location=[12, 70], zoom_start=2,  control_scale=True)
 
         folium.Marker([location["lat"], location["lng"]], tooltip='Click for more',
                     popup=location["address"]).add_to(m)
         m.fit_bounds([(location["lat"],location["lng"]),(location["lat"],location["lng"])])
         m = m._repr_html_()
-        # print(m)
         serializer = HospitalSerializer(hospital_list, many=True)
         return Response({'map':m,'list':serializer.data})
 
