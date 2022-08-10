@@ -1,48 +1,61 @@
 <template>
-    <div class="posts">
-     <div class="container">
-            <div class="row">
-              <div v-for="posts in APIData" :key="posts.id" class="col-md-4">
-                <div class="card mb-4 box-shadow">
-                  <img class="card-img-top" src="https://via.placeholder.com/150x100" alt="Card image cap">
-                  <div class="card-body">
-                      <h4 class=""><a class="text-secondary" href="">Test Data</a></h4>
-                      <p class="card-text">Test Content</p>
-                      <div class="d-flex justify-content-between align-items-center">
-                      <div class="btn-group">
-                      <a href="" class="btn btn-sm btn-outline-primary" role="button" aria-pressed="true">View</a>
-                      <a href="" class="btn btn-sm btn-outline-secondary" role="button" aria-pressed="true">Edit</a>
-                      </div>
-                      <small class="text-muted">9 mins</small>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+<div class="container">
+  <div class="row justify-content-md-center">
+    <div class="row">
+      <div class="col">
+          <label>Title:</label>
+      </div>
+      <div class="col">
+          <input class="input" type="text" placeholder="title" v-model="title">
+      </div>
     </div>
+    <div class="row">
+      <div class="col">
+        <label>Content:</label>
+      </div>
+      <div class="col">
+          <input class="input" type="text" placeholder="content" v-model="content"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <input type="submit" value="Create Post" @click="save"/>
+      </div>       
+    </div>
+  </div>
+</div>
+
 </template>
 
 <script>
-//   import { getAPI } from '../axios-api'
-  export default {
-    name: 'TestData',
-    data () {
-      return {
-          APIData: ["title","content"]
+    import { getAPI } from '../axios-api'
+    export default {
+        name: 'TestData',
+        data () {
+            return {
+                title:'',
+                content:'',
+            }
+        },
+        methods: {
+            save () {
+                console.log('Reached to save func')
+                const formData = {
+                    title: this.title,
+                    content: this.content,
+                }
+                getAPI.post('/posts/',formData)
+                .then(response => {
+                console.log('Post API has sent data \n'+response)
+                })
+                .catch(err => {
+                console.log(err)
+                })
+
+            },
         }
-    },
-    // created () {
-    //     getAPI.get('/posts/',)
-    //       .then(response => {
-    //         console.log('Post API has recieved data')
-    //         this.APIData = response.data
-    //       })
-    //       .catch(err => {
-    //         console.log(err)
-    //       })
-    // }
-  }
+        
+    }
 </script>
 
 <style scoped>

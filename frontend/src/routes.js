@@ -1,7 +1,7 @@
-import { createRouter, createWebHistory} from 'vue-router' 
-// import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import Posts from './views/PostsData'
-import Tests from './views/TestData'
+import { createRouter, createWebHistory } from "vue-router";
+// import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+import AddHospital from "./views/hospitals/AddHospital";
+import ViewHospital from "./views/hospitals/ViewHospital";
 import DoctorsCreate from './views/doctors/DoctorsCreate.vue'
 import DoctorsEdit from './views/doctors/DoctorsEdit.vue'
 import DoctorsScheduleCreate from './views/doctors/DoctorsScheduleCreate.vue'
@@ -12,21 +12,18 @@ import DoctorsScheduleEdit from './views/doctors/DoctorsScheduleEdit.vue'
 
 const routes = [
     {
-        path: '/posts',
-        name: 'posts',
-        component: Posts, 
-    },
+        path: "/hospitals/add-hospital",
+        name: "AddHospital",
+        component: AddHospital,
     {
-        path: '/tests',
-        name: 'tests',
-        component: Tests, 
-    },
-    {
+       path: '/schedule_create',
+        name: 'DoctorsScheduleCreate',
+        component: DoctorsScheduleCreatewHospi
+	{
         path: '/doctors_create',
         name: 'DoctorsCreate',
         component: DoctorsCreate, 
-    },
-    {
+    },tal,
         path: '/doctors_edit/:id',
         name: 'DoctorsEdit',
         component: DoctorsEdit, 
@@ -37,8 +34,7 @@ const routes = [
         component: DoctorsList, 
     },
     {
-        path: '/schedule_create/:id',
-        name: 'DoctorsScheduleCreate',
+        path: '/schedule_crreate',
         component: DoctorsScheduleCreate, 
     },
     {
@@ -53,13 +49,18 @@ const routes = [
     },
     {
         path: '/schedule_list/:id',
-        name: 'DoctorsOneSchedule',
+        name: 'DoctorsOneSc
+const router = createRouter({
+    history: createWebHistory(process.env.BASE_URL),
+    routes
+})
+hedule',
         component: DoctorsOneSchedule, 
     },
 ]
 const router = createRouter({
     history: createWebHistory(process.env.BASE_URL),
-    routes
-})
+    routes,
+});
 
 export default router
