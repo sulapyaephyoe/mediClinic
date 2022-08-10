@@ -14,7 +14,7 @@
                         </div>
                         <div class="form-group mt-2">
                             <label for="phone" class="form-label">Phone</label>
-                            <input type="text" class="form-control" placeholder="Enter phone" v-model="phone" id="phone" required>
+                            <input type="tel" class="form-control" placeholder="Enter phone" v-model="phone" id="phone" pattern="[0-9]{9}" required>
                         </div>
                         <div class="form-group mt-2">
                             <label for="phone" class="form-label">Location</label>
@@ -31,6 +31,14 @@
                             </div>
                         </div>
                         <div class="form-group mt-2">
+                            <label for="type" class="form-label">Photo</label>
+                           <input type="file" class="form-control" name="myfile" ref="uploadphoto" @change="uploadPhoto" accept="image/*">
+                        </div>
+                        <div class="form-group mt-2">
+                            <label for="type" class="form-label">Video</label>
+                           <input type="file" class="form-control" name="myfile" ref="uploadvideo" @change="uploadVideo" accept="video/mp4,video/x-m4v,video/*">
+                        </div>
+                        <div class="form-group mt-2">
                             <label for="website" class="form-label">website</label>
                             <input type="text" class="form-control" placeholder="Enter website" v-model="website" id="website" required>
                         </div>
@@ -43,7 +51,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <button class="btn btn-info mt-3">Submit</button>
+                            <button class="btn btn-info mt-3" v-on:click="submitFile()">upload</button>
                         </div>
                     </div>
                 </div>
@@ -61,36 +69,56 @@
             return {
                 name : '',
                 phone : '',
-                location : '',
+                latitude : '',
+                longitude : '',
+                address : '',
                 website : '',
                 type : '',
+                photo : '',
+                video : '',
             }
         },
         methods: {
-            async submitForm() {
-                getAPI.post('hospitals/add_hospital',{
+            uploadPhoto(event) {
+                this.photo = event.target.files[0]  
+            },
+            uploadVideo(event) {
+                this.video = event.target.files[0]  
+            },
+           submitFile() {
+                 getAPI.post('hospitals/add_hospital',{
                     name: this.name,
                     phone: this.phone,
                     latitude: this.latitude,
                     longitude: this.longitude,
                     address: this.address,
                     website: this.website,
-                    type: this.type
+                    type: this.type,
+                    photo: this.photo,
+                    video: this.video,
+                },{
+                headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
                 })
                 .then(response => {
-                    this.APIData = response.data
+                    console.log(response)
                     const elink = document.createElement('div');
                     elink.setAttribute('class','alert alert-success')
                     elink.innerHTML = 'New Hospital Added'
                     console.log(elink)
                     document.getElementById('alert').appendChild(elink)
-                    document.getElementById('name').innerHTML = ' '
-                    document.getElementById('phone').innerHTML = ' '
-                    document.getElementById('latitude').innerHTML = ' '
-                    document.getElementById('longitude').innerHTML = ' '
-                    document.getElementById('address').innerHTML = ' '
-                    document.getElementById('website').innerHTML = ' '
-                    document.getElementById('type').innerHTML = ' '
+                   
+                    this.name = ''
+                    this.phone = ''
+                    this.latitude = ''
+                    this.longitude = ''
+                    this.address = ''
+                    this.website = ''
+                    this.type = ''
+                    this.$refs.uploadphoto.value = ''
+                    this.$refs.uploadvideo.value = ''
+                    
                 })
                 .catch(err => {
                     console.log(err)
