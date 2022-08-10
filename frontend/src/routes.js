@@ -33,7 +33,7 @@ const routes = [
         component: DoctorsEdit, 
     },
     {
-        path: '/doctorslist',
+        path: '/doctors/doctorslist',
         name: 'DoctorsList',
         component: DoctorsList, 
     },

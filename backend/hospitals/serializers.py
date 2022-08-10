@@ -4,4 +4,8 @@ from . models import hospitals
 class HospitalSerializer(serializers.ModelSerializer):
     class Meta:
         model = hospitals
+<<<<<<< HEAD
         fields =['id','name', 'phone','address','website','type','latitude','longitude','photo','video']
+=======
+        fields =['name', 'phone','address','website','type','latitude','longitude','photo','video']
+>>>>>>> main
