@@ -15,15 +15,18 @@ const routes = [
         path: "/hospitals/add-hospital",
         name: "AddHospital",
         component: AddHospital,
+    },
     {
-       path: '/schedule_create',
-        name: 'DoctorsScheduleCreate',
-        component: DoctorsScheduleCreatewHospi
-	{
+        path: "/hospitals/view-hospital",
+        name: "ViewHospital",
+        component: ViewHospital,       
+    },
+    {
         path: '/doctors_create',
         name: 'DoctorsCreate',
         component: DoctorsCreate, 
-    },tal,
+    },
+    {
         path: '/doctors_edit/:id',
         name: 'DoctorsEdit',
         component: DoctorsEdit, 
@@ -34,7 +37,8 @@ const routes = [
         component: DoctorsList, 
     },
     {
-        path: '/schedule_crreate',
+        path: '/schedule_create/:id',
+        name: 'DoctorsScheduleCreate',
         component: DoctorsScheduleCreate, 
     },
     {
@@ -49,18 +53,13 @@ const routes = [
     },
     {
         path: '/schedule_list/:id',
-        name: 'DoctorsOneSc
-const router = createRouter({
-    history: createWebHistory(process.env.BASE_URL),
-    routes
-})
-hedule',
+        name: 'DoctorsOneSchedule',
         component: DoctorsOneSchedule, 
     },
 ]
 const router = createRouter({
     history: createWebHistory(process.env.BASE_URL),
-    routes,
-});
+    routes
+})
 
 export default router
