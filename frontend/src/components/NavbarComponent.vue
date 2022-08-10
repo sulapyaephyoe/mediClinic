@@ -16,17 +16,28 @@
         <li class="nav-item">
           <a class="nav-link" href="#">Home</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Departments</a>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Hospitals
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <router-link to="/hospitals/add-hospital" class="nav-link">Add Hospital</router-link>
+            <div class="dropdown-divider"></div>
+            <router-link to="/hospitals/view-hospital" class="nav-link">View Hospitals</router-link>
+          </div>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Doctors</a>
-        </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Doctors
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <router-link to="/doctors/doctorslist" class="nav-link">Doctors' List</router-link>
+          <div class="dropdown-divider"></div>
+          <router-link to="" class="nav-link">Schedule</router-link>
+        </div>
+      </li>
         <li class="nav-item px-3 me-2">
           <a class="nav-link" href="#">Shops</a>
-        </li>
-        <li class="nav-item px-3 me-3">
-            <a class="btn btn-dark px-3" href="https://github.com/mdbootstrap/mdb-ui-kit" role="button"><i class="fab fa-github"></i></a>
         </li>
       </ul>
     </div>
@@ -41,6 +52,7 @@
 </template>
 
 <script>
+
 export default {
     name: 'NavbarComponent',
 }

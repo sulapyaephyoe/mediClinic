@@ -3,24 +3,30 @@ from calendar import FRIDAY, SATURDAY, THURSDAY, TUESDAY, WEDNESDAY
 
 class doctors(models.Model):
 
-    MALE = 'male'
-    FEMALE = 'female'
+    MALE = 'Male'
+    FEMALE = 'Female'
 
     CHOICE_GENDER = (
         (MALE,'Male'),
         (FEMALE,'Female')
     )
 
-    ALLERGY_AND_IMMUNOLOGY = 'allergy and immunology'
-    ANESTHESIOLOGY = 'anesthesiology'
-    DERMATOLOGY = 'dermatology'
-    DIAGNOSTIC_RADIOLOGY = 'diagnostic radiology'
+    ALLERGY_AND_IMMUNOLOGY = 'Allergy And Immunology'
+    ANESTHESIOLOGY = 'Anesthesiology'
+    DERMATOLOGY = 'Dermatology'
+    DIAGNOSTIC_RADIOLOGY = 'Diagnostic Radiology'
+    EMERGENCY_MEDICINE = 'Emergency Medicine'
+    FAMILY_MEDICINE = 'Family Medicine'
+    INTERNAL_MEDICINE = 'Internal Medicine'
 
     CHOICE_SPECIALIST = (
         (ALLERGY_AND_IMMUNOLOGY,'Allergy & Immunology'),
         (ANESTHESIOLOGY,'Anesthesiology'),
         (DERMATOLOGY,'Dermatology'),
-        (DIAGNOSTIC_RADIOLOGY,'Diagnostic radiology')
+        (DIAGNOSTIC_RADIOLOGY,'Diagnostic Radiology'),
+        (EMERGENCY_MEDICINE,'Emergency Medicine'),
+        (FAMILY_MEDICINE,'Family Medicine'),
+        (INTERNAL_MEDICINE,'Internal Medicine'),
     )
 
     firstName = models.CharField(max_length=50)
