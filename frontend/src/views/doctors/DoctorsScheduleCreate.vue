@@ -15,8 +15,9 @@
                                         <div class="input-group input-group-sm mb-3">
                                             <span class="input-group-text" id="inputGroup-sizing-sm">Hospital</span>
                                             <select id="day" class="form-select" v-model="values['hospital-'+key+'-']" @change="setSelectedHospital($event,key)" required>
+                                                <option disabled value="">Please select hospital</option>
                                                 <option v-for="hospital in hospitalValue" :disabled="hospital.disabled" 
-                                                :key="hospital.value" :value="hospital.value">
+                                                :key="hospital.id" :value="hospital.id">
                                                     {{hospital.name}}
                                                 </option>
                                             </select>
@@ -116,12 +117,7 @@ import { getAPI } from '../../axios-api'
                     {id: 6,value: "friday", name: 'Friday', disabled: false, flag: 0},
                     {id: 7,value: "saturday", name: 'Saturday', disabled: false, flag: 0},
                 ],
-                hospitalValue: [
-                    {value: 1,name: 'Ar Yu Hospital', disabled: false, flag: 0},
-                    {value: 2,name: 'Baho Si Hospital', disabled: false, flag: 0},
-                    {value: 3,name: 'Grand Han Thar Hospital', disabled: false, flag: 0},
-                    {value: 4,name: 'Victoria Hospital', disabled: false, flag: 0},
-                ],
+                hospitalValue: [],
                 selectedValue: [],
                 items: getInitialItems(),
                 dayItems: getInitialItems(),
@@ -131,7 +127,8 @@ import { getAPI } from '../../axios-api'
             }
         },
         mounted() {
-            this.getDoctor()
+            this.getDoctor(),
+            this.getHospital()
         },
         methods: {
             async getDoctor() {
@@ -143,6 +140,30 @@ import { getAPI } from '../../axios-api'
                     .then(response => {
                         console.log(response)
                         this.doctor=response.data
+                    })
+                    .catch(error => {
+                        console.log(error)
+                        if(error.response) {
+                            for( const property in error.response.data) {
+                                this.errors.push(`${property}: ${error.response.data[property]}`)
+                            }
+                        } 
+                        else if(error.message) {
+                            this.errors.push('Something went wrong. Please Try Again')
+                            console.log(error.message)
+                        }
+                    })
+            },
+            async getHospital() {
+                getAPI
+                    .get('doctors/get_hospital')
+                    .then(response => {
+                        this.hospitalValue=response.data
+                        for(var i=0;i<this.hospitalValue.length;i++) {
+                            this.hospitalValue[i]['disabled'] = false
+                            this.hospitalValue[i]['flag'] = 0
+                        }
+                        console.log(this.hospitalValue)
                     })
                     .catch(error => {
                         console.log(error)
@@ -231,7 +252,7 @@ import { getAPI } from '../../axios-api'
                     }
                 }
                 for(var hospital of this.hospitalValue) {
-                    if(hospital.value == this.values['hospital-'+key+'-']) {
+                    if(hospital.id == this.values['hospital-'+key+'-']) {
                         hospital.flag = 0
                         hospital.disabled = false
                     }
@@ -261,13 +282,14 @@ import { getAPI } from '../../axios-api'
             },
             setSelectedHospital: function(event,key) {
                 this.selectedHospital[key] = event.target.selectedOptions[0].value
+                console.log(event.target.selectedOptions[0].value)
                 for(hospital of this.hospitalValue) {
                     hospital.flag = 0
                     hospital.disabled = false
                 }
                 for(var hospital of this.hospitalValue) {
                     for(var h of this.selectedHospital) {
-                        if(hospital.value == h){
+                        if(hospital.id == h){
                             hospital.flag = 1
                         }
                     }

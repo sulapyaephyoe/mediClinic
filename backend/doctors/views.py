@@ -7,6 +7,9 @@ from rest_framework.decorators import api_view
 from rest_framework import status
 from django.http.response import JsonResponse,HttpResponse
 
+from hospitals.models import hospitals
+from hospitals.serializers import HospitalSerializer
+
 @api_view(['POST'])
 def add_doctor(request):
     if request.method == 'POST':
@@ -27,6 +30,16 @@ def get_doctors(request):
         doctor_serializer = DoctorsSerializer(doctor_data,many=True)
         return JsonResponse(doctor_serializer.data,safe=False)
     return JsonResponse(doctor_serializer.errors)
+
+#Show Hospital List     
+@api_view(['GET']) 
+def get_hospital(request):
+    if request.method == 'GET':
+        hospital_data = hospitals.objects.all()
+        print(hospital_data)
+        hospital_serializer = HospitalSerializer(hospital_data,many=True)
+        return JsonResponse(hospital_serializer.data,safe=False)
+    return JsonResponse(hospital_serializer.errors)
 
 #For Adding Schedule
 @api_view(['GET'])
@@ -87,8 +100,10 @@ def get_one_schedule(request,id):
         for x in doctor_schedule_data:
             print(x.doctor_id)
             doctor = doctors.objects.filter(id=x.doctor_id)
+            hospital = hospitals.objects.filter(id=x.hospital_id)
             print(doctor)
-            mydata.append({'hospital_name':'Victoria Hospital','name':doctor[0].firstName+doctor[0].lastName,'specialist':doctor[0].specialist,'day':x.day,
+            print(hospital[0].name)
+            mydata.append({'hospital_name':hospital[0].name,'name':doctor[0].firstName+doctor[0].lastName,'specialist':doctor[0].specialist,'day':x.day,
             'startTime':x.startTime.strftime('%H:%M'),'endTime':x.endTime.strftime('%H:%M')})
         # mydata = [{'name':doctor_name[0].firstName, 'specialist':doctor_name[0].specialist},{'name':'JJJ', 'specialist':'special'}]
         doctorschedule_serializer = DoctorsHospitalsSerializer(doctor_schedule_data,many=True)

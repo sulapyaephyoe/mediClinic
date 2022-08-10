@@ -1,7 +1,7 @@
-import { createRouter, createWebHistory} from 'vue-router' 
-// import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import Posts from './views/PostsData'
-import Tests from './views/TestData'
+import { createRouter, createWebHistory } from "vue-router";
+// import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+import AddHospital from "./views/hospitals/AddHospital";
+import ViewHospital from "./views/hospitals/ViewHospital";
 import DoctorsCreate from './views/doctors/DoctorsCreate.vue'
 import DoctorsEdit from './views/doctors/DoctorsEdit.vue'
 import DoctorsScheduleCreate from './views/doctors/DoctorsScheduleCreate.vue'
@@ -13,14 +13,14 @@ import DoctorsScheduleEditList from './views/doctors/DoctorsScheduleEditList.vue
 
 const routes = [
     {
-        path: '/posts',
-        name: 'posts',
-        component: Posts, 
+        path: "/hospitals/add-hospital",
+        name: "AddHospital",
+        component: AddHospital,
     },
     {
-        path: '/tests',
-        name: 'tests',
-        component: Tests, 
+        path: "/hospitals/view-hospital",
+        name: "ViewHospital",
+        component: ViewHospital,       
     },
     {
         path: '/doctors_create',

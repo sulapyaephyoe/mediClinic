@@ -32,8 +32,8 @@
                             <td v-for="day in dayValue" v-bind:key="day.id">
                                 <span v-for="schedule in doctors_schedule" v-bind:key="schedule.id">
                                     <span v-if="schedule.startTime+'-'+schedule.endTime == time && schedule.day == day.value">
-                                    {{schedule.name}}<br>
-                                    <p class="font-monospace">( {{schedule.specialist}} )</p>
+                                    {{schedule.hospital_name}}<br>
+                                    <p class="font-monospace">({{schedule.specialist}})</p>
                                     </span>
                                 </span>
                             </td>
@@ -66,12 +66,6 @@ import { getAPI } from '../../axios-api'
                     {id: 5,value: "thursday", name: 'Thursday', disabled: false, flag: 0},
                     {id: 6,value: "friday", name: 'Friday', disabled: false, flag: 0},
                     {id: 7,value: "saturday", name: 'Saturday', disabled: false, flag: 0},
-                ],
-                timeValue: [
-                    {id: 1,startTime: '10:00:00',endTime: '11:00:00'},
-                    {id: 2,startTime: '11:00:00',endTime: '12:00:00'},
-                    {id: 3,startTime: '12:00:00',endTime: '13:00:00'},
-                    {id: 4,startTime: '13:00:00',endTime: '14:00:00'},
                 ],
                 doctor_info: {},
             }
