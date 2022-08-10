@@ -120,3 +120,13 @@ def delete_doctor(request,id):
         doctor.delete()
         return HttpResponse(status=204)
     return HttpResponse("Error")
+
+@api_view(['POST'])
+def edit_schedule(request,id):
+    if request.method == 'POST':
+        doctor_schedule_data = doctors_hospitals.objects.filter(doctor_id=id).order_by('startTime')
+        print(doctor_schedule_data)
+        # mydata = [{'name':doctor_name[0].firstName, 'specialist':doctor_name[0].specialist},{'name':'JJJ', 'specialist':'special'}]
+        doctorschedule_serializer = DoctorsHospitalsSerializer(doctor_schedule_data,many=True)
+        return JsonResponse(doctorschedule_serializer.data,safe=False)
+    return JsonResponse(doctorschedule_serializer.errors)

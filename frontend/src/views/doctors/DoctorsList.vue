@@ -28,9 +28,9 @@
                         <!-- <td>{{ doctor.id }}</td> -->
                         <td>
                             <router-link :to="{ name: 'DoctorsEdit', params: { id : doctor.id }}" class="btn btn-light" ><i class="bi bi-pencil"></i></router-link>&thinsp;
-                            <router-link :to="{ name: 'DoctorsScheduleCreate', params: { id : doctor.id }}" class="btn btn-light" >Schedule</router-link>&thinsp;
+                            <!-- <router-link :to="{ name: 'DoctorsScheduleCreate', params: { id : doctor.id }}" class="btn btn-light" >Schedule</router-link>&thinsp; -->
                             <router-link :to="{ name: 'DoctorsOneSchedule', params: { id : doctor.id }}" class="btn btn-light" ><i class="bi bi-calendar2-week"></i></router-link>&thinsp;
-                            <router-link :to="{ name: 'DoctorsScheduleEdit', params: { id : doctor.id }}" class="btn btn-light" ><i class="bi bi-emoji-expressionless"></i></router-link>
+                            <router-link :to="{ name: 'DoctorsScheduleEditList', params: { id : doctor.id }}" class="btn btn-light" ><i class="bi bi-calendar2-plus"></i></router-link>
                         </td>
                     </tr>
                 </tbody>
