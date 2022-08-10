@@ -5,6 +5,7 @@ import Tests from './views/TestData';
 import DoctorsCreate from "./views/doctors/DoctorsCreate.vue";
 import DoctorsScheduleCreate from "./views/doctors/DoctorsScheduleCreate.vue";
 import AddHospital from "./views/hospitals/AddHospital";
+import ViewHospital from "./views/hospitals/ViewHospital";
 
 const routes = [
     {
@@ -31,6 +32,11 @@ const routes = [
         path: "/hospitals/add-hospital",
         name: "AddHospital",
         component: AddHospital,
+    },
+    {
+        path: "/hospitals/view-hospital",
+        name: "ViewHospital",
+        component: ViewHospital,
     },
 ];
 
