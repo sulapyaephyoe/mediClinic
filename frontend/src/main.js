@@ -2,7 +2,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './routes.js'
 import 'bootstrap/dist/css/bootstrap.min.css'
-
+import './styles.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 
 /* import the fontawesome core */
