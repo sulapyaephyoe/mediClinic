@@ -159,7 +159,6 @@ import { getAPI } from '../../axios-api'
             },
             async submitForm() {
                 for (var x of this.items) {
-                    console.log(x)
                     for(var y of this.sample[x]) {
                         for (var key of Object.keys(this.values)) {
                             var a = key.length-3
@@ -203,7 +202,7 @@ import { getAPI } from '../../axios-api'
                         }
                     })
             },
-            add: function(){
+            add: function() {
                 this.count++
                 this.items.splice(this.count, 0, itemid++)
                 //For Day Add
@@ -216,11 +215,12 @@ import { getAPI } from '../../axios-api'
                 this.daycount = 1
                 dayid = 2
             },
-            addday: function(key){
+            addday: function(key) {
                 if(this.sample[key].length < 7) {
                     this.daycount++
                     this.sample[key].splice(this.daycount,0,dayid++)
                 }
+                console.log(this.sample[key])
             },
             remove: function(key) {
                 const i = this.items.indexOf(key)
@@ -239,21 +239,25 @@ import { getAPI } from '../../axios-api'
                 this.selectedHospital[key]= 0
             },
             removeday: function(key,day) {
-                //deselect day 
-                for(var dday of this.dayValue) {
-                    if(dday.value === this.values['day-'+key+','+day]){
-                        dday.flag = 0
-                        dday.disabled = false
+                try{
+                    //deselect day 
+                    for(var dday of this.dayValue) {
+                        if(dday.value === this.values['day-'+key+','+day]){
+                            dday.flag = 0
+                            dday.disabled = false
+                        }
+                    }
+                    // delete day record
+                    var d = this.sample[key].indexOf(day)
+                    console.log(d)
+                    this.selectedArray[key][d] = ""
+                    if(d > -1){
+                        this.sample[key].splice(d, 1)
                     }
                 }
-                // delete day record
-                var d = this.sample[key].indexOf(day)
-                this.selectedArray[key][d] = ""
-                console.log(d)
-                if(d > -1){
-                    this.sample[key].splice(d, 1)
+                catch(e){
+                    alert("Cannot Delete Empty Data! Please Fill The Data To Delete")
                 }
-                
             },
             setSelectedHospital: function(event,key) {
                 this.selectedHospital[key] = event.target.selectedOptions[0].value
