@@ -8,6 +8,7 @@ import DoctorsScheduleCreate from './views/doctors/DoctorsScheduleCreate.vue'
 import DoctorsList from './views/doctors/DoctorsList.vue'
 import DoctorsScheduleList from './views/doctors/DoctorsScheduleList.vue'
 import DoctorsOneSchedule from './views/doctors/DoctorsOneSchedule.vue'
+import DoctorsScheduleEdit from './views/doctors/DoctorsScheduleEdit.vue'
 
 const routes = [
     {
@@ -39,6 +40,11 @@ const routes = [
         path: '/schedule_create/:id',
         name: 'DoctorsScheduleCreate',
         component: DoctorsScheduleCreate, 
+    },
+    {
+        path: '/schedule_edit/:id',
+        name: 'DoctorsScheduleEdit',
+        component: DoctorsScheduleEdit, 
     },
     {
         path: '/schedule_list',

@@ -4,7 +4,8 @@ from django.shortcuts import render
 from doctors.serializers import DoctorsSerializer,DoctorsHospitalsSerializer
 from doctors.models import doctors,doctors_hospitals
 from rest_framework.decorators import api_view
-from django.http.response import JsonResponse
+from rest_framework import status
+from django.http.response import JsonResponse,HttpResponse
 
 @api_view(['POST'])
 def add_doctor(request):
@@ -111,3 +112,11 @@ def update_doctor(request,id):
             doctor_serializer.save()
             return JsonResponse(doctor_serializer.data,safe=False)
     return JsonResponse(doctor_serializer.errors)
+
+@api_view(['DELETE'])
+def delete_doctor(request,id):
+    if request.method == 'DELETE':
+        doctor = doctors.objects.get(id = id)
+        doctor.delete()
+        return HttpResponse(status=204)
+    return HttpResponse("Error")

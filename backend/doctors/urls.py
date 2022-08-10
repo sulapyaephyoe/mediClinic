@@ -10,4 +10,5 @@ urlpatterns = [
     path('doctor_schedule_list/<int:id>',views.get_one_schedule),
     path('doctor_edit/<int:id>',views.get_doctor),
     path('doctor_update/<int:id>',views.update_doctor),
+    path('doctor_delete/<int:id>',views.delete_doctor),
 ]
