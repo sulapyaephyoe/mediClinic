@@ -39,9 +39,6 @@
         <li class="nav-item px-3 me-2">
           <a class="nav-link" href="#">Shops</a>
         </li>
-        <li class="nav-item px-3 me-3">
-            <a class="btn btn-dark px-3" role="button"><i class="bi bi-three-dots-vertical"></i></a>
-        </li>
       </ul>
     </div>
     <!-- Collapsible wrapper -->
