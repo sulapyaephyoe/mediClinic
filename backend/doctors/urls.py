@@ -11,6 +11,8 @@ urlpatterns = [
     path('doctor_edit/<int:id>',views.get_doctor),
     path('doctor_update/<int:id>',views.update_doctor),
     path('doctor_delete/<int:id>',views.delete_doctor),
-    path('schedule_edit/<int:id>',views.edit_schedule),
+    path('schedule_edit_list/<int:id>',views.edit_schedule_list),
+    path('schedule_edit/<int:doctorid>/<int:scheduleid>',views.get_editschedule),
+    path('schedule_update/<int:doctorid>/<int:scheduleid>',views.update_schedule),
     path('get_hospital',views.get_hospital)
 ]

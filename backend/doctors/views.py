@@ -137,7 +137,7 @@ def delete_doctor(request,id):
     return HttpResponse("Error")
 
 @api_view(['POST'])
-def edit_schedule(request,id):
+def edit_schedule_list(request,id):
     if request.method == 'POST':
         doctor_schedule_data = doctors_hospitals.objects.filter(doctor_id=id).order_by('day')
         print(doctor_schedule_data)
@@ -145,3 +145,25 @@ def edit_schedule(request,id):
         doctorschedule_serializer = DoctorsHospitalsSerializer(doctor_schedule_data,many=True)
         return JsonResponse(doctorschedule_serializer.data,safe=False)
     return JsonResponse(doctorschedule_serializer.errors)
+
+@api_view(['GET'])
+def get_editschedule(request,doctorid,scheduleid):
+    if request.method == 'GET':
+        doctor_schedule_data = doctors_hospitals.objects.filter(id=scheduleid)
+        print(doctor_schedule_data)
+        # mydata = [{'name':doctor_name[0].firstName, 'specialist':doctor_name[0].specialist},{'name':'JJJ', 'specialist':'special'}]
+        doctorschedule_serializer = DoctorsHospitalsSerializer(doctor_schedule_data,many=True)
+        return JsonResponse(doctorschedule_serializer.data,safe=False)
+    return JsonResponse(doctorschedule_serializer.errors)
+
+@api_view(['POST'])
+def update_schedule(request,doctorid,scheduleid):
+    if request.method == 'POST':
+        print(request.data)
+        schedule = doctors_hospitals.objects.get(id = scheduleid)
+        schedule_data = request.data
+        schedule_serializer = DoctorsHospitalsSerializer(instance=schedule, data=schedule_data)
+        if schedule_serializer.is_valid():
+            schedule_serializer.save()
+            return JsonResponse(schedule_serializer.data,safe=False)
+    return JsonResponse(schedule_serializer.errors)

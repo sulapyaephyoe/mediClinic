@@ -43,11 +43,6 @@ const routes = [
         component: DoctorsScheduleCreate, 
     },
     {
-        path: '/schedule_edit/:id',
-        name: 'DoctorsScheduleEdit',
-        component: DoctorsScheduleEdit, 
-    },
-    {
         path: '/schedule_list',
         name: 'DoctorsScheduleList',
         component: DoctorsScheduleList, 
@@ -61,6 +56,12 @@ const routes = [
         path: '/schedule_edit_list/:id',
         name: 'DoctorsScheduleEditList',
         component: DoctorsScheduleEditList, 
+    },
+    
+    {
+        path: '/schedule_edit_list/edit/:doctorid/:scheduleid',
+        name: 'DoctorsScheduleEdit',
+        component: DoctorsScheduleEdit, 
     },
 ]
 const router = createRouter({

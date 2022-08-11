@@ -30,8 +30,9 @@
                         <td>{{ schedule.day }}</td>
                         <td>{{ schedule.startTime }}</td>
                         <td>{{ schedule.endTime }}</td>
+                        <!-- <td>{{ schedule.id }}</td> -->
                         <td>
-                            <router-link :to="{ name: 'DoctorsScheduleEdit', param: { id : schedule.id }}" class="btn btn-light" ><i class="bi bi-pencil"></i></router-link>
+                            <router-link :to="{ name: 'DoctorsScheduleEdit', params: { doctorid : doctor.id , scheduleid : schedule.id }}" class="btn btn-light" ><i class="bi bi-pencil"></i></router-link>
                         </td>
                     </tr>
                 </tbody>
@@ -54,16 +55,14 @@ import { getAPI } from '../../axios-api'
             }
         },
         mounted() {
-            this.getDoctor(),
-            this.getDoctorSchedule(),
-            this.getHospital()
+            this.getDoctor()
         },
         methods:{
             async getDoctorSchedule(){
                 const doctorID = this.$route.params.id
                 console.log(doctorID)
                 getAPI
-                    .post(`doctors/schedule_edit/${doctorID}`)
+                    .post(`doctors/schedule_edit_list/${doctorID}`)
                     .then(response => {
                         console.log(response)
                         this.doctors_schedule=response.data
@@ -93,6 +92,7 @@ import { getAPI } from '../../axios-api'
                                 this.doctor = v
                             }
                         }
+                        this.getHospital()
                     })
                     .catch(error => {
                         console.log('Fail')
@@ -113,6 +113,7 @@ import { getAPI } from '../../axios-api'
                     .then(response => {
                         console.log(response.data)
                         this.hospitalValue = response.data
+                        this.getDoctorSchedule()
                     })
                     .catch(error => {
                         console.log('Fail')

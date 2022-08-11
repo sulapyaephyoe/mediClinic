@@ -127,7 +127,7 @@ import { getAPI } from '../../axios-api'
             }
         },
         mounted() {
-            this.getDoctor(),
+            this.getDoctor()
             this.getHospital()
         },
         methods: {
