@@ -139,7 +139,7 @@ def delete_doctor(request,id):
 @api_view(['POST'])
 def edit_schedule(request,id):
     if request.method == 'POST':
-        doctor_schedule_data = doctors_hospitals.objects.filter(doctor_id=id).order_by('startTime')
+        doctor_schedule_data = doctors_hospitals.objects.filter(doctor_id=id).order_by('day')
         print(doctor_schedule_data)
         # mydata = [{'name':doctor_name[0].firstName, 'specialist':doctor_name[0].specialist},{'name':'JJJ', 'specialist':'special'}]
         doctorschedule_serializer = DoctorsHospitalsSerializer(doctor_schedule_data,many=True)

@@ -4,7 +4,7 @@
             <div class="col">
                 <!-- <router-link :to="{ name: 'DoctorsScheduleCreate', params: { id : doctor.id }}" class="btn btn-light" >Schedule</router-link> -->
                 <figure class="text-center">
-                    <h3>'s Schedule List</h3>
+                    <h3>{{ doctor.firstName }} {{ doctor.lastName }}'s Schedule List</h3>
                 </figure>
                 <table class="table">
                 <thead>
@@ -21,7 +21,12 @@
                         v-for="schedule in doctors_schedule"
                         v-bind:key="schedule.name"
                     >
-                        <td>{{ schedule.hospital_id }}</td>
+                        <td><span v-for="hospital in hospitalValue" v-bind:key="hospital.id">
+                                <span v-if="hospital.id == schedule.hospital_id">
+                                    {{hospital.name }}
+                                </span>
+                            </span>
+                        </td>
                         <td>{{ schedule.day }}</td>
                         <td>{{ schedule.startTime }}</td>
                         <td>{{ schedule.endTime }}</td>
@@ -44,12 +49,14 @@ import { getAPI } from '../../axios-api'
             return {
                 doctor: {},
                 doctors_schedule: [],
-                doctorValue: []
+                doctorValue: [],
+                hospitalValue: [],
             }
         },
         mounted() {
             this.getDoctor(),
-            this.getDoctorSchedule()
+            this.getDoctorSchedule(),
+            this.getHospital()
         },
         methods:{
             async getDoctorSchedule(){
@@ -81,6 +88,31 @@ import { getAPI } from '../../axios-api'
                     .then(response => {
                         console.log(response.data)
                         this.doctorValue = response.data
+                        for(var v of this.doctorValue){
+                            if(v.id == this.$route.params.id){
+                                this.doctor = v
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        console.log('Fail')
+                        if(error.response) {
+                            for( const property in error.response.data) {
+                                this.errors.push(`${property}: ${error.response.data[property]}`)
+                            }
+                        } 
+                        else if(error.message) {
+                            this.errors.push('Something went wrong. Please Try Again')
+                            console.log(error.message)
+                        }
+                    })
+            },
+            async getHospital(){
+                getAPI
+                    .get('doctors/get_hospital')
+                    .then(response => {
+                        console.log(response.data)
+                        this.hospitalValue = response.data
                     })
                     .catch(error => {
                         console.log('Fail')
