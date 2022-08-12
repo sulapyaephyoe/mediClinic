@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="container">
 
     <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light">
@@ -21,9 +21,9 @@
             Hospitals
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <router-link to="/hospitals/add-hospital" class="nav-link">Add Hospital</router-link>
-            <div class="dropdown-divider"></div>
-            <router-link to="/hospitals/add-hospital" class="nav-link">Show Hospitals</router-link>
+            <router-link to="/hospitals/add-hospital" class="nav-link" v-if="$store.state.isAdmin">Add Hospital</router-link>
+            <div class="dropdown-divider" v-if="$store.state.isAdmin"></div>
+            <router-link to="/hospitals/view-hospital" class="nav-link">View Hospitals</router-link>
           </div>
         </li>
       <li class="nav-item dropdown">
@@ -31,15 +31,18 @@
           Doctors
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <router-link to="/doctors/doctors_create" class="nav-link" v-if="$store.state.isAdmin">Add Doctor</router-link>
+          <router-link to="/doctorslist" class="nav-link" v-if="$store.state.isAdmin">Doctors' List</router-link>
           <div class="dropdown-divider" v-if="$store.state.isAdmin"></div>
-          <router-link to="/doctors/schedule_create" class="nav-link">Schedule</router-link>
+          <router-link to="/schedule_list" class="nav-link">Schedules</router-link>
         </div>
       </li>
         <li class="nav-item px-3 me-2">
           <a class="nav-link" href="#">Shops</a>
         </li>
       </ul>
+      <ul class="navbar-nav topnav-right">
+          <router-link to="/login" class="nav-link">Login</router-link>
+    </ul>
     </div>
     <!-- Collapsible wrapper -->
   </div>
@@ -69,5 +72,8 @@ export default {
     font-size: 30px;
     margin: 50px 200px 50px 0px;
 }
-
+.topnav-right {
+  float: right;
+  margin-right: 100px;
+}
 </style>

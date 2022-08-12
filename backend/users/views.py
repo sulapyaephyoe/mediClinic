@@ -45,13 +45,12 @@ def reset_password(request):
     if request.method == 'POST':
         email = request.data['email']
         user = User.objects.get(email=email)
-        current_site = get_current_site(request=request).domain
-        redirect_url = request.data.get('redirect_url', '')
-        print('reached to reset_password================', email, '\n',user, '\n',current_site,'\n',redirect_url)
-        code = password_mail_send(email, user)       
+        user_data = UserSerializer(user).data
+        code = password_mail_send(email, user)
         # my_group = Group.objects.get(name='Guests')
         # my_group.user_set.add(user_data)
-        user_data = {'data': code}
+        user_data["code"] = code
+        print('reached to reset_password================', user_data)
     return JsonResponse(user_data)
 
 def password_mail_send(email, user):
@@ -59,7 +58,7 @@ def password_mail_send(email, user):
     #data_bytes = smart_bytes(email)
     uidb64 = urlsafe_base64_encode(data_bytes)
     # token = PasswordResetTokenGenerator().make_token(user)
-    token = random.randint(1000,9999)
+    token = random.randint(100000,999999)
     print('-----token-------', token)
     # relativeLink = reverse('resetPassword', kwargs={'uidb64': uidb64, 'token': token})
     # redirect_url = request.data.get('redirect_url', '')

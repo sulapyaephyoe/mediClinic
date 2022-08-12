@@ -40,6 +40,7 @@ export default {
         async submitForm() {
             if(this.code == localStorage.getItem('code')) {
                 console.log('ok')
+                this.$router.push('/users/confirmPassword')
             } else {
                 console.log(localStorage.getItem('code'))
                 this.alert_show=true;

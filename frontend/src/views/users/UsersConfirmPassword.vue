@@ -36,6 +36,7 @@ export default {
     name:'UsersForgetPassword',
     data () {
         return {
+            uid: localStorage.getItem('uid'),
             password1:'',
             password2:'',
             alert_show: false,
@@ -47,18 +48,15 @@ export default {
         async submitForm() {
             if(this.password1 == this.password2) {
                 const dataArray = {
-                    username: 'user4',
-                    email: 'user4@gmail.com',
-                    password1: 'user4AccountUpdate',
-                    password2: "user4AccountUpdate",
+                    username: localStorage.getItem('username'),
+                    email: localStorage.getItem('email'),
+                    password: this.password1,
                 }
-                getAPI.put('dj-rest-auth/registration/',dataArray)
+                getAPI.put(`users/updateInfo/${this.uid}`,dataArray)
                 .then(response => {
                     this.APIData = response.data
                     console.log('reached to then')
-                    this.alert_show=true;
-                    this.alert_class = "alert alert-info alert-dismissible fade show";
-                    this.alert_message = response.data;                             
+                    this.$router.push('/login')                             
                 })
             } else {
                 this.alert_show=true;

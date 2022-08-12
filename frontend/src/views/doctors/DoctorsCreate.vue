@@ -8,28 +8,28 @@
                 <form @submit.prevent="submitForm">
                     <div class="mb-3">
                         <label for="firstname" class="form-label">First Name</label>
-                        <input type="text" class="form-control" id="firstname" v-model="firstname">
+                        <input type="text" class="form-control" id="firstname" v-model="firstname" placeholder="Enter First Name" required>
                     </div>
                     <div class="mb-3">
                         <label for="lastname" class="form-label">Last Name</label>
-                        <input type="text" class="form-control" id="lastname" v-model="lastname">
+                        <input type="text" class="form-control" id="lastname" v-model="lastname" placeholder="Enter Last Name" required>
                     </div>
                     <div class="mb-3">
                         <label for="gender" class="form-label">Gender</label>
-                        <select class="form-select" aria-label="Default select example" v-model="gender">
-                            <option selected disabled>Select Gender</option>
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
+                        <select class="form-select" aria-label="Default select example" v-model="gender" required>
+                            <option disabled value="">Please select gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
                         </select>
                     </div>
                     <div class="mb-3">
                         <label for="specialist" class="form-label">Specialist</label>
-                        <select class="form-select" aria-label="Default select example" v-model="specialist">
-                            <option selected disabled>Select Specialist</option>
-                            <option value="allergy and immunology">Allergy and immunology</option>
-                            <option value="anesthesiology">Anesthesiology</option>
-                            <option value="dermatology">Dermatology</option>
-                            <option value="diagnostic radiology">Diagnostic radiology</option>
+                        <select class="form-select" aria-label="Default select example" v-model="specialist" required>
+                            <option disabled value="">Please select specialist</option>
+                            <option v-for="specialist in specialistValue" 
+                            :key="specialist.value" :value="specialist.value">
+                                {{specialist.name}}
+                            </option>
                         </select>
                     </div>
                     <button type="submit" class="btn btn-info">Submit</button>
@@ -48,11 +48,20 @@ import { getAPI } from '../../axios-api'
                 firstname: '',
                 lastname: '',
                 gender:'',
-                specialist:''
+                specialist:'',
+                specialistValue: [
+                    {value: "Allergy And Immunology", name: "Allergy And Immunology"},
+                    {value: "Anesthesiology", name: "Anesthesiology"},
+                    {value: "Dermatology", name: "Dermatology"},
+                    {value: "Diagnostic Radiology", name: "Diagnostic Radiology"},
+                    {value: "Emergency Medicine", name: "Emergency Medicine"},
+                    {value: "Family Medicine", name: "Family Medicine"},
+                    {value: "Internal Medicine", name: "Internal Medicine"},
+                ],
             }
         },
         methods:{
-            async submitForm(){
+            async submitForm() {
                 const formData = {
                     firstName: this.firstname,
                     lastName: this.lastname,
@@ -64,6 +73,8 @@ import { getAPI } from '../../axios-api'
                     .then(response => {
                         console.log('Success')
                         console.log(response)
+                        alert("Data Saved Successfully!")
+                        this.$router.push('/doctorslist')
                     })
                     .catch(error => {
                         console.log('Fail')

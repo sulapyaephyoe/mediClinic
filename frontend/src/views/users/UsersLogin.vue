@@ -1,4 +1,8 @@
 <template>
+    <div id="alert-panel" :class="alert_class" role="alert" v-if="alert_show">
+        {{alert_message}}
+        <button type="button" class="btn-close" aria-label="Close" @click="alert_show = false"></button>
+    </div>
     <div class="wrapper">
         <div class="logo">
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQU7vh6d9dU-8YKojjRcLrVnJoWzv-HEYLSpwYymRH4T521wZwzOkdnYBGRXs4ECPITYIM&usqp=CAU" alt="">
@@ -18,7 +22,7 @@
             <button class="btn mt-3">Login</button>
         </form>
         <div class="text-center fs-6">
-            <a href="#">Forget password?</a> or <router-link to="/users/users_create">Sign Up</router-link>
+            <router-link to="/users/forgetPassword">Forget password?</router-link> or <router-link to="/users/users_create">Sign Up</router-link>
         </div>
     </div>
 </template>
@@ -32,6 +36,9 @@ export default {
             username: '',
             password: '',
             errors: [],
+            alert_show: false,
+            alert_message: '',
+            alert_class: '',
         }
     },
     methods: {
@@ -50,13 +57,12 @@ export default {
                 this.$router.push('hospitals/add-hospital')                  
             })
             .catch(error => {
-                if (error.response) {
-                    for (const property in error.response.data) {
-                        this.errors.push(`${property}: ${error.response.data[property]}`)
-                    }
-                } else if (error.emssage) {
-                    this.errors.push('Something went wrong. Please try again!')
-                }    
+                console.log(error)
+                this.username = '';
+                this.password = '';
+                this.alert_show=true;
+               this.alert_class = "alert alert-danger alert-dismissible fade show";
+               this.alert_message = "Username or password not match.";  
             })
         },
 

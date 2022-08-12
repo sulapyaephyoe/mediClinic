@@ -76,7 +76,8 @@ export default {
                 console.log('reached to then')
                 this.alert_show=true;
                 this.alert_class = "alert alert-info alert-dismissible fade show";
-                this.alert_message = response.data;                             
+                this.alert_message = response.data;       
+                // this.$router.push('/dashboard/leads')                      
             })
             .catch(err => {
                 console.log('reached to catch')

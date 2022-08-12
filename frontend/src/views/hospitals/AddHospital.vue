@@ -2,83 +2,140 @@
     <div class="container">
         <div class="columns is-multiline">
             <div class="column is-12">
-                <h1 class="title">Add Hospital</h1>
+                <h3 class="title text-center">Add Hospital</h3>
             </div>
-             <div class="">
-                <form @submit.prevent="submitForm">
-                   <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group mt-2">
-                                <label for="name" class="form-label">Name</label>
-                                <input type="text" class="form-control" placeholder="Enter name" v-model="name">
-                            </div>
-                            <div class="form-group mt-2">
-                                <label for="phone" class="form-label">Phone</label>
-                                <input type="text" class="form-control" placeholder="Enter phone" v-model="phone">
-                            </div>
-                            <div class="form-group mt-2">
-                                <label for="location" class="form-label">Location</label>
-                                <input type="text" class="form-control" placeholder="Enter location" v-model="location">
-                            </div>
-                            <div class="form-group mt-2">
-                                <label for="website" class="form-label">website</label>
-                                <input type="text" class="form-control" placeholder="Enter website" v-model="website">
-                            </div>
-                            <div class="form-group mt-2">
-                                <label for="type" class="form-label">Type</label>
-                                <select class="form-select" aria-label="Default select example" v-model="type">
-                                    <option value="">Choose Type</option>
-                                    <option value="publichospital">Public Hospital</option>
-                                    <option value="privatehospital">Private Hospital</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <button class="btn btn-info mt-3">Submit</button>
+            <div id="alert"></div>
+            <form @submit.prevent="submitForm">
+                <div class="row" style="justify-content: center;">
+                    <div class="col-md-6">
+                        <div class="form-group mt-2">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" class="form-control" placeholder="Enter name" v-model="name" id="name"
+                                required>
+                        </div>
+                        <div class="form-group mt-2">
+                            <label for="phone" class="form-label">Phone</label>
+                            <input type="tel" class="form-control" placeholder="Enter phone" v-model="phone" id="phone"
+                                pattern="[0-9]{9}" required>
+                        </div>
+                        <div class="form-group mt-2">
+                            <label for="phone" class="form-label">Location</label>
+                            <div class="row">
+                                <div class="col">
+                                    <input type="number" step="any" class="form-control" placeholder="Enter latitude"
+                                        id="latitude" v-model="latitude" required>
+                                </div>
+                                <div class="col">
+                                    <input type="number" step="any" class="form-control" placeholder="Enter longitude"
+                                        id="longitude" v-model="longitude" required>
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control" placeholder="Enter address"
+                                        v-model="address" id="address" required>
+                                </div>
                             </div>
                         </div>
-                   </div>
-                </form>
-            </div>
+                        <div class="form-group mt-2">
+                            <label for="type" class="form-label">Photo</label>
+                            <input type="file" class="form-control" name="myfile" ref="uploadphoto"
+                                @change="uploadPhoto" accept="image/*">
+                        </div>
+                        <div class="form-group mt-2">
+                            <label for="type" class="form-label">Video</label>
+                            <input type="file" class="form-control" name="myfile" ref="uploadvideo"
+                                @change="uploadVideo" accept="video/mp4,video/x-m4v,video/*">
+                        </div>
+                        <div class="form-group mt-2">
+                            <label for="website" class="form-label">website</label>
+                            <input type="text" class="form-control" placeholder="Enter website" v-model="website"
+                                id="website" required>
+                        </div>
+                        <div class="form-group mt-2">
+                            <label for="type" class="form-label">Type</label>
+                            <select class="form-select" aria-label="Default select example" v-model="type" id="type"
+                                required>
+                                <option value="">Choose Type</option>
+                                <option value="publichospital">Public Hospital</option>
+                                <option value="privatehospital">Private Hospital</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-info mt-3" v-on:click="submitFile()">upload</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
+  
 </template>
 
 <script>
-    import { getAPI } from '../../axios-api'
+import { getAPI } from '../../axios-api'
 
-    export default {
-        name: 'AddHospital',
-        data() {
-            return {
-              name : '',
-              phone : '',
-              location : '',
-              website : '',
-              type : '',
-            }
+export default {
+    name: 'AddHospital',
+    data() {
+        return {
+            name: '',
+            phone: '',
+            latitude: '',
+            longitude: '',
+            address: '',
+            website: '',
+            type: '',
+            photo: '',
+            video: '',
+        }
+    },
+    methods: {
+        uploadPhoto(event) {
+            this.photo = event.target.files[0]
         },
-        methods: {
-            async submitForm() {
-                console.log(this.type)
-                getAPI.post('hospitals/add_hospital',{
-                    name: this.name,
-                    phone: this.phone,
-                    location: this.location,
-                    website: this.website,
-                    type: this.type
-
-                })
+        uploadVideo(event) {
+            this.video = event.target.files[0]
+        },
+        submitFile() {
+            getAPI.post('hospitals/add_hospital', {
+                name: this.name,
+                phone: this.phone,
+                latitude: this.latitude,
+                longitude: this.longitude,
+                address: this.address,
+                website: this.website,
+                type: this.type,
+                photo: this.photo,
+                video: this.video,
+            }, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
                 .then(response => {
-                    this.APIData = response.data
-                  
+                    console.log(response)
+                    const elink = document.createElement('div');
+                    elink.setAttribute('class', 'alert alert-success')
+                    elink.innerHTML = 'New Hospital Added'
+                    console.log(elink)
+                    document.getElementById('alert').appendChild(elink)
+
+                    this.name = ''
+                    this.phone = ''
+                    this.latitude = ''
+                    this.longitude = ''
+                    this.address = ''
+                    this.website = ''
+                    this.type = ''
+                    this.$refs.uploadphoto.value = ''
+                    this.$refs.uploadvideo.value = ''
+
                 })
                 .catch(err => {
                     console.log(err)
                 })
-
-            }
         }
     }
+}
 </script>
 <style scoped>
 </style>
