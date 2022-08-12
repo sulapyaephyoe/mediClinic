@@ -1,5 +1,6 @@
 <template>
-
+<head><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
 <div id="carouselExampleIndicators" class="carousel slide img-height" data-ride="carousel" style="width:90%; height:600px !important;">
     <ol class="carousel-indicators">
         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -121,7 +122,6 @@
     
 
 <script>
-
 export default {
     name:'HomePage',
     methods: {
@@ -133,6 +133,7 @@ export default {
 </script>
 
 <style scoped>
+
 .img-height {
   width: 90% !important;
   height: 600px !important;
