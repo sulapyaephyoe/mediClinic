@@ -13,7 +13,7 @@
             <label for="password">You can reset you password here.</label>
         </div>
         <div class="input-group mt-3 mr-3 ml-3" style="width:400px !important;">
-            <div class="input-group-prepend" style=" margin-left: 100px !important;">
+            <div class="input-group-prepend" style=" margin-left: 50px !important;">
                 <span class="input-group-text" id="basic-addon1"><i class="bi bi-envelope"></i></span>
             </div>
             <input type="email" class="form-control" placeholder="email address" v-model="email" required>

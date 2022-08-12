@@ -9,6 +9,7 @@ import DoctorsList from './views/doctors/DoctorsList.vue'
 import DoctorsScheduleList from './views/doctors/DoctorsScheduleList.vue'
 import DoctorsOneSchedule from './views/doctors/DoctorsOneSchedule.vue'
 import DoctorsScheduleEdit from './views/doctors/DoctorsScheduleEdit.vue'
+import DoctorsScheduleEditList from './views/doctors/DoctorsScheduleEditList.vue'
 import UsersCreate from "./views/users/UsersCreate.vue";
 import UsersLogin from "./views/users/UsersLogin.vue";
 import UsersResetPassword from "./views/users/UsersResetPassword.vue";
@@ -27,9 +28,9 @@ const routes = [
         path: "/hospitals/add-hospital",
         name: "AddHospital",
         component: AddHospital,
-        // meta: {
-        //     requireLogin: true
-        // }
+        meta: {
+            requireLogin: true
+        }
     },
     {
         path: "/hospitals/view-hospital",
@@ -42,66 +43,43 @@ const routes = [
     {
         path: '/doctors_create',
         name: 'DoctorsCreate',
-        component: DoctorsCreate,
-        // meta: {
-        //     requireLogin: true
-        // }
+        component: DoctorsCreate, 
     },
     {
         path: '/doctors_edit/:id',
         name: 'DoctorsEdit',
-        component: DoctorsEdit,
-        meta: {
-            requireLogin: true
-        } 
+        component: DoctorsEdit, 
     },
     {
         path: '/doctorslist',
         name: 'DoctorsList',
         component: DoctorsList, 
-        meta: {
-            requireLogin: true
-        }
     },
     {
         path: '/schedule_create/:id',
         name: 'DoctorsScheduleCreate',
         component: DoctorsScheduleCreate, 
-        meta: {
-            requireLogin: true
-        }
-    },
-    {
-        path: '/schedule_edit/:id',
-        name: 'DoctorsScheduleEdit',
-        component: DoctorsScheduleEdit,
-        meta: {
-            requireLogin: true
-        } 
     },
     {
         path: '/schedule_list',
         name: 'DoctorsScheduleList',
         component: DoctorsScheduleList, 
-        // meta: {
-        //     requireLogin: true
-        // }
     },
     {
         path: '/schedule_list/:id',
         name: 'DoctorsOneSchedule',
-        component: DoctorsOneSchedule,
-        meta: {
-            requireLogin: true
-        } 
+        component: DoctorsOneSchedule, 
     },
     {
-        path: '/schedule_list/:id',
-        name: 'DoctorsOneSchedule',
-        component: DoctorsOneSchedule,
-        // meta: {
-        //     requireLogin: true
-        // } 
+        path: '/schedule_edit_list/:id',
+        name: 'DoctorsScheduleEditList',
+        component: DoctorsScheduleEditList, 
+    },
+    
+    {
+        path: '/schedule_edit_list/edit/:doctorid/:scheduleid',
+        name: 'DoctorsScheduleEdit',
+        component: DoctorsScheduleEdit, 
     },
     {
         path: "/login",

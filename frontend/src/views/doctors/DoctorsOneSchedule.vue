@@ -9,6 +9,10 @@
                         {{doctor.firstName}} {{doctor.lastName}}
                     </option>
                 </select>
+                <div class=".col-md-3 .offset-md-3 linkSchedule">
+                    <router-link :to="{ name: 'DoctorsScheduleCreate', param: { id : doctor_info.id }}" class="btn btn-light form-control rounded-pill">Add New Schedule</router-link>
+                    <!-- <router-link :to="{ name: 'DoctorsScheduleEditList', param: { id : doctor_info.id }}" class="btn btn-light" ><i class="bi bi-calendar2-plus"></i></router-link> -->
+                </div>
                 <figure class="text-center">
                     <h3>{{doctor_info.firstName}}{{doctor_info.lastName}}'s Schedule List</h3>
                 </figure>
@@ -28,8 +32,8 @@
                             <td v-for="day in dayValue" v-bind:key="day.id">
                                 <span v-for="schedule in doctors_schedule" v-bind:key="schedule.id">
                                     <span v-if="schedule.startTime+'-'+schedule.endTime == time && schedule.day == day.value">
-                                    {{schedule.name}}<br>
-                                    <p class="font-monospace">( {{schedule.specialist}} )</p>
+                                    {{schedule.hospital_name}}<br>
+                                    <p class="font-monospace">({{schedule.specialist}})</p>
                                     </span>
                                 </span>
                             </td>
@@ -55,19 +59,13 @@ import { getAPI } from '../../axios-api'
                 doctors_time: [],
                 doctors: [],
                 dayValue: [
-                    {id: 1,value: "sunday", name: 'Sunday', disabled: false, flag: 0},
-                    {id: 2,value: "monday", name: 'Monday', disabled: false, flag: 0},
-                    {id: 3,value: "tuesday", name: 'Tuesday', disabled: false, flag: 0},
-                    {id: 4,value: "wednesday", name: 'Wednesday', disabled: false, flag: 0},
-                    {id: 5,value: "thursday", name: 'Thursday', disabled: false, flag: 0},
-                    {id: 6,value: "friday", name: 'Friday', disabled: false, flag: 0},
-                    {id: 7,value: "saturday", name: 'Saturday', disabled: false, flag: 0},
-                ],
-                timeValue: [
-                    {id: 1,startTime: '10:00:00',endTime: '11:00:00'},
-                    {id: 2,startTime: '11:00:00',endTime: '12:00:00'},
-                    {id: 3,startTime: '12:00:00',endTime: '13:00:00'},
-                    {id: 4,startTime: '13:00:00',endTime: '14:00:00'},
+                    {id: 1,value: "Sunday", name: 'Sunday', disabled: false, flag: 0},
+                    {id: 2,value: "Monday", name: 'Monday', disabled: false, flag: 0},
+                    {id: 3,value: "Tuesday", name: 'Tuesday', disabled: false, flag: 0},
+                    {id: 4,value: "Wednesday", name: 'Wednesday', disabled: false, flag: 0},
+                    {id: 5,value: "Thursday", name: 'Thursday', disabled: false, flag: 0},
+                    {id: 6,value: "Friday", name: 'Friday', disabled: false, flag: 0},
+                    {id: 7,value: "Saturday", name: 'Saturday', disabled: false, flag: 0},
                 ],
                 doctor_info: {},
             }
@@ -146,5 +144,8 @@ import { getAPI } from '../../axios-api'
 .thDay{
     width: 10%;
     background-color: rgb(239, 229, 249);
+}
+.linkSchedule {
+    margin-left: 80%;
 }
 </style>

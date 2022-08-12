@@ -4,7 +4,9 @@
         {{alert_message}}
         <button type="button" class="btn-close" aria-label="Close" @click="alert_show = false"></button>
     </div>
-    <form class="row justify-content-center g-2" @submit.prevent="submitForm">
+    
+    <form class="row justify-content-center g-2 form-layout" @submit.prevent="submitForm">
+    <h3  class="text-center">Sign up your account</h3>
         <div class="row justify-content-center mb-2">
             <div class="col-sm-2">
                 <label for="username">Username</label>
@@ -73,11 +75,8 @@ export default {
             getAPI.post('dj-rest-auth/registration/',dataArray)
             .then(response => {
                 this.APIData = response.data
-                console.log('reached to then')
-                this.alert_show=true;
-                this.alert_class = "alert alert-info alert-dismissible fade show";
-                this.alert_message = response.data;       
-                // this.$router.push('/dashboard/leads')                      
+                console.log('reached to then')       
+                this.$router.push('/login')                      
             })
             .catch(err => {
                 console.log('reached to catch')
@@ -96,4 +95,5 @@ export default {
 .row {
    padding-top: 2rem !important;
 }
+
 </style>

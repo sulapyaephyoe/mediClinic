@@ -66,7 +66,7 @@ def password_mail_send(email, user):
     # absurl = 'http://'+current_site
     rel_link = "http://localhost:8080/users/forgetPassword"
     # print ('--absurl--',absurl)
-    email_body = 'Hello, \n Your Reset Code is '+ str(token) + '. Use link below to reset your password  \n' + rel_link 
+    email_body = 'From Mediclinc OJT \n Please use the following code to reset your password '+ str(token)
     data = {'email_body': email_body, 'to_email': user.email, 'email_subject': 'Reset your passsword'}
     Util.send_email(data)
     return str(token)

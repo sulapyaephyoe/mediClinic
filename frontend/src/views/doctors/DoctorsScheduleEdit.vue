@@ -1,168 +1,126 @@
 <template>
     <div class="container">
         <div class="row">
-            <!-- <div class="col-md-8 offset-md-2"> -->
-            <figure class="text-center">
-                <h3>{{doctor.firstName}} {{doctor.lastName}}' Schedule</h3>
-            </figure>
-            <form class="row g-3" @submit.prevent="submitForm">
-                <table class="table table-striped table-hover">
-                    <tr v-for="key in items" :key="key">
-                        <td>
-                            <table class="table tblHospital">
-                                <tr>
-                                    <td colspan="4">
-                                        <div class="input-group input-group-sm mb-3">
-                                            <span class="input-group-text" id="inputGroup-sizing-sm">Hospital</span>
-                                            <select id="day" class="form-select" v-model="values['hospital-'+key+'-']" @change="setSelectedHospital($event,key)" required>
-                                                <option v-for="hospital in hospitalValue" :disabled="hospital.disabled" 
-                                                :key="hospital.value" :value="hospital.value">
-                                                    {{hospital.name}}
-                                                </option>
-                                            </select>
-                                        </div>
-                                    </td>
-                                    <td class="tdAdd">
-                                        <div class="input-group input-group-sm mb-3">
-                                            <a href="#" id="add_more_fields" @click="remove(key)" class="btn btn-light form-control">
-                                                <i class="bi bi-trash"></i>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr v-for="day in sample[key]" :key="day">
-                                    <td>
-                                        <div class="input-group input-group-sm mb-3">
-                                            <span class="input-group-text" id="inputGroup-sizing-sm">Day</span>
-                                            <select id="day" class="form-select" v-model="values['day-'+key+','+day]" @change="setSelectedValue($event,key,day)" required>
-                                                <option v-for="day in dayValue" :disabled="day.disabled" 
-                                                :key="day.value" :value="day.value">
-                                                    {{day.name}}
-                                                </option>
-                                            </select>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="input-group input-group-sm mb-3">
-                                            <span class="input-group-text" id="inputGroup-sizing-sm">Start Time</span>
-                                            <input type="time" class="form-control" id="startTime" v-model="values['startTime-'+key+','+day]" required>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="input-group input-group-sm mb-3">
-                                            <span class="input-group-text" id="inputGroup-sizing-sm">End Time</span>
-                                            <input type="time" class="form-control" id="endTime" v-model="values['endTime-'+key+','+day]" required>
-                                        </div>
-                                    </td>
-                                    <td class="tdAdd">
-                                        <div class="input-group input-group-sm mb-3">
-                                            <a href="#" id="add_more_fields" @click="removeday(key,day)" class="btn btn-light form-control">
-                                                <i class="bi bi-dash"></i>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="input-group input-group-sm mb-3">
-                                            <a href="#" id="add_more_fields" @click="addday(key)" class="btn btn-light">
-                                                <i class="bi bi-plus"></i>
-                                            </a>
-                                        </div>
-                                    </td>
-                                    <td colspan="3"></td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                    <tr>
-                        <a href="#" id="add_more_fields" @click="add" class="btn btn-light form-control">
-                            <i class="bi bi-plus-square"></i>
-                        </a>
-                    </tr>
-                </table>
-                <div class="col-12">
+            <div class="col-md-6 offset-md-3">
+                <figure class="text-center">
+                    <h3>{{ doctor_info.firstName }} 's Schedule Edit Form</h3>
+                </figure>
+                <form @submit.prevent="submitForm">
+                    <div class="mb-3">
+                        <label for="hospital" class="form-label">Hospital</label>
+                        <input type="text" class="form-control" id="hospital" v-model="hospital" disabled>
+                    </div>
+                    <div class="mb-3">
+                        <label for="day" class="form-label">Day</label>
+                        <select class="form-select" aria-label="Default select example" v-model="day" required>
+                            <option disabled value="">Please select day</option>
+                            <option v-for="day in dayValue" 
+                            :key="day.value" :value="day.value">
+                                {{day.name}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="startTime" class="form-label">Start Time</label>
+                        <input type="time" class="form-control" id="startTime" v-model="startTime" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="endTime" class="form-label">End Time</label>
+                        <input type="time" class="form-control" id="endTime" v-model="endTime" required>
+                    </div>
                     <button type="submit" class="btn btn-info">Submit</button>
-                    <!-- <a href="#" @click="submit">Console</a> -->
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-const getInitialItems = () => [1]
-let itemid = getInitialItems().length + 1
-let dayid = getInitialItems().length + 1
+import { getAPI } from '@/axios-api'
 
-import { getAPI } from '../../axios-api'
     export default{
         name: 'DoctorsScheduleEdit',
         data () {
             return {
-                count: 1,
-                daycount: 1,
-                values: {},
-                daytime: {},
-                doctor: {},
-                hospitalArray: [],
-                objArray: [],
+                hospital: '',
+                day: '',
+                startTime:'',
+                endTime:'',
                 dayValue: [
-                    {id: 1,value: "sunday", name: 'Sunday', disabled: false, flag: 0},
-                    {id: 2,value: "monday", name: 'Monday', disabled: false, flag: 0},
-                    {id: 3,value: "tuesday", name: 'Tuesday', disabled: false, flag: 0},
-                    {id: 4,value: "wednesday", name: 'Wednesday', disabled: false, flag: 0},
-                    {id: 5,value: "thursday", name: 'Thursday', disabled: false, flag: 0},
-                    {id: 6,value: "friday", name: 'Friday', disabled: false, flag: 0},
-                    {id: 7,value: "saturday", name: 'Saturday', disabled: false, flag: 0},
+                    {id: 1,value: "Sunday", name: 'Sunday', disabled: false, flag: 0},
+                    {id: 2,value: "Monday", name: 'Monday', disabled: false, flag: 0},
+                    {id: 3,value: "Tuesday", name: 'Tuesday', disabled: false, flag: 0},
+                    {id: 4,value: "Wednesday", name: 'Wednesday', disabled: false, flag: 0},
+                    {id: 5,value: "Thursday", name: 'Thursday', disabled: false, flag: 0},
+                    {id: 6,value: "Friday", name: 'Friday', disabled: false, flag: 0},
+                    {id: 7,value: "Saturday", name: 'Saturday', disabled: false, flag: 0},
                 ],
-                hospitalValue: [
-                    {value: 1,name: 'Ar Yu Hospital', disabled: false, flag: 0},
-                    {value: 2,name: 'Baho Si Hospital', disabled: false, flag: 0},
-                    {value: 3,name: 'Grand Han Thar Hospital', disabled: false, flag: 0},
-                    {value: 4,name: 'Victoria Hospital', disabled: false, flag: 0},
-                ],
-                selectedValue: [],
-                items: getInitialItems(),
-                dayItems: getInitialItems(),
-                sample: [],
-                selectedArray: [],
-                selectedHospital: [0],
-                doctors_schedule: []
+                schedule: {},
+                hospitalValue: [],
+                doctorValue: [],
+                doctor_info: {},
+                hospital_id: 0
             }
         },
-        mounted() {
-            this.getDoctorSchedule()
+        beforeMount() {
+            this.getHospital();
+            this.getDoctor();
         },
-        methods: {
-            async getDoctorSchedule() {
-                const doctorID = this.$route.params.id
-                console.log(doctorID)
-                this.sample[this.count]=[1]  //default
+        mounted() {
+            this.getScheduleEdit()
+        },
+        methods:{
+            async getHospital(){
                 getAPI
-                    .post(`doctors/doctor_schedule_list/${doctorID}`)
+                    .get('doctors/get_hospital')
+                    .then(response => {
+                        this.hospitalValue = response.data
+                        console.log("vvv"+this.hospitalValue)
+                        for(var h of this.hospitalValue){
+                            console.log("HHH"+h.name)
+                        }
+                    })
+                    .catch(error => {
+                        console.log('Fail')
+                        if(error.response) {
+                            for( const property in error.response.data) {
+                                this.errors.push(`${property}: ${error.response.data[property]}`)
+                            }
+                        } 
+                        else if(error.message) {
+                            this.errors.push('Something went wrong. Please Try Again')
+                            console.log(error.message)
+                        }
+                    })
+            },
+            async getScheduleEdit() {
+                const scheduleID = this.$route.params.scheduleid
+                const doctorID = this.$route.params.doctorid
+                getAPI
+                    .get(`doctors/schedule_edit/${doctorID}/${scheduleID}`)
                     .then(response => {
                         console.log(response)
-                        this.doctors_schedule=response.data[0]
-                        console.log(this.doctors_schedule)
-                        
-                        this.values['hospital-1-']=4
-                        this.values['hospital-2-']=4
-                        this.values['day-1,1']="wednesday"
-                        this.values['day-2,1']="wednesday"
-                        this.items=[1,2]
-                        //this.sample=[{0:1,1:2},{0:1,1:2}]
-                        this.sample[1]={0:1,1:2}
-                        // console.log(this.doctors_schedule)
-                        // for(var ds of this.doctors_schedule){
-                        //     this.doctors_time.push(ds.startTime+'-'+ds.endTime)
-                        // }
-                        // console.log(this.doctors_time)
-
-                        this.doctors = response.data[1]
-                        for(var doctor of this.doctors){
-                            if(doctor.id == doctorID){
-                                this.doctor=doctor
+                        this.schedule = response.data[0]
+                        for(var h of this.hospitalValue){
+                            if(h.id == this.schedule.hospital_id){
+                                this.hospital = h.name
+                                this.hospital_id = h.id
+                            }
+                        }
+                        this.day = this.schedule.day
+                        this.startTime = this.schedule.startTime
+                        this.endTime = this.schedule.endTime
+                    })
+            },
+            async getDoctor(){
+                getAPI
+                    .get('doctors/doctorslist')
+                    .then(response => {
+                        console.log(response.data)
+                        this.doctorValue = response.data
+                        for(var v of this.doctorValue){
+                            if(v.id == this.$route.params.doctorid){
+                                this.doctor_info = v
                             }
                         }
                     })
@@ -180,37 +138,22 @@ import { getAPI } from '../../axios-api'
                     })
             },
             async submitForm() {
-                for (var x of this.items) {
-                    console.log(x)
-                    for(var y of this.sample[x]) {
-                        for (var key of Object.keys(this.values)) {
-                            var a = key.length-3
-                            var b = key.length-1
-                            var c = key.length-2
-                            if(key[c] == x) {
-                                this.daytime['hospital_id'] = this.values[key] 
-                                this.daytime['doctor_id'] = this.$route.params.id
-                            }
-                            if(key[a] == x && key[b] == y) {
-                                if(key.match('day')) {
-                                    this.daytime['day'] = this.values[key]
-                                }else if(key.match('startTime')) {
-                                    this.daytime['startTime'] = this.values[key]
-                                }else if(key.match('endTime')) {
-                                    this.daytime['endTime'] = this.values[key]
-                                }
-                            }
-                        }
-                        this.objArray.push(this.daytime)
-                        this.daytime = {}
-                    }
+                const formData = {
+                    doctor_id: this.$route.params.doctorid,
+                    hospital_id: this.hospital_id,
+                    day:  this.day,
+                    startTime: this.startTime,
+                    endTime: this.endTime
                 }
+                const scheduleID = this.$route.params.scheduleid
+                const doctorID = this.$route.params.doctorid
                 getAPI
-                    .post('doctors/add_doctor_schedule', this.objArray)
-                    .then (response => {
+                    .post(`doctors/schedule_update/${doctorID}/${scheduleID}`,formData)
+                    .then(response => {
                         console.log('Success')
                         console.log(response)
-                        this.$router.push('/doctorslist')
+                        alert("Data Updated Successfully!")
+                        this.$router.push(`/schedule_edit_list/${doctorID}`)
                     })
                     .catch(error => {
                         console.log('Fail')
@@ -218,122 +161,13 @@ import { getAPI } from '../../axios-api'
                             for( const property in error.response.data) {
                                 this.errors.push(`${property}: ${error.response.data[property]}`)
                             }
-                        }
+                        } 
                         else if(error.message) {
                             this.errors.push('Something went wrong. Please Try Again')
                             console.log(error.message)
                         }
                     })
-            },
-            add: function(){
-                this.count++
-                this.items.splice(this.count, 0, itemid++)
-                //For Day Add
-                this.selectedValue = []
-                for(var dday of this.dayValue) {
-                    dday.flag = 0
-                    dday.disabled = false
-                }
-                this.sample[this.items[this.count-1]] = [1]
-                this.daycount = 1
-                dayid = 2
-            },
-            addday: function(key){
-                if(this.sample[key].length < 7) {
-                    this.daycount++
-                    this.sample[key].splice(this.daycount,0,dayid++)
-                }
-                console.log(this.sample[key])
-            },
-            remove: function(key) {
-                const i = this.items.indexOf(key)
-                this.count--
-                if(this.count != 0){
-                    if (i > -1) {
-                        this.items.splice(i, 1)
-                    }
-                }
-                for(var hospital of this.hospitalValue) {
-                    if(hospital.value == this.values['hospital-'+key+'-']) {
-                        hospital.flag = 0
-                        hospital.disabled = false
-                    }
-                }
-                this.selectedHospital[key]= 0
-            },
-            removeday: function(key,day) {
-                try{
-                    //deselect day 
-                    for(var dday of this.dayValue) {
-                        if(dday.value === this.values['day-'+key+','+day]){
-                            dday.flag = 0
-                            dday.disabled = false
-                        }
-                    }
-                    // delete day record
-                    var d = this.sample[key].indexOf(day)
-                    console.log(d)
-                    this.selectedArray[key][d] = ""
-                    if(d > -1){
-                        this.sample[key].splice(d, 1)
-                    }
-                }
-                catch(e){
-                    alert("Cannot Delete Empty Data! Please Fill The Data To Delete")
-                }
-            },
-            setSelectedHospital: function(event,key) {
-                this.selectedHospital[key] = event.target.selectedOptions[0].value
-                for(hospital of this.hospitalValue) {
-                    hospital.flag = 0
-                    hospital.disabled = false
-                }
-                for(var hospital of this.hospitalValue) {
-                    for(var h of this.selectedHospital) {
-                        if(hospital.value == h){
-                            hospital.flag = 1
-                        }
-                    }
-                }
-                for(hospital of this.hospitalValue) {
-                    if(hospital.flag == 1) {
-                        hospital.disabled = true
-                    }
-                }
-            },
-            setSelectedValue: function(event,key,day) {
-                this.selectedValue.splice(day-1,1,event.target.selectedOptions[0].value)
-                this.selectedArray[key] = this.selectedValue
-                console.log(this.selectedArray)
-                for(ddd of this.dayValue) {
-                    ddd.flag = 0
-                    ddd.disabled = false
-                }
-                for(var eee of this.selectedArray[key]) {
-                    for(var ddd of this.dayValue) {
-                        if(ddd.value === eee) {
-                            ddd.flag = 1
-                        }
-                    }
-                }
-                for(ddd of this.dayValue) {
-                    if(ddd.flag == 1) {
-                        ddd.disabled = true
-                    }
-                }
-            },
+            }
         }
     }
 </script>
-
-<style scoped>
-.tblHospital {
-  border-bottom: 3px solid #eee;
-}
-.tdAdd {
-    width: 5%;
-}
-.tdMinus {
-    width: 5%;
-}
-</style>

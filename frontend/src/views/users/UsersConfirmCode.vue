@@ -12,7 +12,7 @@
             <label><h3 class="text-center">We sent a code to your email</h3></label>
             <label>Enter the 6-digit verification code send to you mail.</label>
         </div>
-        <div class="input-group mt-3 mr-3 ml-3" style="width:300px !important; margin-left: 100px;">
+        <div class="input-group mt-3 mr-3 ml-3" style="width:300px !important; margin-left: 100px !important;">
             <input type="text" class="form-control" placeholder="6 digit code" v-model="code" required>
         </div>
         <div class="row mb-3" style="margin-left: 100px; margin-right: 100px;">

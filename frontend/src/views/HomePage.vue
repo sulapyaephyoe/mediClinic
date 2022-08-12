@@ -132,7 +132,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .img-height {
   width: 90% !important;
   height: 600px !important;

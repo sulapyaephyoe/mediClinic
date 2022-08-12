@@ -66,9 +66,7 @@ export default {
                 this.list = response.data.list
                 document.getElementById('showmap').innerHTML = response.data.map
 
-                const i = (localStorage.getItem("hid") === null)? 0 : localStorage.getItem("hid")
-                localStorage.setItem('hid','')
-
+                const i = 0
                 document.getElementById('hospitalname').innerHTML = response.data.list[i].name
                 document.getElementById('hospitalphone').innerHTML = response.data.list[i].phone
                 document.getElementById('hospitalwebsite').innerHTML = response.data.list[i].website

@@ -14,15 +14,15 @@
       <!-- Left links -->
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" href="#">Home</a>
+          <router-link to="/" class="nav-link">Home</router-link>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Hospitals
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <router-link to="/hospitals/add-hospital" class="nav-link" v-if="$store.state.isAdmin">Add Hospital</router-link>
-            <div class="dropdown-divider" v-if="$store.state.isAdmin"></div>
+            <router-link to="/hospitals/add-hospital" class="nav-link">Add Hospital</router-link>
+            <div class="dropdown-divider"></div>
             <router-link to="/hospitals/view-hospital" class="nav-link">View Hospitals</router-link>
           </div>
         </li>
@@ -31,8 +31,8 @@
           Doctors
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <router-link to="/doctorslist" class="nav-link" v-if="$store.state.isAdmin">Doctors' List</router-link>
-          <div class="dropdown-divider" v-if="$store.state.isAdmin"></div>
+          <router-link to="/doctorslist" class="nav-link" >Doctors' List</router-link>
+          <div class="dropdown-divider"></div>
           <router-link to="/schedule_list" class="nav-link">Schedules</router-link>
         </div>
       </li>
