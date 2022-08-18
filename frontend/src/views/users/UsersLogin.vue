@@ -1,28 +1,33 @@
 <template>
     <div id="alert-panel" :class="alert_class" role="alert" v-if="alert_show">
-        {{alert_message}}
+        {{ alert_message }}
         <button type="button" class="btn-close" aria-label="Close" @click="alert_show = false"></button>
     </div>
-    <div class="wrapper">
-        <div class="logo">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQU7vh6d9dU-8YKojjRcLrVnJoWzv-HEYLSpwYymRH4T521wZwzOkdnYBGRXs4ECPITYIM&usqp=CAU" alt="">
-        </div>
-        <div class="text-center mt-4 name">
-            Log In
-        </div>
-        <form class="p-3 mt-3" @submit.prevent="submitForm">
-            <div class="form-field d-flex align-items-center">
-                <span class="far fa-user"></span>
-                <input type="text" name="userName" id="userName" placeholder="Username" v-model="username">
+    <div class="container mt-5 mb-5">
+        <form class="row justify-content-center g-2 form-layout" @submit.prevent="submitForm">
+            <h3 class="text-center mt-3 mb-5">LogIn your account</h3>
+            <div class="row justify-content-center mb-2 ">
+                <div class="col-sm-2 mb-5">
+                    <label for="username">Username</label>
+                </div>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" name="userName" id="userName" placeholder="Username" v-model="username">
+                </div>
             </div>
-            <div class="form-field d-flex align-items-center">
-                <span class="fas fa-key"></span>
-                <input type="password" name="password" id="pwd" placeholder="Password" v-model="password">
+            <div class="row justify-content-center mb-2">
+                <div class="col-sm-2 mb-5">
+                    <label for="email">Password</label>
+                </div>
+                <div class="col-sm-3">
+                    <input type="password" class="form-control" name="password" id="pwd" placeholder="Password" v-model="password">
+                </div>
             </div>
-            <button class="btn mt-3">Login</button>
+            <div class="row justify-content-center mb-2">
+                <div class="col-auto link-btn"><button type="submit" class="btn-style-one mb-3 mt-3">Login</button></div>
+            </div>
         </form>
         <div class="text-center fs-6">
-            <router-link to="/users/forgetPassword">Forget password?</router-link> or <router-link to="/users/users_create">Sign Up</router-link>
+            <router-link to="/users/forgetPassword" id="text-color">Forget password?</router-link> or <router-link to="/users/users_create" id="text-color">Sign Up</router-link>
         </div>
     </div>
 </template>
@@ -47,35 +52,35 @@ export default {
                 username: this.username,
                 password: this.password,
             }
-            getAPI.post('dj-rest-auth/login/',dataArray)
-            .then(response => {
-                this.chkAdminStatus(this.username)
-                const token = response.data.key
-                this.$store.commit('setToken', token)
-                getAPI.defaults.headers.common['Authorization'] = 'Token '+token
-                localStorage.setItem('token', token)      
-                this.$router.push('hospitals/add-hospital')                  
-            })
-            .catch(error => {
-                console.log(error)
-                this.username = '';
-                this.password = '';
-                this.alert_show=true;
-               this.alert_class = "alert alert-danger alert-dismissible fade show";
-               this.alert_message = "Username or password not match.";  
-            })
+            getAPI.post('dj-rest-auth/login/', dataArray)
+                .then(response => {
+                    this.chkAdminStatus(this.username)
+                    const token = response.data.key
+                    this.$store.commit('setToken', token)
+                    getAPI.defaults.headers.common['Authorization'] = 'Token ' + token
+                    localStorage.setItem('token', token)
+                    this.$router.push('hospitals/add-hospital')
+                })
+                .catch(error => {
+                    console.log(error)
+                    this.username = '';
+                    this.password = '';
+                    this.alert_show = true;
+                    this.alert_class = "alert alert-danger alert-dismissible fade show";
+                    this.alert_message = "Username or password not match.";
+                })
         },
 
         async chkAdminStatus(admin_username) {
             getAPI.get(`users/get_user/${admin_username}`)
-            .then(response => {
-               // store.state.isAdmin = response.data['is_superuser']
-                this.$store.commit('adminRole',response.data['is_superuser'])
-               // console.log('reached to chkAdmin---'+store.state.isAdmin)
-            })
-            .catch(err => {
-                console.log(err)
-            })
+                .then(response => {
+                    // store.state.isAdmin = response.data['is_superuser']
+                    this.$store.commit('adminRole', response.data['is_superuser'])
+                    // console.log('reached to chkAdmin---'+store.state.isAdmin)
+                })
+                .catch(err => {
+                    console.log(err)
+                })
         }
     }
 }
@@ -87,7 +92,7 @@ export default {
 
 /* Reseting */
 * {
-    margin: 0 ;
+    margin: 0;
     margin-top: 0 !important;
     padding: 0;
     box-sizing: border-box;

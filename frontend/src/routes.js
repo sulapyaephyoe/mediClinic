@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from "vue-router";
 // import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import AddHospital from "./views/hospitals/AddHospital";
 import ViewHospital from "./views/hospitals/ViewHospital";
+import HospitalsScheduleList from './views/hospitals/HospitalsScheduleList.vue'
+import DoctorsSchedule from './views/hospitals/DoctorsSchedule.vue'
 import DoctorsCreate from './views/doctors/DoctorsCreate.vue'
 import DoctorsEdit from './views/doctors/DoctorsEdit.vue'
 import DoctorsScheduleCreate from './views/doctors/DoctorsScheduleCreate.vue'
@@ -39,6 +41,16 @@ const routes = [
         // meta: {
         //     requireLogin: true
         // }       
+    },
+    {
+        path: '/hospitals/schedule_list',
+        name: 'HospitalsScheduleList',
+        component: HospitalsScheduleList, 
+    },
+    {
+        path: '/hospitals/schedule_list/:id',
+        name: 'DoctorsSchedule',
+        component: DoctorsSchedule, 
     },
     {
         path: '/doctors_create',

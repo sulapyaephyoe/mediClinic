@@ -3,8 +3,8 @@ import App from './App.vue'
 import router from './routes.js'
 import store from './store'
 import 'bootstrap/dist/css/bootstrap.min.css'
-// import './styles.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
+import './style.css'
 
 /* import the bootstrap icons  */
 // import 'bootstrap-icons/font/bootstrap-icons.css'

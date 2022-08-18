@@ -1,27 +1,33 @@
 <template>
-<div class="container">
+<div class="container mt-5 mb-5">
     <div id="alert-panel" :class="alert_class" role="alert" v-if="alert_show">
         {{alert_message}}
         <button type="button" class="btn-close" aria-label="Close" @click="alert_show = false"></button>
     </div>
-    <form class="pass-form" @submit.prevent="submitForm">
-        <div>
+    <div class="container mt-5 mb-5">
+       
+        <form class="row justify-content-center g-2 form-layout" @submit.prevent="submitForm">
+         <!-- <div class="mt-5">
             <span class="lock-icon"><i class="bi bi-lock-fill"></i></span>
-        </div>
+        </div> -->
         <div class="row mb-3">
-            <label for="password"><h2 class="text-center">Forgot Password?</h2></label>
-            <label for="password">You can reset you password here.</label>
+            <label for="password"><h2 class="text-center mb-2">Forgot Password?</h2></label>
+            <label for="password" class="text-center">You can reset you password here.</label>
         </div>
-        <div class="input-group mt-3 mr-3 ml-3" style="width:400px !important;">
+           <div class="input-group mt-3 mr-3 ml-3" style="width:400px !important;">
             <div class="input-group-prepend" style=" margin-left: 50px !important;">
                 <span class="input-group-text" id="basic-addon1"><i class="bi bi-envelope"></i></span>
             </div>
             <input type="email" class="form-control" placeholder="email address" v-model="email" required>
         </div>
-        <div class="row mb-3" style="margin-left: 100px; margin-right: 100px;">
-            <button type="submit" class="btn btn-info mb-3 btn-reset" style="width:300px !important;"><span class="btn-text">Reset Password</span></button>
+            <div class="row justify-content-center mb-2">
+                <div class="col-auto link-btn"><button type="submit" class="btn-style-one mb-3 mt-3">Reset Password</button></div>
+            </div>
+        </form>
+        <div class="text-center fs-6 mb-5">
+            <router-link to="/Login" id="text-color">Log In</router-link> or <router-link to="/users/users_create" id="text-color">Sign Up</router-link>
         </div>
-    </form>
+    </div>
 </div>
 
 </template>
@@ -106,5 +112,13 @@ export default {
 .lock-icon {
     font-size: 84pt;
     color: rgb(170, 170, 175);
+    margin-left: 152px;
+}
+#basic-addon1{
+    height: 53px;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    width: 45px;
 }
 </style>

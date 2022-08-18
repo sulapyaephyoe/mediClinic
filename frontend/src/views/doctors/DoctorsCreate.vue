@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container mt-5 mb-5">
         <div id="alert-panel" :class="alert_class" role="alert" v-if="alert_show">
         {{alert_message}}
         <button type="button" class="btn-close" aria-label="Close" @click="alert_show = false"></button>
@@ -36,7 +36,7 @@
                             </option>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-info">Submit</button>
+                    <button type="submit" class="btn-style-one">Add</button>
                 </form>
             </div>
         </div>

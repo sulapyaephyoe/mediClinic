@@ -1,191 +1,220 @@
 <template>
-<head><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-</head>
-<div id="carouselExampleIndicators" class="carousel slide img-height" data-ride="carousel" style="width:90%; height:600px !important;">
+
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  </head>
+  <div id="carouselExampleIndicators" class="carousel slide img-height" data-ride="carousel"
+    style="width:100%; height:650px !important;">
     <ol class="carousel-indicators">
-        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
     </ol>
     <div class="carousel-inner">
-        <div class="carousel-item active">
-            <img class="d-block w-80 img-height" src="@/assets/images/slideImg1.jpg" alt="First slide">
-            <!-- <div class="carousel-caption d-none d-md-block">
-                <h5>My Caption Title (1st Image)</h5>
-                <p>The whole caption will only show up if the screen is at least medium size.</p>
-            </div> -->
-        </div>
-        <div class="carousel-item">
-            <img class="d-block w-80 img-height" src="@/assets/images/slideImg2.jpg" alt="Second slide">
-        </div>
-        <div class="carousel-item">
-            <img class="d-block w-80 img-height" src="@/assets/images/slideImg3.jpg" alt="Third slide">
-        </div>
+      <div class="carousel-item active">
+        <img class="d-block w-80 img-height" src="@/assets/images/slideImg1.jpg" alt="First slide">
+      </div>
+      <div class="carousel-item">
+        <img class="d-block w-80 img-height" src="@/assets/images/slideImg2.jpg" alt="Second slide">
+      </div>
+      <div class="carousel-item">
+        <img class="d-block w-80 img-height" src="@/assets/images/slideImg3.jpg" alt="Third slide">
+      </div>
     </div>
     <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true" style="color:green"></span>
-        <span class="sr-only">Previous</span>
+      <span class="carousel-control-prev-icon" aria-hidden="true" style="color:green"></span>
+      <span class="sr-only">Previous</span>
     </a>
     <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true" style="color:green"></span>
-        <span class="sr-only">Next</span>
+      <span class="carousel-control-next-icon" aria-hidden="true" style="color:green"></span>
+      <span class="sr-only">Next</span>
     </a>
-</div>
-
-  <div class="container marketing">
-
-    <!-- Three columns of text below the carousel -->
-    <div class="row circlepattern">
-      <div class="col-lg-4">
-        <img class="bd-placeholder-img rounded-circle" width="140" height="140" src="@/assets/images/hospital1.jpg" />
-
-        <h2>Victoria</h2>
-        <p>Your healthy life is our mission. You can enquery us about our services and packages.</p>
-        <p><router-link to='/hospitals/view-hospital'  class="btn btn-secondary" @click="setHID(3)">View details &raquo;</router-link></p>
-      </div><!-- /.col-lg-4 -->
-      <div class="col-lg-4">
-        <img class="bd-placeholder-img rounded-circle" width="140" height="140" src="@/assets/images/hospital2.jpg" />
-
-        <h2>Grand Hantha</h2>
-        <p>Your healthy life is our mission. You can enquery us about our services and packages.</p>
-        <p><router-link to='/hospitals/view-hospital'  class="btn btn-secondary" @click="setHID(3)">View details &raquo;</router-link></p>
-
-
-      </div><!-- /.col-lg-4 -->
-      <div class="col-lg-4">
-        <img class="bd-placeholder-img rounded-circle" width="140" height="140" src="@/assets/images/hospital3.jpg" />
-
-        <h2>Bahosi</h2>
-        <p>Your healthy life is our mission. You can enquery us about our services and packages.</p>
-        <p><router-link to='/hospitals/view-hospital'  class="btn btn-secondary" @click="setHID(2)">View details &raquo;</router-link></p>
-      </div><!-- /.col-lg-4 -->
-    </div><!-- /.row -->
-
-
-    <!-- START THE FEATURETTES -->
-
-    <hr class="featurette-divider">
-    <div>
-       <section id="contact">
-  
-  <h1 class="section-header">Contact us</h1>
-  
-  <div class="contact-wrapper">
-  
-  <!-- Left contact page --> 
-    
-    <form id="contact-form" class="form-horizontal" role="form">
-       
-      <div class="form-group">
-        <div class="col-sm-12">
-          <input type="text" class="form-control" id="name" placeholder="NAME" name="name" value="" required>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <div class="col-12">
-          <input type="email" class="form-control" id="email" placeholder="EMAIL" name="email" value="" required>
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="col-12">
-          <textarea class="form-control" rows="10" placeholder="MESSAGE" name="message" required></textarea>
-        </div>
-      </div>
-        <button class="btn btn-primary send-button" id="submit" type="submit" value="SEND"> SEND
-        </button>
-    </form>
-    
-  <!-- Left contact page --> 
-    
-      <div class="direct-contact-container">
-
-        <ul class="contact-list">
-          <li class="list-item"><i class="bi bi-geo-alt"><span class="contact-text place">Yangon,</span></i></li>
-          
-          <li class="list-item"><i class="bi bi-telephone"><span class="contact-text phone"><a href="tel:1-212-555-5555" title="Give me a call">(95) 09-796762086</a></span></i></li>
-          
-          <li class="list-item"><i class="bi bi-envelope-open"><span class="contact-text gmail"><a href="mailto:#" title="Send me an email">admin@gmail.com</a></span></i></li>
-          
-        </ul>
-
-
-      </div>
-    
   </div>
-  
-</section>  
-  
+  <section class="cta">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="cta-block">
+            <div class="emmergency item">
+              <i class="fa fa-phone"></i>
+              <h2>Emegency Cases</h2>
+              <a href="#">1-800-700-6200</a>
+              <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</p>
+            </div>
+            <div class="top-doctor item">
+              <i class="fa fa-stethoscope"></i>
+              <h2>24 Hour Service</h2>
+              <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore dignissimos officia dicta suscipit
+                vel eum</p>
+              <a href="#" class="btn btn-main">Read more</a>
+            </div>
+            <div class="working-time item">
+              <i class="fa fa-hourglass-o"></i>
+              <h2>Working Hours</h2>
+              <ul class="w-hours">
+                <li>Mon - Fri - <span>24 Hours</span></li>
+                <li>Mon - Fri - <span>24 Hours</span></li>
+                <li>Mon - Fri - <span>24 Hours</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-</div>
+  </section>
+  <section class="feature-section section bg-gray">
+    <div class="container">
+      <div class="container marketing">
+
+        <section class="pt-5 pb-5">
+          <div class="container">
+            <div class="row">
+              <div class="col-6">
+                <!-- <h3 class="mb-3">Carousel cards title </h3> -->
+              </div>
+              <div class="col-6 text-right">
+                <a class="btn btn-secondary mb-3 mr-1" href="#carouselExampleIndicators2" role="button"
+                  data-slide="prev" id="btn-color">
+                  <i class="bi bi-arrow-left"></i>
+                </a>
+                <a class="btn btn-secondary mb-3 " href="#carouselExampleIndicators2" role="button" data-slide="next"
+                  id="btn-color">
+                  <i class="bi bi-arrow-right"></i>
+                </a>
+              </div>
+              <div class="col-12">
+                <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
+
+                  <div class="carousel-inner">
+                    <div class="carousel-item active">
+                      <div class="row">
+
+                        <div class="col-md-4 mb-3" v-for="hospital in hospitals"
+                        v-bind:key="hospital.id">
+                          <div class="card">
+                            <img alt="100%x280" height="200" src="@/assets/images/hospital1.jpg">
+                            <div class="card-body">
+                              <h4 class="card-title">{{hospital.name}}</h4>
+                              <p class="card-text">Your healthy life is our mission. You can enquery us about our
+                                services
+                                and packages.</p>
+                              <p>
+                                <router-link to='/hospitals/view-hospital' class="btn btn-secondary" @click="setHID(3)"
+                                  id="btn-color">
+                                  View
+                                  details &raquo;</router-link>
+                              </p>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="carousel-item">
+                      <div class="row">
+                        <div class="col-md-4 mb-3" v-for="hospital in hospitals"
+                        v-bind:key="hospital.id">
+                          <div class="card">
+                            <img alt="100%x280" height="200" src="@/assets/images/hospital1.jpg">
+                            <div class="card-body">
+                              <h4 class="card-title">{{hospital.name}}</h4>
+                              <p class="card-text">Your healthy life is our mission. You can enquery us about our
+                                services
+                                and packages.</p>
+                              <p>
+                                <router-link to='/hospitals/view-hospital' class="btn btn-secondary" @click="setHID(3)"  id="btn-color">
+                                  View
+                                  details &raquo;</router-link>
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div> 
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>
 </template>
     
-
 <script>
+import { getAPI } from '../axios-api'
 export default {
-    name:'HomePage',
-    methods: {
-        setHID(hid) {
-            localStorage.setItem('hid',hid)
-        }
+  name: 'HomePage',
+  data() {
+    return {
+      hospitals: []
     }
+  },
+  mounted() {
+    this.getHospitals()
+  },
+  methods: {
+    setHID(hid) {
+      localStorage.setItem('hid', hid)
+    },
+     async getHospitals(){
+        getAPI
+        .get('hospitals/hospitalslist')
+        .then(response => {
+            this.hospitals=response.data
+            console.log(this.hospitals)
+        })
+        .catch(error => {
+            console.log('Fail')
+            if(error.response) {
+                for( const property in error.response.data) {
+                    this.errors.push(`${property}: ${error.response.data[property]}`)
+                }
+            } 
+            else if(error.message) {
+                this.errors.push('Something went wrong. Please Try Again')
+                console.log(error.message)
+            }
+        })
+    }
+  }
 }
 </script>
 
 <style scoped>
-
 .img-height {
-  width: 90% !important;
-  height: 600px !important;
+  width: 100% !important;
+  height: 650px !important;
   margin: 0 auto;
 }
+
 .carousel-control-next-icon {
-   background-image: url(https://cdn-icons-png.flaticon.com/512/130/130884.png) !important;
+  background-image: url(https://cdn-icons-png.flaticon.com/512/130/130884.png) !important;
 }
+
 .carousel-control-prev-icon {
-   background-image: url(https://cdn-icons-png.flaticon.com/512/130/130882.png) !important;
+  background-image: url(https://cdn-icons-png.flaticon.com/512/130/130882.png) !important;
 }
+
 .pattern {
-    width: 80% !important;
-    height: 600px !important;
-    margin: 0px 150px 0px 150px !important; 
-    align-items: center;
-    justify-content: center !important;
-    
+  width: 80% !important;
+  height: 600px !important;
+  margin: 0px 150px 0px 150px !important;
+  align-items: center;
+  justify-content: center !important;
+
 }
 
 .circlepattern {
-    width: 80% !important;
-    height: 400px !important;
-    margin: 0px 150px 0px 150px !important; 
-    align-items: center;
-    justify-content: center !important;
-}
-#contact {
-  width: 100%;
-  height: 100%;
-  background-color: #3c414b;
+  width: 80% !important;
+  height: 400px !important;
+  margin: 0px 150px 0px 150px !important;
+  align-items: center;
+  justify-content: center !important;
 }
 
-.section-header {
-  text-align: center;
-  margin: 0 auto;
-  padding: 40px 0;
-  font: 300 60px 'Oswald', sans-serif;
-  color: #fff;
-  text-transform: uppercase;
-  letter-spacing: 6px;
-}
-
-.contact-wrapper {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin: 0 auto;
-  padding: 20px;
-  position: relative;
-  max-width: 840px;
-}
 
 /* Left contact page */
 .form-horizontal {
@@ -195,7 +224,7 @@ export default {
   font-weight: 400;
 }
 
-.form-control, 
+.form-control,
 textarea {
   width: 400px !important;
   background-color: #000;
@@ -228,10 +257,11 @@ textarea {
 }
 
 .send-button {
-    width:100px;
-    height: 50px;
-    margin: 0px 0px 0px 150px !important;
+  width: 100px;
+  height: 50px;
+  margin: 0px 0px 0px 150px !important;
 }
+
 .place {
   margin-left: 62px;
 }
@@ -257,7 +287,6 @@ textarea {
 
 
 hr {
-  border-color: rgba(255,255,255,.6);
+  border-color: rgba(255, 255, 255, .6);
 }
-
 </style>

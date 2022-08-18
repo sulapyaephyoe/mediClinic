@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container mt-5">
         <div class="row justify-content-md-center">
             <div class="col col-lg-10">
                 <select id="doctor" class="form-select rounded-pill" v-model="doctor_v" @change="changeSchedule($event)" required>
@@ -10,7 +10,7 @@
                     </option>
                 </select>
                 <div class=".col-md-3 .offset-md-3 linkSchedule">
-                    <router-link :to="{ name: 'DoctorsScheduleCreate', param: { id : doctor_info.id }}" class="btn btn-light form-control rounded-pill">Add New Schedule</router-link>
+                    <router-link :to="{ name: 'DoctorsScheduleCreate', param: { id : doctor_info.id }}" class="btn btn-light">Add New Schedule</router-link>
                     <!-- <router-link :to="{ name: 'DoctorsScheduleEditList', param: { id : doctor_info.id }}" class="btn btn-light" ><i class="bi bi-calendar2-plus"></i></router-link> -->
                 </div>
                 <figure class="text-center">

@@ -1,15 +1,16 @@
 <template>
-<div class="container">
+<div class="container mt-5 mb-5">
     <div id="alert-panel" :class="alert_class" role="alert" v-if="alert_show">
         {{alert_message}}
         <button type="button" class="btn-close" aria-label="Close" @click="alert_show = false"></button>
     </div>
     <form class="pass-form" @submit.prevent="submitForm">
-        <div>
+        <!-- <div>
             <span class="lock-icon"><i class="bi bi-lock-fill"></i></span>
-        </div>
+        </div> -->
         
         <div class="row pass-text">
+            <h3 class="mb-5">Enter new password</h3>
             <div class="col">
             <label for="password1" style="text-align: right !important;">New Password</label></div>
             <div class="col">
@@ -21,8 +22,8 @@
             <div class="col">
             <input type="password" class="form-control text-box" placeholder="Password" v-model="password2" required></div>
         </div>
-        <div class="row mb-3" style="margin-left: 100px; margin-right: 100px;">
-            <button type="submit" class="btn btn-info mb-3 btn-reset" style="width:300px !important;"><span class="btn-text">Submit</span></button>
+        <div class="row mb-3 mt-3" style="margin-left: 100px; margin-right: 100px;">
+            <button type="submit" class="btn-style-one mb-3" style="width:300px !important;">Submit</button>
         </div>
     </form>
 </div>
@@ -73,7 +74,6 @@ export default {
    padding-top: 1rem !important;
 }
 .pass-form {
-    border: 1px solid gray;
     border-radius: 10px;
     text-align: center;
     width: 500px;

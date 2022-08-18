@@ -1,22 +1,22 @@
 <template>
-<div class="container">
+<div class="container mt-5 mb-5">
     <div id="alert-panel" :class="alert_class" role="alert" v-if="alert_show">
         {{alert_message}}
         <button type="button" class="btn-close" aria-label="Close" @click="alert_show = false"></button>
     </div>
     <form class="pass-form" @submit.prevent="submitForm">
-        <div>
+        <!-- <div>
             <span class="lock-icon"><i class="bi bi-lock-fill"></i></span>
-        </div>
+        </div> -->
         <div class="row mb-3">
             <label><h3 class="text-center">We sent a code to your email</h3></label>
             <label>Enter the 6-digit verification code send to you mail.</label>
         </div>
-        <div class="input-group mt-3 mr-3 ml-3" style="width:300px !important; margin-left: 100px !important;">
+        <div class="input-group mt-4 mr-3 ml-3" style="width:300px !important; margin-left: 100px !important;">
             <input type="text" class="form-control" placeholder="6 digit code" v-model="code" required>
         </div>
-        <div class="row mb-3" style="margin-left: 100px; margin-right: 100px;">
-            <button type="submit" class="btn btn-info mb-3 btn-reset" style="width:300px !important;"><span class="btn-text">Submit</span></button>
+        <div class="row mb-3 mt-3" style="margin-left: 100px; margin-right: 100px;">
+            <button type="submit" class="btn-style-one mb-3" style="width:300px !important;">Submit</button>
         </div>
     </form>
 </div>
@@ -57,7 +57,6 @@ export default {
    padding-top: 1rem !important;
 }
 .pass-form {
-    border: 1px solid gray;
     border-radius: 10px;
     text-align: center;
     width: 500px;

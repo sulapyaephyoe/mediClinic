@@ -1,5 +1,5 @@
 <template>
-<div class="container">
+<div class="container mt-5 mb-5">
     <div id="alert-panel" :class="alert_class" role="alert" v-if="alert_show">
         {{alert_message}}
         <button type="button" class="btn-close" aria-label="Close" @click="alert_show = false"></button>
@@ -7,7 +7,7 @@
     
     <form class="row justify-content-center g-2 form-layout" @submit.prevent="submitForm">
     <h3  class="text-center">Sign up your account</h3>
-        <div class="row justify-content-center mb-2">
+        <div class="row justify-content-center">
             <div class="col-sm-2">
                 <label for="username">Username</label>
             </div>
@@ -15,7 +15,7 @@
                 <input type="text" class="form-control" id="username" placeholder="john1234" v-model="username">
             </div>
         </div>
-        <div class="row justify-content-center mb-2">
+        <div class="row justify-content-center">
             <div class="col-sm-2">
                 <label for="email">Email</label>
             </div>
@@ -40,9 +40,12 @@
             </div>
         </div>
         <div class="row justify-content-center mb-2">
-            <div class="col-auto"><button type="submit" class="btn btn-primary mb-3">Register</button></div>
+            <div class="col-auto link-btn"><button type="submit" class="btn-style-one mb-3">Register</button></div>
         </div>
     </form>
+      <div class="text-center fs-6">
+            <router-link to="/users/forgetPassword" id="text-color">Forget password?</router-link> or <router-link to="/login" id="text-color">Log In</router-link>
+        </div>
 </div>
 
 </template>
@@ -95,5 +98,4 @@ export default {
 .row {
    padding-top: 2rem !important;
 }
-
 </style>

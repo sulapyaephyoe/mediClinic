@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container mt-5 mb-5">
         <div class="row">
             <div class="col-md-8 offset-md-2">
                 <figure class="text-center">
@@ -83,7 +83,7 @@
                         </tr>
                     </table>
                     <div class="col-12">
-                        <button type="submit" class="btn btn-info">Submit</button>
+                        <button type="submit" class="btn-style-one">Add</button>
                         <!-- <a href="#" @click="submit">Console</a> -->
                     </div>
                 </form>

@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container mt-5 mb-5">
         <div class="row">
             <div class="col">
                 <!-- <router-link :to="{ name: 'DoctorsScheduleCreate', params: { id : doctor.id }}" class="btn btn-light" >Schedule</router-link> -->

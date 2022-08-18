@@ -3,10 +3,10 @@
         <div class="columns is-multiline">
             <div class="column is-12">
                 <div class="row mt-5">
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="select">
-                            <select v-model="name" required @change="choosedHName($event)" class="form-control">
-                                <option value="" disabled selected>Choose Hospital</option>
+                            <select v-model="name" class="form-select rounded-pill" @change="choosedHName($event)" style="    background-color: rgb(245, 242, 242);width: 220px;" required>
+                                <option disabled value="">Please select hospital</option>
                                 <option v-for="l in list" v-bind:key="l.id" v-bind:value="l.name" selected
                                     id="mySelect">
                                     {{ l.name }}
@@ -149,5 +149,8 @@ ul li:hover {
 #select {
     width: 420px;
     margin-left: 7px;
+}
+#showmap{
+    height: 500px;
 }
 </style>
