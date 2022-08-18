@@ -5,7 +5,8 @@
 # Byte-compiled / optimized / DLL files
 *.py[cod]
 *$py.class
-*/db.sqlite3
+*.sqlite3
+media/
 # C extensions
 *.so
 
