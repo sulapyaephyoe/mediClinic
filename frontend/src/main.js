@@ -2,6 +2,8 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './routes.js'
 import store from './store'
+
+
 import 'bootstrap/dist/css/bootstrap.min.css'
 // import './styles.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
@@ -19,4 +21,6 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 library.add(faUserSecret)
 
-createApp(App).component('font-awesome-icon', FontAwesomeIcon).use(store).use(router).mount('#app')
+import VTooltip from 'v-tooltip'
+
+createApp(App).component('font-awesome-icon', FontAwesomeIcon).use(VTooltip).use(store).use(router).mount('#app')

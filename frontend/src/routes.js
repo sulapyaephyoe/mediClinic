@@ -15,6 +15,7 @@ import UsersLogin from "./views/users/UsersLogin.vue";
 import UsersResetPassword from "./views/users/UsersResetPassword.vue";
 import UsersConfirmPassword from "./views/users/UsersConfirmPassword.vue";
 import UsersConfirmCode from "./views/users/UsersConfirmCode.vue";
+import TimeTable from "./views/schedules/TimeTable.vue";
 import HomePage from "./views/HomePage.vue";
 import store from '@/store'
 
@@ -105,6 +106,11 @@ const routes = [
         path: "/users/confirmPassword",
         name: "UsersConfirmPassword",
         component: UsersConfirmPassword,
+    },
+    {
+        path: "/timetable",
+        name: "TimeTable",
+        component: TimeTable,
     },
 ];
 

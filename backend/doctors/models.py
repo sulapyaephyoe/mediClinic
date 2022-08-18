@@ -1,6 +1,6 @@
 from django.db import models
 from calendar import FRIDAY, SATURDAY, THURSDAY, TUESDAY, WEDNESDAY
-
+from hospitals.models import hospitals
 class doctors(models.Model):
 
     MALE = 'Male'
@@ -55,6 +55,9 @@ class doctors_hospitals(models.Model):
         (FRIDAY,'Friday'),
         (SATURDAY,'Saturday')
     )
+    
+    # doctor_id = models.ForeignKey('doctors', on_delete=models.CASCADE)
+    # hospital_id = models.ForeignKey('hospitals', on_delete=models.CASCADE)
     hospital_id = models.IntegerField()
     doctor_id = models.IntegerField()
     day = models.CharField(max_length=20,choices=CHOICE_DAY)

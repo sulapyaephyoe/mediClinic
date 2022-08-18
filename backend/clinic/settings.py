@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     'users',
     'doctors',
     'hospitals',
+    'schedule',
 ]
 SITE_ID = 1
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
