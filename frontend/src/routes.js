@@ -10,6 +10,8 @@ import DoctorsScheduleList from './views/doctors/DoctorsScheduleList.vue'
 import DoctorsOneSchedule from './views/doctors/DoctorsOneSchedule.vue'
 import DoctorsScheduleEdit from './views/doctors/DoctorsScheduleEdit.vue'
 import DoctorsScheduleEditList from './views/doctors/DoctorsScheduleEditList.vue'
+import BookingCreate from './views/booking/BookingCreate.vue'
+import BookingList from './views/booking/BookingList.vue'
 
 const routes = [
     {
@@ -57,11 +59,20 @@ const routes = [
         name: 'DoctorsScheduleEditList',
         component: DoctorsScheduleEditList, 
     },
-    
     {
         path: '/schedule_edit_list/edit/:doctorid/:scheduleid',
         name: 'DoctorsScheduleEdit',
         component: DoctorsScheduleEdit, 
+    },
+    {
+        path: '/booking',
+        name: 'BookingCreate',
+        component: BookingCreate, 
+    },
+    {
+        path: '/bookinglist',
+        name: 'BookingList',
+        component: BookingList, 
     },
 ]
 const router = createRouter({

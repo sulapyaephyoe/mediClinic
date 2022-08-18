@@ -37,7 +37,7 @@
         </div>
       </li>
         <li class="nav-item px-3 me-2">
-          <a class="nav-link" href="#">Shops</a>
+          <a class="nav-link" href="#">Booking</a>
         </li>
       </ul>
     </div>

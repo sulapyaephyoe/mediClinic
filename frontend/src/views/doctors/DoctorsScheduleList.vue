@@ -80,12 +80,10 @@ import { getAPI } from '../../axios-api'
                     .then(response => {
                         console.log(response)
                         this.doctors_schedule=response.data[0]
-                        console.log(this.doctors_schedule)
                         for(var ds of this.doctors_schedule) {
                             this.doctors_time.push(ds.startTime+'-'+ds.endTime)
                         }
                         this.doctors = response.data[1]
-                        console.log(this.doctors)
                         for(var doctor of this.doctors) {
                             if( doctor.firstName == this.doctors_schedule[0].name) {
                                 this.doctor_info=doctor
@@ -107,7 +105,6 @@ import { getAPI } from '../../axios-api'
             },
             changeSchedule: function(event) {
                 console.log(event.target.selectedOptions[0].value)
-                // this.$router.push({name:'DoctorsOneSchedule',params: {id: event.target.selectedOptions[0].value}})
                 this.$router.push('/schedule_list/'+event.target.selectedOptions[0].value)
             }
         }

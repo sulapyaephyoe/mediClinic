@@ -2,7 +2,6 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <!-- <router-link :to="{ name: 'DoctorsScheduleCreate', params: { id : doctor.id }}" class="btn btn-light" >Schedule</router-link> -->
                 <figure class="text-center">
                     <h3>{{ doctor.firstName }} {{ doctor.lastName }}'s Schedule List</h3>
                 </figure>
@@ -30,7 +29,6 @@
                         <td>{{ schedule.day }}</td>
                         <td>{{ schedule.startTime }}</td>
                         <td>{{ schedule.endTime }}</td>
-                        <!-- <td>{{ schedule.id }}</td> -->
                         <td>
                             <router-link :to="{ name: 'DoctorsScheduleEdit', params: { doctorid : doctor.id , scheduleid : schedule.id }}" class="btn btn-light" ><i class="bi bi-pencil"></i></router-link>
                         </td>
