@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container mt-5">
         <div class="row justify-content-md-center">
             <div class="col col-lg-10">
                 <select id="doctor" class="form-select rounded-pill" v-model="doctor_v" @change="changeSchedule($event)" required>
@@ -53,13 +53,13 @@ import { getAPI } from '../../axios-api'
                 doctors_time: [],
                 doctors: [],
                 dayValue: [
-                    {id: 1,value: "sunday", name: 'Sunday', disabled: false, flag: 0},
-                    {id: 2,value: "monday", name: 'Monday', disabled: false, flag: 0},
-                    {id: 3,value: "tuesday", name: 'Tuesday', disabled: false, flag: 0},
-                    {id: 4,value: "wednesday", name: 'Wednesday', disabled: false, flag: 0},
-                    {id: 5,value: "thursday", name: 'Thursday', disabled: false, flag: 0},
-                    {id: 6,value: "friday", name: 'Friday', disabled: false, flag: 0},
-                    {id: 7,value: "saturday", name: 'Saturday', disabled: false, flag: 0},
+                    {id: 1,value: "Sunday", name: 'Sunday', disabled: false, flag: 0},
+                    {id: 2,value: "Monday", name: 'Monday', disabled: false, flag: 0},
+                    {id: 3,value: "Tuesday", name: 'Tuesday', disabled: false, flag: 0},
+                    {id: 4,value: "Wednesday", name: 'Wednesday', disabled: false, flag: 0},
+                    {id: 5,value: "Thursday", name: 'Thursday', disabled: false, flag: 0},
+                    {id: 6,value: "Friday", name: 'Friday', disabled: false, flag: 0},
+                    {id: 7,value: "Saturday", name: 'Saturday', disabled: false, flag: 0},
                 ],
                 timeValue: [
                     {id: 1,startTime: '10:00:00',endTime: '11:00:00'},

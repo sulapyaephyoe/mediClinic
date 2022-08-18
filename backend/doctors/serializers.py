@@ -9,4 +9,4 @@ class DoctorsSerializer(serializers.ModelSerializer):
 class DoctorsHospitalsSerializer(serializers.ModelSerializer):
     class Meta:
         model = doctors_hospitals
-        fields = ('hospital_id','doctor_id','day','startTime','endTime')
+        fields = ('id','hospital_id','doctor_id','day','startTime','endTime')

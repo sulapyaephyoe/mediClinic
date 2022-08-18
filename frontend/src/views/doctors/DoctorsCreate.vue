@@ -1,5 +1,9 @@
 <template>
-    <div class="container">
+    <div class="container mt-5 mb-5">
+        <div id="alert-panel" :class="alert_class" role="alert" v-if="alert_show">
+        {{alert_message}}
+        <button type="button" class="btn-close" aria-label="Close" @click="alert_show = false"></button>
+        </div>
         <div class="row">
             <div class="col-md-6 offset-md-3">
                 <figure class="text-center">
@@ -32,7 +36,7 @@
                             </option>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-info">Submit</button>
+                    <button type="submit" class="btn-style-one">Add</button>
                 </form>
             </div>
         </div>
@@ -58,6 +62,9 @@ import { getAPI } from '../../axios-api'
                     {value: "Family Medicine", name: "Family Medicine"},
                     {value: "Internal Medicine", name: "Internal Medicine"},
                 ],
+                alert_show: false,
+                alert_message: '',
+                alert_class: '',
             }
         },
         methods:{
@@ -73,7 +80,9 @@ import { getAPI } from '../../axios-api'
                     .then(response => {
                         console.log('Success')
                         console.log(response)
-                        alert("Data Saved Successfully!")
+                        this.alert_show=true;
+                        this.alert_class = "alert alert-success alert-dismissible fade show";
+                        this.alert_message = "Data saved successfully!";  
                         this.$router.push('/doctorslist')
                     })
                     .catch(error => {
