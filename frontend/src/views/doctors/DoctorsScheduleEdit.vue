@@ -26,7 +26,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="endTime" class="form-label">End Time</label>
-                        <input type="time" class="form-control" id="endTime" v-model="endTime" required>
+                        <input type="time" class="form-control" id="endTime" v-model="endTime" :min="startTime" required>
                     </div>
                     <button type="submit" class="btn-style-one">Edit</button>
                 </form>
