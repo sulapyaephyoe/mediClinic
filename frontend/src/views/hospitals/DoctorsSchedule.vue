@@ -1,4 +1,6 @@
 <template>
+<link rel="stylesheet" href="https://unpkg.com/microtip/microtip.css" />
+
     <div class="container mt-5 mb-5">
         <div class="row justify-content-md-center">
             <div class="col col-lg-10">
@@ -17,28 +19,60 @@
                 </figure>
                 <div v-if="doctors_schedule.length != 0">
                     <div class="table-wrapper-scroll-y my-custom-scrollbar">
-                    <table class="table table-bordered shadow p-3 mb-5 bg-body rounded tblSchedule" id="MyTable">
-                        <thead>
-                            <tr>
-                                <th class="thDay"></th>
-                                <th v-for="day in dayValue" v-bind:key="day.id" class="thDay"> {{ day.name }} </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="time in dc_time" v-bind:key="time.id">
-                                <td>{{ time }}</td>
-                                <td v-for="day in dayValue" v-bind:key="day.id">
-                                    <span v-for="schedule in doctors_schedule" v-bind:key="schedule.id" class="CellWithComment">
-                                        <span
-                                            v-if="schedule.startTime + '-' + schedule.endTime == time && schedule.day == day.value"  class="CellComment">
-                                            {{ schedule.firstName }} {{ schedule.lastName }}<br>
-                                            <p class="font-monospace">({{ schedule.specialist }})</p>
+                        <table class="table table-bordered shadow p-3 mb-5 bg-body rounded tblSchedule">
+                            <thead>
+                                <tr>
+                                    <th class="thDay"></th>
+                                    <th v-for="day in dayValue" v-bind:key="day.id" class="thDay"> {{ day.name }} </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="time in dc_time" v-bind:key="time.id">
+                                    <td>{{ time }}</td>
+                                    <td v-for="day in dayValue" v-bind:key="day.id" @click="detailPage(time, day)"
+                                        id="hello">
+                                        
+                                        <span v-for="schedule in doctors_schedule" v-bind:key="schedule.id">
+                                            <span
+                                            v-if="schedule.startTime + '-' + schedule.endTime == time && schedule.day == day.value">
+                                            <!-- <button type="button" data-toggle="modal" data-target="#exampleModalLong" v-if="schedule.startTime + '-' + schedule.endTime == time && schedule.day == day.value" style="background:#d2d9de;width: 23px;border: none;height: 18px;">
+                                            </button> -->
+                                            <button
+                                                v-bind:aria-label="schedule.firstName+' '+schedule.lastName+'\r('+schedule.specialist+')'" class="aria-label"
+                                                data-microtip-position="bottom" 
+    
+                                                role="tooltip" style="width: 120px;white-space: nowrap !important;margin-bottom: 2px;border-radius: 6px;" >
+                                                {{schedule.firstName}} {{schedule.lastName}}
+                                            </button>
+                                            </span>
                                         </span>
-                                    </span>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                      
+                                        <!-- Button trigger modal -->
+                                    </td>
+                                     <!-- Modal -->
+                                        <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog"
+                                            aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLongTitle">Doctor Lists</h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close" @click="close()" style="background: #48bdc5;border: 1px solid #48bdc5;">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">                                                     
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal" @click="close()" style="background: #48bdc5;border: 1px solid #48bdc5;">Close</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
                 <div v-if="doctors_schedule.length == 0">
@@ -111,7 +145,7 @@ export default {
                             this.hospital_info = hospital
                         }
                     }
-                    console.log(this.hospital_info.name)
+                    // console.log(this.hospital_info.name)
                 })
                 .catch(error => {
                     console.log('Fail')
@@ -127,9 +161,28 @@ export default {
                 })
         },
         changeSchedule: function (event) {
-            console.log(event.target.selectedOptions[0].value)
+            // console.log(event.target.selectedOptions[0].value)
             window.location.href = ('/hospitals/schedule_list/' + event.target.selectedOptions[0].value)
+        },
+        detailPage(time, day) {
+            var startTime = time.split('-')[0]
+            var endTime = time.split('-')[1]
+            var text = document.getElementsByClassName('modal-body')
+            for (var ds of this.doctors_schedule) {
+                if (ds.startTime == startTime && ds.endTime == endTime) {
+                    if (day.name == ds.day) {
+                        // console.log(ds.firstName + ds.lastName + ds.specialist)
+                        text[0].innerHTML += ds.firstName+' '+ds.lastName+'<br>('+ds.specialist+')<br>'
+                    }
+                }
+            }
+        },
+        close(){
+           var body = document.getElementsByClassName('modal-body')
+           body[0].innerHTML = ''
+           console.log(body)
         }
+
     }
 }
 </script>
@@ -181,4 +234,30 @@ export default {
 .table-wrapper-scroll-y {
     display: block;
 } */
+.CellWithComment {
+    position: relative;
+}
+
+.CellComment {
+    visibility: hidden;
+    width: auto;
+    position: absolute;
+    z-index: 100;
+    text-align: Left;
+    opacity: 0.4;
+    transition: opacity 2s;
+    border-radius: 6px;
+    background-color: #555;
+    padding: 3px;
+    top: -30px;
+    left: 0px;
+}
+
+.CellWithComment:hover span.CellComment {
+    visibility: visible;
+    opacity: 1;
+}
+.btn{
+    width: 120px;overflow: hidden !important;white-space: nowrap !important;margin-bottom: 2px;border-radius: 6px;
+}
 </style>

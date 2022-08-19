@@ -73,7 +73,7 @@
               <div class="col-6">
                 <!-- <h3 class="mb-3">Carousel cards title </h3> -->
               </div>
-              <div class="col-6 text-right">
+              <!-- <div class="col-6 text-right">
                 <a class="btn btn-secondary mb-3 mr-1" href="#carouselExampleIndicators2" role="button"
                   data-slide="prev" id="btn-color">
                   <i class="bi bi-arrow-left"></i>
@@ -82,58 +82,24 @@
                   id="btn-color">
                   <i class="bi bi-arrow-right"></i>
                 </a>
-              </div>
-              <div class="col-12">
-                <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
+              </div> -->
+              <div class="container marketing">
 
-                  <div class="carousel-inner">
-                    <div class="carousel-item active">
-                      <div class="row">
-
-                        <div class="col-md-4 mb-3" v-for="hospital in hospitals"
-                        v-bind:key="hospital.id">
-                          <div class="card">
-                            <img alt="100%x280" height="200" src="@/assets/images/hospital1.jpg">
-                            <div class="card-body">
-                              <h4 class="card-title">{{hospital.name}}</h4>
-                              <p class="card-text">Your healthy life is our mission. You can enquery us about our
-                                services
-                                and packages.</p>
-                              <p>
-                                <router-link to='/hospitals/view-hospital' class="btn btn-secondary" @click="setHID(3)"
-                                  id="btn-color">
-                                  View
-                                  details &raquo;</router-link>
-                              </p>
-                            </div>
-
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="carousel-item">
-                      <div class="row">
-                        <div class="col-md-4 mb-3" v-for="hospital in hospitals"
-                        v-bind:key="hospital.id">
-                          <div class="card">
-                            <img alt="100%x280" height="200" src="@/assets/images/hospital1.jpg">
-                            <div class="card-body">
-                              <h4 class="card-title">{{hospital.name}}</h4>
-                              <p class="card-text">Your healthy life is our mission. You can enquery us about our
-                                services
-                                and packages.</p>
-                              <p>
-                                <router-link to='/hospitals/view-hospital' class="btn btn-secondary" @click="setHID(3)"  id="btn-color">
-                                  View
-                                  details &raquo;</router-link>
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div> 
-                  </div>
-                </div>
+                <!-- Three columns of text below the carousel -->
+                <div class="row circlepattern">
+                  <div class="col-lg-4" v-for="ph in photo" v-bind:key="ph.id">
+                    <!-- <img class="bd-placeholder-img rounded-circle" width="140" height="140"
+                      src="@/assets/images/hospital1.jpg" /> -->
+                      <!-- <div class="photo"></div> -->
+                      <img :src=ph.photo width="140" height="140" class="bd-placeholder-img rounded-circle">
+                            <h3>{{ph.name}}</h3>
+                            <p>Your healthy life is our mission. You can enquery us about our services and packages.</p>
+                            <p>
+                              <router-link to='/hospitals/view-hospital' class="btn btn-secondary" @click="setHID(3)" style="background: #48bdc5;border: 1px solid #48bdc5;">View
+                                details &raquo;</router-link>
+                            </p>
+                  </div><!-- /.col-lg-4 -->
+                </div><!-- /.row -->
               </div>
             </div>
           </div>
@@ -149,7 +115,8 @@ export default {
   name: 'HomePage',
   data() {
     return {
-      hospitals: []
+      hospitals: [],
+      photo: []
     }
   },
   mounted() {
@@ -159,24 +126,39 @@ export default {
     setHID(hid) {
       localStorage.setItem('hid', hid)
     },
-     async getHospitals(){
-        getAPI
+    async getHospitals() {
+      getAPI
         .get('hospitals/hospitalslist')
         .then(response => {
-            this.hospitals=response.data
-            console.log(this.hospitals)
+          this.hospitals = response.data
+          console.log(this.hospitals)
+          for(var hpphoto of this.hospitals){
+            // this.photo = hpphoto
+            var str ='http://localhost:8000'+hpphoto.photo
+            hpphoto['photo'] = str
+            console.log("0000"+hpphoto)
+            this.photo.push(hpphoto)
+            console.log("====="+this.photo)
+          }
+          // const img = document.createElement('img')
+          // img.setAttribute('src', 'http://127.0.0.1:8000' + response.data[0].photo)
+          // img.setAttribute('class', 'bd-placeholder-img rounded-circle')
+          // img.style.width = '140px'
+          // img.style.height = '140px'
+          // document.getElementsByClassName('photo')[0].appendChild(img)
+          
         })
         .catch(error => {
-            console.log('Fail')
-            if(error.response) {
-                for( const property in error.response.data) {
-                    this.errors.push(`${property}: ${error.response.data[property]}`)
-                }
-            } 
-            else if(error.message) {
-                this.errors.push('Something went wrong. Please Try Again')
-                console.log(error.message)
+          console.log('Fail')
+          if (error.response) {
+            for (const property in error.response.data) {
+              this.errors.push(`${property}: ${error.response.data[property]}`)
             }
+          }
+          else if (error.message) {
+            this.errors.push('Something went wrong. Please Try Again')
+            console.log(error.message)
+          }
         })
     }
   }
