@@ -16,7 +16,6 @@ from django.core import serializers
 def get_specialists(request):
     if request.method == 'GET':
         doctor_data = doctors.objects.values('specialist').distinct()
-        print('--------------------',doctor_data)
         return Response(doctor_data)
     return Response({"errors":'error returned'})
 

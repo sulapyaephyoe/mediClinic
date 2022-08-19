@@ -1,9 +1,8 @@
 
 <template>
-<div class="class">
+<div id="app" class="class">
   <FullCalendar :options="calendarOptions" />
-  <span class="displayText" id="displayText">Hi I am ToolTip</span>
-</div>
+ </div>
 </template>
 <script>
 import '@fullcalendar/core/vdom' // solves problem with Vite
@@ -15,15 +14,18 @@ import interactionPlugin from '@fullcalendar/interaction'
 import { getAPI } from '../../axios-api'
 
 export default {
+  el: '#app',
   components: {
     FullCalendar
   },
   data() {
     return {
+      clickFlag: false,
       calendarOptions: {
         plugins: [ dayGridPlugin, timeGridPlugin, interactionPlugin ],
         initialView: 'dayGridMonth',
         eventClick: this.showEventClick,
+        dateClick: this.clearElement,
         events: [{'title': 'hello','daysOfWeek': [0]}],
         headerToolbar: {
           left: "prev,next today",
@@ -34,6 +36,10 @@ export default {
     }
   },
   beforeCreate() {
+  },
+  mounted: function () {
+    //this.$el.addEventListener('click', this.clearElement)
+    setTimeout(this.clearElement, 5000);  
   },
   created() {
     this.detail_specialist('Dermatology')
@@ -57,12 +63,18 @@ export default {
       this.join_data.forEach(element => {
         let doctor = this.doctor_data.find(x => x.id === element.doctor_id)
         let hospital = this.hospital_data.find(x => x.id === element.hospital_id)
-        let content = "Dr."+ doctor.firstName + " " + doctor.lastName + " \r\nAt " + hospital.name + "hospital."
+        // let content = "Dr."+ doctor.firstName + " " + doctor.lastName + " At " + hospital.name + " hospital."
+        let content = hospital.name
         let k = this.dayKey(element.day)   
         this.calendarOptions.events = [ 
           ...this.calendarOptions.events, {
             title: content, 
-            daysOfWeek: [k]
+            daysOfWeek: [k],
+            startTime: element.startTime,
+            endTime: element.endTime,
+            extendedProps: {
+              dname: "Dr."+ doctor.firstName + " " + doctor.lastName
+            },
           }
         ];
       });     
@@ -83,42 +95,47 @@ export default {
     },
 
     showEventClick(arg) {
-      console.log(arg.event.title)
-      var popup = document.getElementById("displayText");
-      popup.classList.toggle("show");
+      this.clearElement();
+      var btn = document.createElement("button");
+      btn.id = "btnClick"  // background-color: #e1bc99;
+      btn.setAttribute(
+        'style',
+        `position: absolute; 
+        left: ${arg.jsEvent.pageX}px !important; 
+        top: ${arg.jsEvent.pageY}px !important;
+        width: 200px;
+        height: 100px;
+        z-index: 1;
+        background-color: #fcdbbc;
+        color: black;
+        text-align: center;
+        border-radius: 6px;
+        border: 2px solid #e7e7e7;
+        `,
+      );  
+      btn.innerHTML = arg.event.title+"<br>"+arg.event.extendedProps.dname;  
+      document.body.appendChild(btn);  
     },
+    clearElement() {
+      if (document.contains(document.getElementById("btnClick"))) {
+        document.getElementById("btnClick").remove();
+      }
+    }
   }
 }
 </script>
 <style scoped>
-.class {
--webkit-user-select: none;
-position: relative;
-}
 .displayText {
-position: absolute;
-bottom: -230%;
-left: 50%;
-margin-left: -80px;
-width: 160px;
-background-color: aqua;
-color: #fff;
-color: red;
-text-align: center;
-border-radius: 6px;
-padding: 8px 0;
-visibility: hidden;
+  background-color: blue !important;
 }
-.displayText::before {
-content: "";
-border-width: 5px;
-border-style: solid;
-top: -28%;
-left: 45%;
-border-color: transparent transparent yellow transparent;
-position: absolute;
+.container {
+  position: relative !important;
+  max-width: 1100px;
+  margin: 0 auto;
 }
-.show {
-visibility: visible;
+.fc {
+  /* the calendar root */
+  max-width: 1100px;
+  margin: 0 auto;
 }
 </style>

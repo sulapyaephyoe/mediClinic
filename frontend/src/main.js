@@ -21,6 +21,6 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 library.add(faUserSecret)
 
-import VTooltip from 'v-tooltip'
 
-createApp(App).component('font-awesome-icon', FontAwesomeIcon).use(VTooltip).use(store).use(router).mount('#app')
+
+createApp(App).component('font-awesome-icon', FontAwesomeIcon).use(store).use(router).mount('#app')
