@@ -5,7 +5,7 @@
  </div>
 </template>
 <script>
-import '@fullcalendar/core/vdom' // solves problem with Vite
+import '@fullcalendar/core/vdom'
 import FullCalendar from '@fullcalendar/vue3'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -26,7 +26,7 @@ export default {
         initialView: 'dayGridMonth',
         eventClick: this.showEventClick,
         dateClick: this.clearElement,
-        events: [{'title': 'hello','daysOfWeek': [0]}],
+        events: [{'title': '','daysOfWeek': []}],
         headerToolbar: {
           left: "prev,next today",
           center: "title",
