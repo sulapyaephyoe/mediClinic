@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container mt-5 mb-5">
         <div class="row">
             <div class="col-md-6 offset-md-3">
                 <figure class="text-center">
@@ -28,7 +28,7 @@
                         <label for="endTime" class="form-label">End Time</label>
                         <input type="time" class="form-control" id="endTime" v-model="endTime" :min="startTime" required>
                     </div>
-                    <button type="submit" class="btn btn-info">Submit</button>
+                    <button type="submit" class="btn-style-one">Edit</button>
                 </form>
             </div>
         </div>

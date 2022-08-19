@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container mt-5 mb-5">
         <div class="row">
             <div class="col-md-6 offset-md-3">
                 <figure class="text-center">
@@ -32,7 +32,7 @@
                             </option>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-info">Submit</button>
+                    <button type="submit" class="btn-style-one">Edit</button>
                 </form>
             </div>
         </div>

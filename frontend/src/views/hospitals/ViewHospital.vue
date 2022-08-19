@@ -1,43 +1,12 @@
 <template>
-    <!-- <div class="d-flex" id="wrapper">
-    <div class="border-end bg-white" id="sidebar-wrapper">
-        <div class="list-group list-group-flush">
-            <select v-model="name" @change="choosedHName($event)" class="form-control mt-2" id="select" required >
-                <option value="" disabled selected>Choose Hospital</option>
-                <option
-                    v-for="l in list" 
-                    v-bind:key="l.id"
-                    v-bind:value="l.name" id="mySelect"
-                >
-                    {{ l.name }}
-                </option>
-            </select>
-            <div class="card mt-4 ml-2"  id="card">
-                <div class="card-body">
-                    <div id="photo"></div>
-                    <h6 class="card-subtitle mb-2 text-muted mt-2" id="hospitalname"></h6>
-                    <p class="card-text" id="hospitalphone"></p>
-                    <a class="card-text" id="hospitalwebsite" target="_blank"></a>
-                    <p class="card-text" id="hospitaltype"></p>
-                </div>
-            </div>
-            <video width="400" height="350" controls id="video" class="mb-5 ml-2"></video>   
-        </div>
-    </div>
-    <div id="page-content-wrapper">
-        <div class="container-fluid">
-            <div id="showmap"></div>
-        </div>
-    </div>
-</div>  -->
     <div class="container">
         <div class="columns is-multiline">
             <div class="column is-12">
                 <div class="row mt-5">
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="select">
-                            <select v-model="name" required @change="choosedHName($event)" class="form-control">
-                                <option value="" disabled selected>Choose Hospital</option>
+                            <select v-model="name" class="form-select rounded-pill" @change="choosedHName($event)" style="    background-color: rgb(245, 242, 242);width: 220px;" required>
+                                <option disabled value="">Please select hospital</option>
                                 <option v-for="l in list" v-bind:key="l.id" v-bind:value="l.name" selected
                                     id="mySelect">
                                     {{ l.name }}
@@ -95,9 +64,28 @@ export default {
             .then(response => {
                 this.map_data = response.data
                 this.list = response.data.list
-                document.getElementById('showmap').style.display = 'none'
-                document.getElementById('card').style.display = 'none'
-                document.getElementById('video').style.display = 'none'
+                document.getElementById('showmap').innerHTML = response.data.map
+
+                const i = 0
+                document.getElementById('hospitalname').innerHTML = response.data.list[i].name
+                document.getElementById('hospitalphone').innerHTML = response.data.list[i].phone
+                document.getElementById('hospitalwebsite').innerHTML = response.data.list[i].website
+                document.getElementById('hospitaltype').innerHTML = response.data.list[i].type
+
+                // show photo
+                const img = document.createElement('img')
+                img.setAttribute('src', 'http://127.0.0.1:8000' + response.data.list[i].photo)
+                img.setAttribute('class', 'img-fluid rounded-start')
+                img.style.width = '395px'
+                img.style.height = '250px'
+                document.getElementById('photo').appendChild(img)
+                // show video
+                const video = document.getElementById('video')
+                video.setAttribute('src', 'http://127.0.0.1:8000' + response.data.list[i].video)
+
+                const link = document.getElementById('hospitalwebsite')
+                link.href = response.data.list[i].website
+                link.innerHTML = link
             })
             .catch(err => {
                 console.log(err)
@@ -111,40 +99,35 @@ export default {
             getAPI.post('/hospitals/get_map', {
                 name: event.target.value
             })
-                .then(response => {
-                    this.map_data = response.data
-                    document.getElementById('card').style.display = 'block'
-                    document.getElementById('video').style.display = 'block'
-                    document.getElementById('photo').style.display = 'block'
-                    document.getElementById('showmap').style.display = 'block'
-                    document.getElementById('showmap').innerHTML = response.data.map
+            .then(response => {
+                this.map_data = response.data
+                document.getElementById('showmap').innerHTML = response.data.map
 
+                for (var i = 0; i < response.data.hospital_data.length; i++) {
+                    document.getElementById('hospitalname').innerHTML = response.data.hospital_data[i].name
+                    document.getElementById('hospitalphone').innerHTML = response.data.hospital_data[i].phone
+                    document.getElementById('hospitalwebsite').innerHTML = response.data.hospital_data[i].website
+                    document.getElementById('hospitaltype').innerHTML = response.data.hospital_data[i].type
 
-                    for (var i = 0; i < response.data.hospital_data.length; i++) {
-                        document.getElementById('hospitalname').innerHTML = response.data.hospital_data[i].name
-                        document.getElementById('hospitalphone').innerHTML = response.data.hospital_data[i].phone
-                        document.getElementById('hospitalwebsite').innerHTML = response.data.hospital_data[i].website
-                        document.getElementById('hospitaltype').innerHTML = response.data.hospital_data[i].type
+                    // show photo
+                    const img = document.createElement('img')
+                    img.setAttribute('src', 'http://127.0.0.1:8000' + response.data.hospital_data[i].photo)
+                    img.setAttribute('class', 'img-fluid rounded-start')
+                    img.style.width = '395px'
+                    img.style.height = '250px'
+                    document.getElementById('photo').appendChild(img)
+                    // show video
+                    const video = document.getElementById('video')
+                    video.setAttribute('src', 'http://127.0.0.1:8000' + response.data.hospital_data[i].video)
 
-                        // show photo
-                        const img = document.createElement('img')
-                        img.setAttribute('src', 'http://127.0.0.1:8000' + response.data.hospital_data[i].photo)
-                        img.setAttribute('class', 'img-fluid rounded-start')
-                        img.style.width = '395px'
-                        img.style.height = '250px'
-                        document.getElementById('photo').appendChild(img)
-                        // show video
-                        const video = document.getElementById('video')
-                        video.setAttribute('src', 'http://127.0.0.1:8000' + response.data.hospital_data[i].video)
-
-                        const link = document.getElementById('hospitalwebsite')
-                        link.href = response.data.hospital_data[i].website
-                        link.innerHTML = link
-                    }
-                })
-                .catch(err => {
-                    console.log(err)
-                })
+                    const link = document.getElementById('hospitalwebsite')
+                    link.href = response.data.hospital_data[i].website
+                    link.innerHTML = link
+                }
+            })
+            .catch(err => {
+                console.log(err)
+            })
         }
     }
 }
@@ -166,5 +149,8 @@ ul li:hover {
 #select {
     width: 420px;
     margin-left: 7px;
+}
+#showmap{
+    height: 500px;
 }
 </style>

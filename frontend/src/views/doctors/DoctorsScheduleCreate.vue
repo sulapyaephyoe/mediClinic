@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container mt-5 mb-5">
         <div class="row">
             <div class="col-md-8 offset-md-2">
                 <figure class="text-center">
@@ -52,7 +52,7 @@
                                         <td>
                                             <div class="input-group input-group-sm mb-3">
                                                 <span class="input-group-text" id="inputGroup-sizing-sm">End Time</span>
-                                                <input type="time" class="form-control" id="endTime" v-model="values['endTime-'+key+','+day]" :min="values['startTime-'+key+','+day]" required>
+                                                <input type="time" class="form-control" id="endTime" v-model="values['endTime-'+key+','+day]" required>
                                             </div>
                                         </td>
                                         <td class="tdAdd">
@@ -83,8 +83,8 @@
                         </tr>
                     </table>
                     <div class="col-12">
-                        <button type="submit" class="btn btn-info">Submit</button>
-                        <!-- <a href="#" @click="submitII">Console</a> -->
+                        <button type="submit" class="btn-style-one">Add</button>
+                        <!-- <a href="#" @click="submit">Console</a> -->
                     </div>
                 </form>
             </div>
@@ -128,8 +128,8 @@ import { getAPI } from '../../axios-api'
             }
         },
         mounted() {
-            this.getDoctor();
-            this.getHospital();
+            this.getDoctor()
+            this.getHospital()
         },
         methods: {
             async getDoctor() {
@@ -322,20 +322,6 @@ import { getAPI } from '../../axios-api'
                     }
                 }
             },
-            // submitII: function() {
-            //     for (var x of this.items) {
-            //         for(var y of this.sample[x]) {
-            //             console.log(y)
-            //             for (var key of Object.keys(this.values)) {
-            //                 console.log(key+'->'+this.values[key])
-            //                 var a = key.length-3
-            //                 var b = key.length-1
-            //                 if(key[a] == x && key[b] == y) {
-            //                 }
-            //             }
-            //         }
-            //     }
-            // }
         }
     }
 </script>
