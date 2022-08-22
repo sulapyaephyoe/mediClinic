@@ -2,8 +2,6 @@ import { createRouter, createWebHistory } from "vue-router";
 // import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import AddHospital from "./views/hospitals/AddHospital";
 import ViewHospital from "./views/hospitals/ViewHospital";
-import HospitalsScheduleList from './views/hospitals/HospitalsScheduleList.vue'
-import DoctorsSchedule from './views/hospitals/DoctorsSchedule.vue'
 import DoctorsCreate from './views/doctors/DoctorsCreate.vue'
 import DoctorsEdit from './views/doctors/DoctorsEdit.vue'
 import DoctorsScheduleCreate from './views/doctors/DoctorsScheduleCreate.vue'
@@ -20,6 +18,8 @@ import UsersConfirmCode from "./views/users/UsersConfirmCode.vue";
 import TimeTable from "./views/schedules/TimeTable.vue";
 import HomePage from "./views/HomePage.vue";
 import store from '@/store'
+import BookingCreate from './views/booking/BookingCreate.vue'
+import BookingList from './views/booking/BookingList.vue'
 
 const routes = [
     {
@@ -88,7 +88,6 @@ const routes = [
         name: 'DoctorsScheduleEditList',
         component: DoctorsScheduleEditList, 
     },
-    
     {
         path: '/schedule_edit_list/edit/:doctorid/:scheduleid',
         name: 'DoctorsScheduleEdit',
@@ -98,11 +97,18 @@ const routes = [
         path: "/login",
         name: "UsersLogin",
         component: UsersLogin,
+        path: '/booking',
+        name: 'BookingCreate',
+        component: BookingCreate, 
     },
     {
         path: "/users/users_create",
         name: "UsersCreate",
         component: UsersCreate,
+	},
+        path: '/bookinglist',
+        name: 'BookingList',
+        component: BookingList, 
     },
     {
         path: "/users/forgetPassword",

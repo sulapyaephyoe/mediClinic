@@ -10,8 +10,11 @@
                     </option>
                 </select>
                 <div class=".col-md-3 .offset-md-3 linkSchedule">
+                    <router-link :to="{ name: 'DoctorsScheduleCreate', param: { id : doctor_info.id }}" class="btn btn-light form-control rounded-pill">Add New Schedule</router-link>
+                    <!-- <router-link :to="{ name: 'DoctorsScheduleEditList', param: { id : doctor_info.id }}" class="btn btn-light" ><i class="bi bi-calendar2-plus"></i></router-link> -->
                     <router-link :to="{ name: 'DoctorsScheduleCreate', param: { id : doctor_info.id }}" class="btn btn-light">Add New Schedule</router-link>
                     <!-- <router-link :to="{ name: 'DoctorsScheduleEditList', param: { id : doctor_info.id }}" class="btn btn-light" ><i class="bi bi-calendar2-plus"></i></router-link> -->
+                    <router-link :to="{ name: 'DoctorsScheduleCreate', param: { id : doctor_info.id }}" class="btn btn-light form-control rounded-pill">Add New Schedule</router-link>
                 </div>
                 <figure class="text-center">
                     <h3>{{doctor_info.firstName}}{{doctor_info.lastName}}'s Schedule List</h3>
@@ -22,14 +25,13 @@
                             <th class="thDay"></th>
                             <th v-for="day in dayValue"
                             v-bind:key="day.id"
-                            class="thDay"
-                            > {{ day.name }} </th>
+                            class="thDay"> {{ day.name }} </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr v-for="time in doctors_time" v-bind:key="time.id">
-                            <td>{{time}}</td>
-                            <td v-for="day in dayValue" v-bind:key="day.id">
+                            <td class="tdDay">{{time}}</td>
+                            <td v-for="day in dayValue" v-bind:key="day.id" class="tdDay">
                                 <span v-for="schedule in doctors_schedule" v-bind:key="schedule.id">
                                     <span v-if="schedule.startTime+'-'+schedule.endTime == time && schedule.day == day.value">
                                     {{schedule.hospital_name}}<br>
@@ -82,20 +84,15 @@ import { getAPI } from '../../axios-api'
                     .then(response => {
                         console.log(response)
                         this.doctors_schedule=response.data[0]
-                        console.log(this.doctors_schedule)
                         for(var ds of this.doctors_schedule){
                             this.doctors_time.push(ds.startTime+'-'+ds.endTime)
                         }
-                        console.log(this.doctors_time)
-
                         this.doctors = response.data[1]
-                        console.log(this.doctors)
                         for(var doctor of this.doctors){
                             if(doctor.id == doctorID){
                                 this.doctor_info=doctor
                             }
                         }
-                        console.log(this.doctor_info)
                     })
                     .catch(error => {
                         console.log('Fail')
@@ -130,7 +127,8 @@ import { getAPI } from '../../axios-api'
 }
 .tblSchedule td{
     text-align: center;
-    padding-top: 3%;
+    padding-top: 2%;
+    padding-bottom: 0%;
 }
 
 .form-select{
@@ -143,7 +141,7 @@ import { getAPI } from '../../axios-api'
 }
 .thDay{
     width: 10%;
-    background-color: rgb(239, 229, 249);
+    background-color: rgb(228, 227, 227);
 }
 .linkSchedule {
     margin-left: 80%;
