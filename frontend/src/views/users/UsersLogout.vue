@@ -1,35 +1,4 @@
 <template>
-    <div id="alert-panel" :class="alert_class" role="alert" v-if="alert_show">
-        {{ alert_message }}
-        <button type="button" class="btn-close" aria-label="Close" @click="alert_show = false"></button>
-    </div>
-    <div class="container mt-5 mb-5">
-        <form class="row justify-content-center g-2 form-layout" @submit.prevent="submitForm">
-            <h3 class="text-center mt-3 mb-5">LogIn your account</h3>
-            <div class="row justify-content-center mb-2 ">
-                <div class="col-sm-2 mb-5">
-                    <label for="username">Username</label>
-                </div>
-                <div class="col-sm-3">
-                    <input type="text" class="form-control" name="userName" id="userName" placeholder="Username" v-model="username">
-                </div>
-            </div>
-            <div class="row justify-content-center mb-2">
-                <div class="col-sm-2 mb-5">
-                    <label for="email">Password</label>
-                </div>
-                <div class="col-sm-3">
-                    <input type="password" class="form-control" name="password" id="pwd" placeholder="Password" v-model="password">
-                </div>
-            </div>
-            <div class="row justify-content-center mb-2">
-                <div class="col-auto link-btn"><button type="submit" class="btn-style-one mb-3 mt-3">Login</button></div>
-            </div>
-        </form>
-        <div class="text-center fs-6">
-            <router-link to="/users/forgetPassword" id="text-color">Forget password?</router-link> or <router-link to="/users/users_create" id="text-color">Sign Up</router-link>
-        </div>
-    </div>
 </template>
 
 <script>

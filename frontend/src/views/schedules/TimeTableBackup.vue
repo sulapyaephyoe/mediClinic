@@ -63,8 +63,7 @@ export default {
         }
     },
     created() {
-        this.get_specialist()
-    
+        this.get_specialist() 
     },
     methods: {
        get_specialist(){

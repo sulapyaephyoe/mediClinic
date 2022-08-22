@@ -141,12 +141,17 @@
       </div>
     </div>
   </section>
+  <ContactUs />
 </template>
     
 <script>
 import { getAPI } from '../axios-api'
+import ContactUs from '@/components/ContactusComponent';
 export default {
   name: 'HomePage',
+  components: {
+    ContactUs
+   },
   data() {
     return {
       hospitals: []
@@ -284,7 +289,6 @@ textarea {
   color: #fff;
   text-decoration: none;
 }
-
 
 hr {
   border-color: rgba(255, 255, 255, .6);

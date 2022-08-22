@@ -7,9 +7,6 @@
     <div class="container mt-5 mb-5">
        
         <form class="row justify-content-center g-2 form-layout" @submit.prevent="submitForm">
-         <!-- <div class="mt-5">
-            <span class="lock-icon"><i class="bi bi-lock-fill"></i></span>
-        </div> -->
         <div class="row mb-3">
             <label for="password"><h2 class="text-center mb-2">Forgot Password?</h2></label>
             <label for="password" class="text-center">You can reset you password here.</label>
