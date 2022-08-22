@@ -11,6 +11,7 @@ from users.utils import Util
 from django.contrib.sites.shortcuts import get_current_site
 from django.urls import reverse
 from django.contrib.auth.hashers import make_password
+from rest_framework.response import Response
 
 import random
 
@@ -55,19 +56,18 @@ def reset_password(request):
 
 def password_mail_send(email, user):
     data_bytes = email.encode("utf-8")
-    #data_bytes = smart_bytes(email)
     uidb64 = urlsafe_base64_encode(data_bytes)
-    # token = PasswordResetTokenGenerator().make_token(user)
     token = random.randint(100000,999999)
-    print('-----token-------', token)
-    # relativeLink = reverse('resetPassword', kwargs={'uidb64': uidb64, 'token': token})
-    # redirect_url = request.data.get('redirect_url', '')
-    # absurl = 'http://'+current_site + relativeLink
-    # absurl = 'http://'+current_site
+
     rel_link = "http://localhost:8080/users/forgetPassword"
     # print ('--absurl--',absurl)
     email_body = 'From Mediclinc OJT \n Please use the following code to reset your password '+ str(token)
-    data = {'email_body': email_body, 'to_email': user.email, 'email_subject': 'Reset your passsword'}
+    data = {'email_subject': 'Reset your passsword', 'email_body': email_body, 'to_email': user.email}
     Util.send_email(data)
     return str(token)
-# return Response({'success': 'We have sent you a link to reset your password'}, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def contact_mail_send(request):
+    data = {'email_subject':'Contact Inqury from '+request.data['email'],'to_email': 'ecctester2222@gmail.com','email_body':request.data['message']}
+    Util.send_email(data)
+    return Response('success')

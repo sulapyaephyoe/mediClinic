@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
-// import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+import HospitalsScheduleList from "./views/hospitals/HospitalsScheduleList";
+import DoctorsSchedule from "./views/hospitals/DoctorsSchedule";
 import AddHospital from "./views/hospitals/AddHospital";
 import ViewHospital from "./views/hospitals/ViewHospital";
 import DoctorsCreate from './views/doctors/DoctorsCreate.vue'
@@ -97,6 +98,8 @@ const routes = [
         path: "/login",
         name: "UsersLogin",
         component: UsersLogin,
+    },
+    {
         path: '/booking',
         name: 'BookingCreate',
         component: BookingCreate, 
@@ -106,6 +109,7 @@ const routes = [
         name: "UsersCreate",
         component: UsersCreate,
 	},
+    {
         path: '/bookinglist',
         name: 'BookingList',
         component: BookingList, 

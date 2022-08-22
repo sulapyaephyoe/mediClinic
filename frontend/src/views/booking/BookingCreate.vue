@@ -59,7 +59,7 @@
     </div>
     <div v-if="paidFor">
       <p class="fs-3 text-center">Your Booking Is Complete</p>
-      <router-link :to="{ name: 'BookingCreate'}" class="btn btn-light" >Back</router-link>
+      <router-link :to="{ name: 'HomePage'}" class="btn btn-light" >Back</router-link>
     </div>
   </div>
 </template>

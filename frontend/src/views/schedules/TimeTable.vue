@@ -1,7 +1,13 @@
-
 <template>
-<div id="app" class="class">
+<div id="app" class="class"> 
+  <div class="dropdown">
+    <select class="form-select rounded-pill" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" @change="detail_specialist($event)">
+      <option disabled value="" selected>Please select specialist</option>
+      <option v-for="data in specialist_data" v-bind:key="data.specialist">{{data.specialist}}</option>
+    </select>
+  </div>
   <FullCalendar :options="calendarOptions" />
+  <br><br>
  </div>
 </template>
 <script>
@@ -20,7 +26,11 @@ export default {
   },
   data() {
     return {
-      clickFlag: false,
+      specialist_data: [],
+      join_data: [],
+      doctor_data: [],
+      hospital_data: [],
+
       calendarOptions: {
         plugins: [ dayGridPlugin, timeGridPlugin, interactionPlugin ],
         initialView: 'dayGridMonth',
@@ -38,15 +48,26 @@ export default {
   beforeCreate() {
   },
   mounted: function () {
-    //this.$el.addEventListener('click', this.clearElement)
-    setTimeout(this.clearElement, 5000);  
+    setTimeout(this.clearElement, 10000);  
   },
   created() {
-    this.detail_specialist('Dermatology')
+    this.get_specialist();
   },
   methods: {
-
-    detail_specialist(sname){
+    get_specialist() {
+      getAPI.get('schedule/get_specialists')
+      .then(response => {
+          this.specialist_data=response.data
+          console.log(this.specialist_data)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    },
+    
+    detail_specialist(event) {
+      let sname = event.target.selectedOptions[0].value
+      this.calendarOptions.events = [{}]
       getAPI.get(`schedule/get_schedule_data/${sname}`)
       .then(response => {
         this.join_data = response.data.join_data
@@ -63,7 +84,6 @@ export default {
       this.join_data.forEach(element => {
         let doctor = this.doctor_data.find(x => x.id === element.doctor_id)
         let hospital = this.hospital_data.find(x => x.id === element.hospital_id)
-        // let content = "Dr."+ doctor.firstName + " " + doctor.lastName + " At " + hospital.name + " hospital."
         let content = hospital.name
         let k = this.dayKey(element.day)   
         this.calendarOptions.events = [ 
@@ -73,7 +93,7 @@ export default {
             startTime: element.startTime,
             endTime: element.endTime,
             extendedProps: {
-              dname: "Dr."+ doctor.firstName + " " + doctor.lastName
+              dname: "Dr."+ doctor.firstName + " " + doctor.lastName + "<br>from " + element.startTime + " to " + element.endTime
             },
           }
         ];
@@ -113,6 +133,7 @@ export default {
         border: 2px solid #e7e7e7;
         `,
       );  
+      console.log(arg.event)
       btn.innerHTML = arg.event.title+"<br>"+arg.event.extendedProps.dname;  
       document.body.appendChild(btn);  
     },
@@ -125,6 +146,9 @@ export default {
 }
 </script>
 <style scoped>
+.dropdown {
+  margin: 20px 20px 40px 210px;
+}
 .displayText {
   background-color: blue !important;
 }
@@ -137,5 +161,9 @@ export default {
   /* the calendar root */
   max-width: 1100px;
   margin: 0 auto;
+}
+.form-select {
+  background-color: rgb(245, 242, 242);
+  width: 20%;
 }
 </style>

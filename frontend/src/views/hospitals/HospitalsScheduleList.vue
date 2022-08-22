@@ -81,18 +81,6 @@
                     .then(response => {
                         console.log(response)
                        this.hospitals = response.data[1]
-                        // this.doctors_schedule=response.data[0]
-                        // console.log(this.doctors_schedule)
-                        // for(var ds of this.doctors_schedule) {
-                        //     this.doctors_time.push(ds.startTime+'-'+ds.endTime)
-                        // }
-                        // this.doctors = response.data[1]
-                        // console.log(this.doctors)
-                        // for(var doctor of this.doctors) {
-                        //     if( doctor.firstName == this.doctors_schedule[0].name) {
-                        //         this.doctor_info=doctor
-                        //     }
-                        // }
                     })
                     .catch(error => {
                         console.log('Fail')

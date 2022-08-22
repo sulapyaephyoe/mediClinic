@@ -16,11 +16,8 @@ urlpatterns = [
     path('users/', include('users.urls')),
     path('doctors/', include('doctors.urls')),
     path('hospitals/', include('hospitals.urls')),
-<<<<<<< HEAD
     path('schedule/', include('schedule.urls')),
-=======
     path('booking/', include('booking.urls')),
->>>>>>> d50e737ae74eecf0c43a2953ed516ce9e6d729f0
 ]
 
 if settings.DEBUG:

@@ -17,7 +17,6 @@ class EmailThread(threading.Thread):
 class Util:
     @staticmethod
     def send_email(data):
-        print('#########reached to email message##########')
         email = EmailMessage(
             subject=data['email_subject'], body=data['email_body'], to=[data['to_email']])
         EmailThread(email).start()
