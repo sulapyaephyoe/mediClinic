@@ -18,7 +18,7 @@ def add_hospital(request):
     hospital.phone = request.data['phone']
     hospital.website = request.data['website']
     hospital.type = request.data['type']
-    location = geocoder.osm(request.data['address'])
+    location = geocoder.osm(request.data['name'])
     print(location.address)
     hospital.address = request.data['address']
     hospital.latitude = location.lat
