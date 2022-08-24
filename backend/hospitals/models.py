@@ -4,11 +4,11 @@ from django.db import models
 class hospitals(models.Model):
     name = models.CharField(max_length=255)
     phone = models.CharField(max_length=255)
-    address = models.CharField(max_length=255)
     website = models.CharField(max_length=255)
     type = models.CharField(max_length=255)
     latitude = models.FloatField()
     longitude = models.FloatField()
+    address = models.CharField(max_length=255)
     photo = models.FileField(upload_to='photos/')
     video = models.FileField(upload_to='videos/')
 

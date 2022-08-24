@@ -5,7 +5,8 @@
 # Byte-compiled / optimized / DLL files
 *.py[cod]
 *$py.class
-*/db.sqlite3
+*.sqlite3
+media/
 # C extensions
 *.so
 
@@ -62,7 +63,7 @@ cover/
 *.log
 local_settings.py
 **/db.sqlite3
-db.sqlite3-journal
+db.sqlite3
 
 # Flask stuff:
 instance/

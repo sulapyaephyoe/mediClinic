@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container mt-5 mb-5">
         <div class="row">
             <div class="col">
                 <router-link :to="{ name: 'DoctorsCreate'}" class="btn btn-light" >Create Doctor</router-link>
@@ -25,12 +25,10 @@
                         <td>{{ doctor.lastName }}</td>
                         <td>{{ doctor.gender }}</td>
                         <td>{{ doctor.specialist }}</td>
-                        <!-- <td>{{ doctor.id }}</td> -->
                         <td>
                             <router-link :to="{ name: 'DoctorsEdit', params: { id : doctor.id }}" class="btn btn-light" ><i class="bi bi-pencil"></i></router-link>&thinsp;
-                            <router-link :to="{ name: 'DoctorsScheduleCreate', params: { id : doctor.id }}" class="btn btn-light" >Schedule</router-link>&thinsp;
                             <router-link :to="{ name: 'DoctorsOneSchedule', params: { id : doctor.id }}" class="btn btn-light" ><i class="bi bi-calendar2-week"></i></router-link>&thinsp;
-                            <router-link :to="{ name: 'DoctorsScheduleEdit', params: { id : doctor.id }}" class="btn btn-light" ><i class="bi bi-emoji-expressionless"></i></router-link>
+                            <router-link :to="{ name: 'DoctorsScheduleEditList', params: { id : doctor.id }}" class="btn btn-light" ><i class="bi bi-calendar2-plus"></i></router-link>
                         </td>
                     </tr>
                 </tbody>
@@ -57,10 +55,7 @@ import { getAPI } from '../../axios-api'
                 getAPI
                 .get('doctors/doctorslist')
                 .then(response => {
-                    console.log(response)
-                    console.log(response.data.fields)
                     this.doctors=response.data
-                    console.log(this.doctors)
                 })
                 .catch(error => {
                     console.log('Fail')

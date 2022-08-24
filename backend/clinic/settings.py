@@ -15,6 +15,7 @@ import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+# TEMPLATE_DIR = Path(BASE_DIR,'templates')
 
 
 # Quick-start development settings - unsuitable for production
@@ -30,7 +31,21 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
+# TEMPLATES = [
+#     {
+#         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+#         'DIRS': [TEMPLATE_DIR],
+#         'APP_DIRS': True,
+#         'OPTIONS': {
+#             'context_processors'; [
+#                 'django.template.context_processors.debug',
+#                 'django.template.context_processors.request',
+#                 'django.contrib.auth.context_processors.auth',
+#                 'django.contrib.messages.context_processors.messages',
+#             ]
+#         },
+#     },
+# ]
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -49,11 +64,19 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'dj_rest_auth.registration',
+    'users',
     'doctors',
     'hospitals',
+    'booking',
+    'schedule',
 ]
 SITE_ID = 1
-
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'ecctester2222@gmail.com'
+EMAIL_HOST_PASSWORD = 'pyyessjbkqymwjhi'
+EMAIL_USE_TLS = True
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -69,6 +92,16 @@ CORS_ORIGIN_WHITELIST = (
     'http://localhost:8080',
     'http://127.0.0.1:8080'
 )
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
+    ],
+    # 'DEFAULT_PERMISSION_CLASSES': [
+    #     'rest_framework.permissions.AllowAny',
+    #     # 'rest_framework.permissions.IsAuthenticated',
+    # ]
+}
 
 ROOT_URLCONF = 'clinic.urls'
 

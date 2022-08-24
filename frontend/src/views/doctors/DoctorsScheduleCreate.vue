@@ -1,91 +1,93 @@
 <template>
-    <div class="container">
+    <div class="container mt-5 mb-5">
         <div class="row">
-            <!-- <div class="col-md-8 offset-md-2"> -->
-            <figure class="text-center">
-                <h3>{{doctor.firstName}} {{doctor.lastName}}' Schedule</h3>
-            </figure>
-            <form class="row g-3" @submit.prevent="submitForm">
-                <table class="table table-striped table-hover">
-                    <tr v-for="key in items" :key="key">
-                        <td>
-                            <table class="table tblHospital">
-                                <tr>
-                                    <td colspan="4">
-                                        <div class="input-group input-group-sm mb-3">
-                                            <span class="input-group-text" id="inputGroup-sizing-sm">Hospital</span>
-                                            <select id="day" class="form-select" v-model="values['hospital-'+key+'-']" @change="setSelectedHospital($event,key)" required>
-                                                <option v-for="hospital in hospitalValue" :disabled="hospital.disabled" 
-                                                :key="hospital.value" :value="hospital.value">
-                                                    {{hospital.name}}
-                                                </option>
-                                            </select>
-                                        </div>
-                                    </td>
-                                    <td class="tdAdd">
-                                        <div class="input-group input-group-sm mb-3">
-                                            <a href="#" id="add_more_fields" @click="remove(key)" class="btn btn-light form-control">
-                                                <i class="bi bi-trash"></i>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr v-for="day in sample[key]" :key="day">
-                                    <td>
-                                        <div class="input-group input-group-sm mb-3">
-                                            <span class="input-group-text" id="inputGroup-sizing-sm">Day</span>
-                                            <select id="day" class="form-select" v-model="values['day-'+key+','+day]" @change="setSelectedValue($event,key,day)" required>
-                                                <option v-for="day in dayValue" :disabled="day.disabled" 
-                                                :key="day.value" :value="day.value">
-                                                    {{day.name}}
-                                                </option>
-                                            </select>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="input-group input-group-sm mb-3">
-                                            <span class="input-group-text" id="inputGroup-sizing-sm">Start Time</span>
-                                            <input type="time" class="form-control" id="startTime" v-model="values['startTime-'+key+','+day]" required>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="input-group input-group-sm mb-3">
-                                            <span class="input-group-text" id="inputGroup-sizing-sm">End Time</span>
-                                            <input type="time" class="form-control" id="endTime" v-model="values['endTime-'+key+','+day]" required>
-                                        </div>
-                                    </td>
-                                    <td class="tdAdd">
-                                        <div class="input-group input-group-sm mb-3">
-                                            <a href="#" id="add_more_fields" @click="removeday(key,day)" class="btn btn-light form-control">
-                                                <i class="bi bi-dash"></i>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="input-group input-group-sm mb-3">
-                                            <a href="#" id="add_more_fields" @click="addday(key)" class="btn btn-light">
-                                                <i class="bi bi-plus"></i>
-                                            </a>
-                                        </div>
-                                    </td>
-                                    <td colspan="3"></td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                    <tr>
-                        <a href="#" id="add_more_fields" @click="add" class="btn btn-light form-control">
-                            <i class="bi bi-plus-square"></i>
-                        </a>
-                    </tr>
-                </table>
-                <div class="col-12">
-                    <button type="submit" class="btn btn-info">Submit</button>
-                    <!-- <a href="#" @click="submit">Console</a> -->
-                </div>
-            </form>
+            <div class="col-md-8 offset-md-2">
+                <figure class="text-center">
+                    <h3>{{doctor.firstName}} {{doctor.lastName}}' Schedule</h3>
+                </figure>
+                <form class="row g-3" @submit.prevent="submitForm">
+                    <table class="table table-striped table-hover">
+                        <tr v-for="key in items" :key="key">
+                            <td>
+                                <table class="table tblHospital">
+                                    <tr>
+                                        <td colspan="4">
+                                            <div class="input-group input-group-sm mb-3">
+                                                <span class="input-group-text" id="inputGroup-sizing-sm">Hospital</span>
+                                                <select id="day" class="form-select" v-model="values['hospital-'+key+'-']" @change="setSelectedHospital($event,key)" required>
+                                                    <option disabled value="">Please select hospital</option>
+                                                    <option v-for="hospital in hospitalValue" :disabled="hospital.disabled" 
+                                                    :key="hospital.id" :value="hospital.id">
+                                                        {{hospital.name}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </td>
+                                        <td class="tdAdd">
+                                            <div class="input-group input-group-sm mb-3">
+                                                <a href="#" id="add_more_fields" @click="remove(key)" class="btn btn-light form-control">
+                                                    <i class="bi bi-trash"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr v-for="day in sample[key]" :key="day">
+                                        <td>
+                                            <div class="input-group input-group-sm mb-3">
+                                                <span class="input-group-text" id="inputGroup-sizing-sm">Day</span>
+                                                <select id="day" class="form-select" v-model="values['day-'+key+','+day]" @change="setSelectedValue($event,key,day)" required>
+                                                    <option v-for="day in dayValue" :disabled="day.disabled" 
+                                                    :key="day.value" :value="day.value">
+                                                        {{day.name}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group input-group-sm mb-3">
+                                                <span class="input-group-text" id="inputGroup-sizing-sm">Start Time</span>
+                                                <input type="time" class="form-control" id="startTime" v-model="values['startTime-'+key+','+day]" required>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group input-group-sm mb-3">
+                                                <span class="input-group-text" id="inputGroup-sizing-sm">End Time</span>
+                                                <input type="time" class="form-control" id="endTime" v-model="values['endTime-'+key+','+day]" required>
+                                            </div>
+                                        </td>
+                                        <td class="tdAdd">
+                                            <div class="input-group input-group-sm mb-3">
+                                                <a href="#" id="add_more_fields" @click="removeday(key,day)" class="btn btn-light form-control">
+                                                    <i class="bi bi-dash"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="input-group input-group-sm mb-3">
+                                                <a href="#" id="add_more_fields" @click="addday(key)" class="btn btn-light">
+                                                    <i class="bi bi-plus"></i>Add New Day
+                                                </a>
+                                            </div>
+                                        </td>
+                                        <td colspan="3"></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <a href="#" id="add_more_fields" @click="add" class="btn btn-light form-control">
+                                <i class="bi bi-hospital"></i><i class="bi bi-plus"></i>
+                            </a>
+                        </tr>
+                    </table>
+                    <div class="col-12">
+                        <button type="submit" class="btn-style-one">Add</button>
+                        <!-- <a href="#" @click="submit">Console</a> -->
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </template>
@@ -108,20 +110,15 @@ import { getAPI } from '../../axios-api'
                 hospitalArray: [],
                 objArray: [],
                 dayValue: [
-                    {id: 1,value: "sunday", name: 'Sunday', disabled: false, flag: 0},
-                    {id: 2,value: "monday", name: 'Monday', disabled: false, flag: 0},
-                    {id: 3,value: "tuesday", name: 'Tuesday', disabled: false, flag: 0},
-                    {id: 4,value: "wednesday", name: 'Wednesday', disabled: false, flag: 0},
-                    {id: 5,value: "thursday", name: 'Thursday', disabled: false, flag: 0},
-                    {id: 6,value: "friday", name: 'Friday', disabled: false, flag: 0},
-                    {id: 7,value: "saturday", name: 'Saturday', disabled: false, flag: 0},
+                    {id: 1,value: "Sunday", name: 'Sunday', disabled: false, flag: 0},
+                    {id: 2,value: "Monday", name: 'Monday', disabled: false, flag: 0},
+                    {id: 3,value: "Tuesday", name: 'Tuesday', disabled: false, flag: 0},
+                    {id: 4,value: "Wednesday", name: 'Wednesday', disabled: false, flag: 0},
+                    {id: 5,value: "Thursday", name: 'Thursday', disabled: false, flag: 0},
+                    {id: 6,value: "Friday", name: 'Friday', disabled: false, flag: 0},
+                    {id: 7,value: "Saturday", name: 'Saturday', disabled: false, flag: 0},
                 ],
-                hospitalValue: [
-                    {value: 1,name: 'Ar Yu Hospital', disabled: false, flag: 0},
-                    {value: 2,name: 'Baho Si Hospital', disabled: false, flag: 0},
-                    {value: 3,name: 'Grand Han Thar Hospital', disabled: false, flag: 0},
-                    {value: 4,name: 'Victoria Hospital', disabled: false, flag: 0},
-                ],
+                hospitalValue: [],
                 selectedValue: [],
                 items: getInitialItems(),
                 dayItems: getInitialItems(),
@@ -132,6 +129,7 @@ import { getAPI } from '../../axios-api'
         },
         mounted() {
             this.getDoctor()
+            this.getHospital()
         },
         methods: {
             async getDoctor() {
@@ -143,6 +141,30 @@ import { getAPI } from '../../axios-api'
                     .then(response => {
                         console.log(response)
                         this.doctor=response.data
+                    })
+                    .catch(error => {
+                        console.log(error)
+                        if(error.response) {
+                            for( const property in error.response.data) {
+                                this.errors.push(`${property}: ${error.response.data[property]}`)
+                            }
+                        } 
+                        else if(error.message) {
+                            this.errors.push('Something went wrong. Please Try Again')
+                            console.log(error.message)
+                        }
+                    })
+            },
+            async getHospital() {
+                getAPI
+                    .get('doctors/get_hospital')
+                    .then(response => {
+                        this.hospitalValue=response.data
+                        for(var i=0;i<this.hospitalValue.length;i++) {
+                            this.hospitalValue[i]['disabled'] = false
+                            this.hospitalValue[i]['flag'] = 0
+                        }
+                        console.log(this.hospitalValue)
                     })
                     .catch(error => {
                         console.log(error)
@@ -231,7 +253,7 @@ import { getAPI } from '../../axios-api'
                     }
                 }
                 for(var hospital of this.hospitalValue) {
-                    if(hospital.value == this.values['hospital-'+key+'-']) {
+                    if(hospital.id == this.values['hospital-'+key+'-']) {
                         hospital.flag = 0
                         hospital.disabled = false
                     }
@@ -261,13 +283,14 @@ import { getAPI } from '../../axios-api'
             },
             setSelectedHospital: function(event,key) {
                 this.selectedHospital[key] = event.target.selectedOptions[0].value
+                console.log(event.target.selectedOptions[0].value)
                 for(hospital of this.hospitalValue) {
                     hospital.flag = 0
                     hospital.disabled = false
                 }
                 for(var hospital of this.hospitalValue) {
                     for(var h of this.selectedHospital) {
-                        if(hospital.value == h){
+                        if(hospital.id == h){
                             hospital.flag = 1
                         }
                     }
