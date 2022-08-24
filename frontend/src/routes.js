@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HospitalsScheduleList from "./views/hospitals/HospitalsScheduleList";
-import DoctorsSchedule from "./views/hospitals/DoctorsSchedule";
+import HospitalSchedule from "./views/hospitals/HospitalSchedule";
+// import DoctorsSchedule from "./views/hospitals/DoctorsSchedule";
 import AddHospital from "./views/hospitals/AddHospital";
 import ViewHospital from "./views/hospitals/ViewHospital";
 import DoctorsCreate from './views/doctors/DoctorsCreate.vue'
@@ -46,14 +46,14 @@ const routes = [
     },
     {
         path: '/hospitals/schedule_list',
-        name: 'HospitalsScheduleList',
-        component: HospitalsScheduleList, 
+        name: 'HospitalSchedule',
+        component: HospitalSchedule, 
     },
-    {
-        path: '/hospitals/schedule_list/:id',
-        name: 'DoctorsSchedule',
-        component: DoctorsSchedule, 
-    },
+    // {
+    //     path: '/hospitals/schedule_list/:id',
+    //     name: 'DoctorsSchedule',
+    //     component: DoctorsSchedule, 
+    // },
     {
         path: '/doctors_create',
         name: 'DoctorsCreate',
