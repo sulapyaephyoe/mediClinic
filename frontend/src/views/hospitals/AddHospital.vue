@@ -14,17 +14,11 @@
                         </div>
                         <div class="form-group mt-2">
                             <label for="phone" class="form-label">Phone</label>
-                            <input type="tel" class="form-control" placeholder="Enter phone" v-model="phone" id="phone" pattern="[0-9]{9}" required>
+                            <input type="tel" class="form-control" placeholder="09-2055931" v-model="phone" id="phone" required>
                         </div>
                         <div class="form-group mt-2">
                             <label for="phone" class="form-label">Address</label>
                             <div class="row">
-                                <!-- <div class="col">
-                                    <input type="number" step="any" class="form-control" placeholder="Enter latitude" id="latitude" v-model="latitude" required>
-                                </div>
-                                <div class="col">
-                                    <input type="number" step="any" class="form-control" placeholder="Enter longitude" id="longitude" v-model="longitude" required>
-                                </div> -->
                                 <div class="col">
                                     <input type="text" class="form-control" placeholder="Enter address" v-model="address" id="address" required>
                                 </div>
@@ -99,24 +93,24 @@ export default {
             })
             .then(response => {
                 console.log(response)
-                const elink = document.createElement('div');
-                elink.setAttribute('class','alert alert-success')
-                elink.innerHTML = 'New Hospital Added'
-                console.log(elink)
-                document.getElementById('alert').appendChild(elink)
-                
-                this.name = ''
-                this.phone = ''
-                this.address = ''
-                this.website = ''
-                this.type = ''
-                this.$refs.uploadphoto.value = ''
-                this.$refs.uploadvideo.value = ''
                 
             })
             .catch(err => {
                 console.log(err)
             })
+            const elink = document.createElement('div');
+            elink.setAttribute('class','alert alert-success')
+            elink.innerHTML = 'New Hospital Added'
+            console.log(elink)
+            document.getElementById('alert').appendChild(elink)
+            
+            this.name = ''
+            this.phone = ''
+            this.address = ''
+            this.website = ''
+            this.type = ''
+            this.$refs.uploadphoto.value = ''
+            this.$refs.uploadvideo.value = ''
         }
     }
 }

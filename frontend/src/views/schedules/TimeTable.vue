@@ -124,7 +124,7 @@ export default {
         left: ${arg.jsEvent.pageX}px !important; 
         top: ${arg.jsEvent.pageY}px !important;
         width: 200px;
-        height: 100px;
+        height: 120px;
         z-index: 1;
         background-color: #fcdbbc;
         color: black;

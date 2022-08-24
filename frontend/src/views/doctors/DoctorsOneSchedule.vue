@@ -25,7 +25,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="time in doctors_time" v-bind:key="time.id">
+                        <tr v-for="time in dc_time" v-bind:key="time.id">
                             <td class="tdDay">{{time}}</td>
                             <td v-for="day in dayValue" v-bind:key="day.id" class="tdDay">
                                 <span v-for="schedule in doctors_schedule" v-bind:key="schedule.id">
@@ -56,6 +56,7 @@ import { getAPI } from '../../axios-api'
                 doctors_schedule: [],
                 doctors_time: [],
                 doctors: [],
+                dc_time: [],
                 dayValue: [
                     {id: 1,value: "Sunday", name: 'Sunday', disabled: false, flag: 0},
                     {id: 2,value: "Monday", name: 'Monday', disabled: false, flag: 0},
@@ -74,7 +75,6 @@ import { getAPI } from '../../axios-api'
         methods:{
             async getOneSchedule(){
                 const doctorID = this.$route.params.id
-                console.log(doctorID)
                 getAPI
                     .post(`doctors/doctor_schedule_list/${doctorID}`)
                     .then(response => {
@@ -83,6 +83,14 @@ import { getAPI } from '../../axios-api'
                         for(var ds of this.doctors_schedule){
                             this.doctors_time.push(ds.startTime+'-'+ds.endTime)
                         }
+                        for (var i = 0; i < this.doctors_time.length; i++) {
+                            var j = i + 1
+                            if (this.doctors_time[i] != this.doctors_time[j]) {
+                                this.dc_time.push(this.doctors_time[i])
+                            }
+                        }
+                    // console.log(this.dc_time)
+
                         this.doctors = response.data[1]
                         for(var doctor of this.doctors){
                             if(doctor.id == doctorID){
@@ -104,8 +112,43 @@ import { getAPI } from '../../axios-api'
                     })
             },
             changeSchedule: function(event) {
+                this.dc_time = []
+                this.doctors_time = []
                 console.log(event.target.selectedOptions[0].value)
-                window.location.href = ('/schedule_list/'+event.target.selectedOptions[0].value)
+                const doctorID = event.target.selectedOptions[0].value
+                // window.location.href = ('/schedule_list/'+event.target.selectedOptions[0].value)
+                 getAPI
+                    .post(`doctors/doctor_schedule_list/${doctorID}`)
+                    .then(response => {
+                        this.doctors_schedule=response.data[0]
+                        for(var ds of this.doctors_schedule){
+                            this.doctors_time.push(ds.startTime+'-'+ds.endTime)
+                        }
+                        for (var i = 0; i < this.doctors_time.length; i++) {
+                            var j = i + 1
+                            if (this.doctors_time[i] != this.doctors_time[j]) {
+                                this.dc_time.push(this.doctors_time[i])
+                            }
+                        }
+                        this.doctors = response.data[1]
+                        for(var doctor of this.doctors){
+                            if(doctor.id == doctorID){
+                                this.doctor_info=doctor
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        console.log('Fail')
+                        if(error.response) {
+                            for( const property in error.response.data) {
+                                this.errors.push(`${property}: ${error.response.data[property]}`)
+                            }
+                        } 
+                        else if(error.message) {
+                            this.errors.push('Something went wrong. Please Try Again')
+                            console.log(error.message)
+                        }
+                    })
             }
         }
     }
@@ -137,7 +180,7 @@ import { getAPI } from '../../axios-api'
 }
 .thDay{
     width: 10%;
-    background-color: rgb(228, 227, 227);
+    background-color: rgb(239, 229, 249)
 }
 .linkSchedule {
     margin-left: 80%;

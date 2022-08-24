@@ -40,7 +40,7 @@
               <i class="fa fa-phone"></i>
               <h2>Emegency Cases</h2>
               <a href="#">1-800-700-6200</a>
-              <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</p>
+              <p>You can contact directly in emergency cases.</p>
             </div>
             <div class="top-doctor item">
               <i class="fa fa-stethoscope"></i>
@@ -138,20 +138,10 @@ export default {
           this.hospitals = response.data
           console.log(this.hospitals)
           for(var hpphoto of this.hospitals){
-            // this.photo = hpphoto
             var str ='http://localhost:8000'+hpphoto.photo
             hpphoto['photo'] = str
-            console.log("0000"+hpphoto)
             this.photo.push(hpphoto)
-            console.log("====="+this.photo)
           }
-          // const img = document.createElement('img')
-          // img.setAttribute('src', 'http://127.0.0.1:8000' + response.data[0].photo)
-          // img.setAttribute('class', 'bd-placeholder-img rounded-circle')
-          // img.style.width = '140px'
-          // img.style.height = '140px'
-          // document.getElementsByClassName('photo')[0].appendChild(img)
-          
         })
         .catch(error => {
           console.log('Fail')

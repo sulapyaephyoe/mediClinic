@@ -60,7 +60,6 @@ def password_mail_send(email, user):
     token = random.randint(100000,999999)
 
     rel_link = "http://localhost:8080/users/forgetPassword"
-    # print ('--absurl--',absurl)
     email_body = 'From Mediclinc OJT \n Please use the following code to reset your password '+ str(token)
     data = {'email_subject': 'Reset your passsword', 'email_body': email_body, 'to_email': user.email}
     Util.send_email(data)
@@ -68,6 +67,7 @@ def password_mail_send(email, user):
 
 @api_view(['POST'])
 def contact_mail_send(request):
-    data = {'email_subject':'Contact Inqury from '+request.data['email'],'to_email': 'ecctester2222@gmail.com','email_body':request.data['message']}
+    message = 'Name: '+ request.data['name'] + '\n Email: ' + request.data['email'] + '\n Message: ' + request.data['message']
+    data = {'email_subject':'Contact Inqury from '+request.data['email'],'to_email': 'ecctester2222@gmail.com','email_body':message}
     Util.send_email(data)
     return Response('success')

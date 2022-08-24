@@ -1,5 +1,9 @@
 <template>
- <footer class="footer-main">
+<div id="alert-panel" :class="alert_class" role="alert" v-if="alert_show">
+    {{alert_message}}
+    <button type="button" class="btn-close" aria-label="Close" @click="alert_show = false"></button>
+    </div>
+    <footer class="footer-main">
         <div class="footer-top">
             <div class="container">
                 <div class="row">
@@ -11,7 +15,7 @@
                             <span class="logo-text">MediClinic</span>
                         </figure>
                     </div>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, temporibus?</p>
+                    <p>Please feel free to contact us if you would like to hear more details. </p>
                     <ul class="location-link">
                         <li class="item">
                             <i class="bi bi-geo-alt-fill"></i>
@@ -109,6 +113,9 @@ export default {
     name: "",
     email: "",
     message: "",
+    alert_show: false,
+    alert_message: '',
+    alert_class: '',
    }
   },
   methods: {
@@ -121,6 +128,9 @@ export default {
         await getAPI.post('users/contactus',dataArray)
         .then(response => {
             console.log(response.data)
+            this.alert_show=true;
+            this.alert_class = "alert alert-success alert-dismissible fade show";
+            this.alert_message = "Thank you for contacting us!"
         })
         .catch(err => {
             console.log(err)
