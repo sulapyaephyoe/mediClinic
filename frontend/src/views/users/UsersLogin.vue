@@ -59,7 +59,7 @@ export default {
                     this.$store.commit('setToken', token)
                     getAPI.defaults.headers.common['Authorization'] = 'Token ' + token
                     localStorage.setItem('token', token)
-                    this.$router.push('hospitals/add-hospital')
+                    this.$router.push('/')
                 })
                 .catch(error => {
                     console.log(error)
@@ -189,5 +189,9 @@ body {
         margin: 30px 20px;
         padding: 40px 15px 15px 15px;
     }
+}
+
+label {
+   padding: 10px 10px 10px 70px!important;
 }
 </style>

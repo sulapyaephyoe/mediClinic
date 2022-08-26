@@ -50,7 +50,7 @@
             <option disabled value="" >Please Select Service</option>
             <option v-for="fee in feeValue" 
             :key="fee.id" :value="fee.value">
-                {{ fee.value }} $ : {{ fee.name }}
+                $ {{ fee.value }} : {{ fee.name }}
             </option>
           </select>
         </div>
@@ -58,8 +58,8 @@
       </form>
     </div>
     <div v-if="paidFor">
-      <p class="fs-3 text-center">Your Booking Is Complete</p>
-      <router-link :to="{ name: 'HomePage'}" class="btn btn-light" >Back</router-link>
+      <p class="fs-3 text-center" style="margin-bottom: 50px;">Your Booking Is Complete</p>
+      <router-link :to="{ name: 'HomePage'}" class="btn btn-light" style="margin:0 auto !important; margin-left: 38%;margin-bottom: 80%;">Back To Home Page</router-link>
     </div>
   </div>
 </template>

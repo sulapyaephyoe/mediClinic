@@ -38,7 +38,7 @@
                         <iframe height="280" width="600" frameborder="0" id="video" allow='autoplay'></iframe>
                     </div>
                 </div>
-                <div class="row mt-3">
+                <div class="row mt-3" style="margin-bottom:10%;">
                     <div id="showmap"></div>
                 </div>
             </div>

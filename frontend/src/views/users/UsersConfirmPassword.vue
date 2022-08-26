@@ -62,7 +62,7 @@ export default {
             } else {
                 this.alert_show=true;
                 this.alert_class = "alert alert-danger alert-dismissible fade show";
-                this.alert_message = "The passwords not match.";
+                this.alert_message = "The passwords did not match.";
             }
         },
     },
