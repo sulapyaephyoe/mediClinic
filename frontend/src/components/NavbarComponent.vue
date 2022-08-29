@@ -131,6 +131,7 @@ export default {
   name: 'NavbarComponent',
   methods: {
     logout() {
+      this.$store.commit('adminRole', false)
       this.$store.commit('removeToken')
       this.$router.push('/')
     }

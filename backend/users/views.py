@@ -51,7 +51,6 @@ def reset_password(request):
         # my_group = Group.objects.get(name='Guests')
         # my_group.user_set.add(user_data)
         user_data["code"] = code
-        print('reached to reset_password================', user_data)
     return JsonResponse(user_data)
 
 def password_mail_send(email, user):
