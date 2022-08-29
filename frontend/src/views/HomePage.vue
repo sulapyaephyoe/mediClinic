@@ -45,8 +45,7 @@
             <div class="top-doctor item">
               <i class="fa fa-stethoscope"></i>
               <h2>24 Hour Service</h2>
-              <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore dignissimos officia dicta suscipit
-                vel eum</p>
+              <p>We are ready here to help you and don't be hestitated to contact us.</p>
               <a href="#" class="btn btn-main">Read more</a>
             </div>
             <div class="working-time item">
@@ -73,24 +72,11 @@
               <div class="col-6">
                 <!-- <h3 class="mb-3">Carousel cards title </h3> -->
               </div>
-              <!-- <div class="col-6 text-right">
-                <a class="btn btn-secondary mb-3 mr-1" href="#carouselExampleIndicators2" role="button"
-                  data-slide="prev" id="btn-color">
-                  <i class="bi bi-arrow-left"></i>
-                </a>
-                <a class="btn btn-secondary mb-3 " href="#carouselExampleIndicators2" role="button" data-slide="next"
-                  id="btn-color">
-                  <i class="bi bi-arrow-right"></i>
-                </a>
-              </div> -->
               <div class="container marketing">
 
                 <!-- Three columns of text below the carousel -->
                 <div class="row circlepattern">
                   <div class="col-lg-4" v-for="ph in photo" v-bind:key="ph.id">
-                    <!-- <img class="bd-placeholder-img rounded-circle" width="140" height="140"
-                      src="@/assets/images/hospital1.jpg" /> -->
-                      <!-- <div class="photo"></div> -->
                       <img :src=ph.photo width="140" height="140" class="bd-placeholder-img rounded-circle">
                             <h3>{{ph.name}}</h3>
                             <p>Your healthy life is our mission. You can enquery us about our services and packages.</p>
