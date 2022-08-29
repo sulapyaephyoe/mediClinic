@@ -45,7 +45,7 @@
             <div class="top-doctor item">
               <i class="fa fa-stethoscope"></i>
               <h2>24 Hour Service</h2>
-              <p>We are ready here to help you and don't be hestitated to contact us.</p>
+              <p>We are ready here to help you and don't hesitate to contact us.</p>
               <a href="#" class="btn btn-main">Read more</a>
             </div>
             <div class="working-time item">
